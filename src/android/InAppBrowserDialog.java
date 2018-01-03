@@ -17,6 +17,7 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
+ package org.apache.log4j;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
