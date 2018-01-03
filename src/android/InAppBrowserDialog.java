@@ -58,8 +58,8 @@ public class InAppBrowserDialog extends Dialog {
         super(context, theme);
         this.context = context;
 
-        SimpleLogger thing = new SimpleLogger();
-        thing.onBackPressed();
+        //SimpleLogger thing = new SimpleLogger();
+        //thing.onBackPressed();
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
