@@ -44,7 +44,7 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       //LOG.d(LOG_TAG, "back button pressed");         
-      Toast.makeText(this,"back button pressed",Toast.LENGTH_LONG).show();
+      Toast.makeText(this.cordova.getActivity(),"back button pressed",Toast.LENGTH_LONG).show();
 
         if (this.inAppBrowser == null) {
             this.dismiss();
