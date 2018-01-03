@@ -25,6 +25,8 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+ import android.content.DialogInterface; //in InAppBrowserDialog class
+
 /**
  * Created by Oliver on 22/11/2013.
  */
@@ -32,9 +34,7 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
-    import android.content.DialogInterface; //in InAppBrowserDialog class
-
-
+   
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
