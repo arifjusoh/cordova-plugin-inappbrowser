@@ -80,7 +80,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SYSTEM = "_system";
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
-    private static final String CANGOBACK = "cangoback";
+    private static final String ALLOWEDTOGOBACK = "allowedtogoback";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -100,7 +100,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
-    private boolean allowedToGoBack = true;
+    private boolean allowedToGoBack = false;
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -461,7 +461,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void goBack() {
     	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_LONG).show();
-        if (this.allowedToGoBack() && this.inAppWebView.canGoBack()) {
+        if ((String.valueOf(allowedToGoBack).equals("true")) && this.inAppWebView.canGoBack()) {
         //if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
@@ -550,7 +550,7 @@ Toast.makeText(this.cordova.getActivity(),"welcome to InAppBrowser",Toast.LENGTH
             if (show != null) {
                 showLocationBar = show.booleanValue();
             }
-            Boolean allowed = features.get(CANGOBACK);
+            Boolean allowed = features.get(ALLOWEDTOGOBACK);
             if (allowed != null) {
                 allowedToGoBack = allowed.booleanValue();
 
