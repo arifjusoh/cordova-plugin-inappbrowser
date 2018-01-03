@@ -24,13 +24,14 @@ import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import org.apache.cordova.LOG;
 /**
  * Created by Oliver on 22/11/2013.
  */
 public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
+     protected static final String LOG_TAG = "InAppBrowserDialog";
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
@@ -42,6 +43,7 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
+      LOG.d(LOG_TAG, "back button pressed");
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
