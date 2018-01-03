@@ -62,7 +62,8 @@ dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
       ///alert///
 
-
+final AlertDialog alert = dialog.create();
+alert.show();
 
       ///alert///
 
