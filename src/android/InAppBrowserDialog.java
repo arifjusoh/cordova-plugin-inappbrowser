@@ -18,6 +18,9 @@
 */
 package org.apache.cordova.inappbrowser;
  package org.apache.log4j;
+  package com.foo;
+
+  import com.foo.Bar;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -76,7 +79,10 @@ public class InAppBrowserDialog extends Dialog {
     public void onBackPressed () {
       
      //fLogger.finest("back pressed");
-       logger.info("Entering application.");
+        logger.info("Entering application.");
+     Bar bar = new Bar();
+     bar.doIt();
+     logger.info("Exiting application.");
 
         if (this.inAppBrowser == null) {
             this.dismiss();
