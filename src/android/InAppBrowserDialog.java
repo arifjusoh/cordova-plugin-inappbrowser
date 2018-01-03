@@ -39,16 +39,8 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-
-//import java.lang.*;
-//import java.util.*;
-//import com.ibm.as400.access.*;
-
-
-
-
-
 import java.util.logging.*;
+
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -73,8 +65,7 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       
-       fLogger.finest("this is finest");
-      //System.out.println("AAAAA");
+ fLogger.finest("back pressed");
 
         if (this.inAppBrowser == null) {
             this.dismiss();
