@@ -21,7 +21,7 @@ package org.apache.cordova.inappbrowser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import DialogInterface.OnClickListener;
+import android.content.DialogInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
