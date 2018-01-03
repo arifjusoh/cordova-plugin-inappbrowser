@@ -475,6 +475,10 @@ public class InAppBrowser extends CordovaPlugin {
         return this.inAppWebView.canGoBack();
     }
 
+	public boolean allowedToGoBack() {
+        return this.inAppWebView.allowedToGoBack();
+    }    
+
     /**
      * Has the user set the hardware back button to go back
      * @return boolean
