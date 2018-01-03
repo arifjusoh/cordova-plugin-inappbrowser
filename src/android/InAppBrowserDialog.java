@@ -21,7 +21,6 @@ package org.apache.cordova.inappbrowser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,13 +32,12 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
-    //import android.content.DialogInterface; //in InAppBrowserDialog class
-
 
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
+          import android.content.DialogInterface; //in InAppBrowserDialog class
 
         //AlertDialog.Builder dialog = new AlertDialog.Builder(InAppBrowserDialog.this);
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
@@ -51,7 +49,7 @@ public class InAppBrowserDialog extends Dialog {
     public void onClick(DialogInterface dialog, int id) {
         //Action for "Delete".
     }
-});
+})
         .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
