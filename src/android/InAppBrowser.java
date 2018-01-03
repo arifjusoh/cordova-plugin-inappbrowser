@@ -457,7 +457,8 @@ public class InAppBrowser extends CordovaPlugin {
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
-    	LOG.d(LOG_TAG, "go back");
+    	//LOG.d(LOG_TAG, "go back");
+    	Toast.makeText(this,"go back",Toast.LENGTH_LONG).show();
         if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
@@ -468,7 +469,8 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-    	LOG.d(LOG_TAG, "can go back");
+    	//LOG.d(LOG_TAG, "can go back");
+    	Toast.makeText(this,"can go back",Toast.LENGTH_LONG).show();
         return this.inAppWebView.canGoBack();
     }
 
@@ -477,7 +479,8 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	LOG.d(LOG_TAG, "hardware back");
+    	//LOG.d(LOG_TAG, "hardware back");
+    	Toast.makeText(this,"hardware back",Toast.LENGTH_LONG).show();
         return hadwareBackButton;
     }
 
