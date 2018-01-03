@@ -17,30 +17,13 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
-package myapp.business;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.text.TextUtils;
-
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Random;
-import java.util.logging.*;
-
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -49,14 +32,9 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
-    //Logger logger = Logger.getLogger(InAppBrowserDialog.class.getName());
-
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
-
-        SimpleLogger thing = new SimpleLogger();
-        thing.onBackPressed();
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -64,9 +42,6 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
-      
- fLogger.finest("back pressed");
-
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
