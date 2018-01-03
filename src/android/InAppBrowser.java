@@ -550,7 +550,7 @@ Toast.makeText(this.cordova.getActivity(),"welcome to InAppBrowser",Toast.LENGTH
             if (allowed != null) {
                 allowedToGoBack = allowed.booleanValue();
 
-                Toast.makeText(this.cordova.getActivity(),CANGOBACK,Toast.LENGTH_LONG).show();
+                Toast.makeText(this.cordova.getActivity(),String.valueOf(allowedToGoBack),Toast.LENGTH_LONG).show();
             }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
