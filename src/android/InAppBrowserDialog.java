@@ -38,7 +38,7 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-import java.util.logging
+import java.util.logging;
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -46,7 +46,7 @@ import java.util.logging
 public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
-    
+
     Logger logger = Logger.getLogger(MyClass.class.getName());
 
     public InAppBrowserDialog(Context context, int theme) {
