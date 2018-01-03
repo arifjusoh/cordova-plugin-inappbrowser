@@ -21,7 +21,6 @@ package org.apache.cordova.inappbrowser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,33 +33,34 @@ public class InAppBrowserDialog extends Dialog {
     InAppBrowser inAppBrowser = null;
 
 
+
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
 
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-        builder1.setMessage("Write your message here.");
-        builder1.setCancelable(true);
+        //AlertDialog.Builder dialog = new AlertDialog.Builder(InAppBrowserDialog.this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setCancelable(false);
+        dialog.setTitle("Dialog on Android");
+        dialog.setMessage("Are you sure you want to delete this entry?" );
+        dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int id) {
+        //Action for "Delete".
+    }
+})
+        .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            //Action for "Cancel".
+            }
+        });
+         ///alert///
 
-        builder1.setPositiveButton(
-            "Yes",
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
+      final AlertDialog alert = dialog.create();
+      alert.show();
 
-        builder1.setNegativeButton(
-            "No",
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
-
-        AlertDialog alert11 = builder1.create();
-alert11.show();
-
+      ///alert///
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -68,14 +68,6 @@ alert11.show();
     }
 
     public void onBackPressed () {
-
-      ///alert///
-
-
-
-      ///alert///
-
-
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
