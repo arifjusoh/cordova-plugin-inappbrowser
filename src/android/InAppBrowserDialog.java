@@ -47,7 +47,7 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
-    Logger logger = Logger.getLogger(MyClass.class.getName());
+    Logger logger = Logger.getLogger(InAppBrowserDialog.class.getName());
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
