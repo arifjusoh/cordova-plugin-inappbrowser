@@ -25,8 +25,6 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 /**
  * Created by Oliver on 22/11/2013.
  */
@@ -34,9 +32,29 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
+
+
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
+
+        //AlertDialog.Builder dialog = new AlertDialog.Builder(InAppBrowserDialog.this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setCancelable(false);
+        dialog.setTitle("Dialog on Android");
+        dialog.setMessage("Are you sure you want to delete this entry?" );
+        dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int id) {
+        //Action for "Delete".
+    }
+})
+        .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            //Action for "Cancel".
+            }
+        });
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -45,7 +63,13 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
 
-            Log.d("","here you are");
+      ///alert///
+
+      final AlertDialog alert = dialog.create();
+      alert.show();
+
+      ///alert///
+
 
         if (this.inAppBrowser == null) {
             this.dismiss();
