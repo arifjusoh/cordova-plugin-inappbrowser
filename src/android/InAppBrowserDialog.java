@@ -25,6 +25,8 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.cordova.LOG;
+
+import android.widget.Toast;
 /**
  * Created by Oliver on 22/11/2013.
  */
