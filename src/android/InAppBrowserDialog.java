@@ -31,6 +31,7 @@ import org.json.JSONObject;
 public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
+    private static final String TAG = "EGHL";
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
@@ -42,7 +43,7 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
-      //LOG.e("back pressed");
+      ELogger.e(TAG, "back pressed" , e);
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
