@@ -51,6 +51,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
@@ -458,7 +459,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void goBack() {
     	//LOG.d(LOG_TAG, "go back");
-    	Toast.makeText(InAppBrowser.this,"go back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this,"go back",Toast.LENGTH_LONG).show();
         if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
@@ -470,7 +471,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean canGoBack() {
     	//LOG.d(LOG_TAG, "can go back");
-    	Toast.makeText(InAppBrowser.this,"can go back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this,"can go back",Toast.LENGTH_LONG).show();
         return this.inAppWebView.canGoBack();
     }
 
@@ -480,7 +481,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean hardwareBack() {
     	LOG.d(LOG_TAG, "hardware back");
-    	Toast.makeText(InAppBrowser.this,"hardware back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this,"hardware back",Toast.LENGTH_LONG).show();
         return hadwareBackButton;
     }
 
