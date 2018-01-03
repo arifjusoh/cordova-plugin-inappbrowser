@@ -21,6 +21,7 @@ package org.apache.cordova.inappbrowser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import DialogInterface.OnClickListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,25 +38,25 @@ public class InAppBrowserDialog extends Dialog {
         super(context, theme);
         this.context = context;
 
-AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-builder1.setMessage("Write your message here.");
-builder1.setCancelable(true);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+        builder1.setMessage("Write your message here.");
+        builder1.setCancelable(true);
 
-builder1.setPositiveButton(
-    "Yes",
-    new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int id) {
-            dialog.cancel();
-        }
-    });
+        builder1.setPositiveButton(
+            "Yes",
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
 
-builder1.setNegativeButton(
-    "No",
-    new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int id) {
-            dialog.cancel();
-        }
-    });
+        builder1.setNegativeButton(
+            "No",
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
 
     }
 
