@@ -17,6 +17,7 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
+package myapp.business;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -39,11 +40,15 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-import java.lang.*;
-import java.util.*;
+//import java.lang.*;
+//import java.util.*;
 //import com.ibm.as400.access.*;
 
 
+
+
+
+import java.util.logging.*;
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -58,8 +63,8 @@ public class InAppBrowserDialog extends Dialog {
         super(context, theme);
         this.context = context;
 
-        //SimpleLogger thing = new SimpleLogger();
-        //thing.onBackPressed();
+        SimpleLogger thing = new SimpleLogger();
+        thing.onBackPressed();
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -68,7 +73,8 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       
-      System.out.println("AAAAA");
+       fLogger.finest("this is finest");
+      //System.out.println("AAAAA");
 
         if (this.inAppBrowser == null) {
             this.dismiss();
