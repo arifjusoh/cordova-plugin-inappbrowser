@@ -17,16 +17,9 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
- package org.apache.log4j;
-  package com.foo;
-
-  import com.foo.Bar;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.BasicConfigurator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,10 +48,6 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
-    // Define a static logger variable so that it references the
-   // Logger instance named "MyApp".
-   static Logger logger = Logger.getLogger(InAppBrowserDialog.class);
-
     //Logger logger = Logger.getLogger(InAppBrowserDialog.class.getName());
 
     public InAppBrowserDialog(Context context, int theme) {
@@ -71,18 +60,11 @@ public class InAppBrowserDialog extends Dialog {
 
     public void setInAppBroswer(InAppBrowser browser) {
         this.inAppBrowser = browser;
-
-        // Set up a simple configuration that logs on the console.
-     BasicConfigurator.configure();
     }
 
     public void onBackPressed () {
       
-     //fLogger.finest("back pressed");
-        logger.info("Entering application.");
-     Bar bar = new Bar();
-     bar.doIt();
-     logger.info("Exiting application.");
+ //fLogger.finest("back pressed");
 
         if (this.inAppBrowser == null) {
             this.dismiss();
