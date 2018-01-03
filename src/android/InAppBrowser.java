@@ -72,7 +72,7 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class InAppBrowser extends AppCompatActivity {
+public class InAppBrowser extends CordovaPlugin {
 
     private static final String NULL = "null";
     protected static final String LOG_TAG = "InAppBrowser";
@@ -459,7 +459,7 @@ public class InAppBrowser extends AppCompatActivity {
      */
     public void goBack() {
     	//LOG.d(LOG_TAG, "go back");
-    	Toast.makeText(getApplicationContext(),"go back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_LONG).show();
         if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
@@ -471,7 +471,7 @@ public class InAppBrowser extends AppCompatActivity {
      */
     public boolean canGoBack() {
     	//LOG.d(LOG_TAG, "can go back");
-    	Toast.makeText(getApplicationContext(),"can go back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_LONG).show();
         return this.inAppWebView.canGoBack();
     }
 
@@ -481,7 +481,7 @@ public class InAppBrowser extends AppCompatActivity {
      */
     public boolean hardwareBack() {
     	//LOG.d(LOG_TAG, "hardware back");
-    	Toast.makeText(getApplicationContext(),"hardware back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_LONG).show();
         return hadwareBackButton;
     }
 
