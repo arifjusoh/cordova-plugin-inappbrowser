@@ -17,11 +17,7 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
-
 package com.eghl.sdk.params;
-/*
- * Created by Jezer Crespo on 2/1/2017.
- */
 
 import com.eghl.sdk.ELogger;
 
