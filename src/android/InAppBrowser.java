@@ -527,10 +527,10 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    //public String showWebPage(final String url, HashMap<String, Boolean> features, Boolean cangoback) {
-          public String showWebPage(final String url, HashMap<String, Boolean> features) {
+    public String showWebPage(final String url, HashMap<String, Boolean> features, Boolean cangoback) {
+          //public String showWebPage(final String url, HashMap<String, Boolean> features) {
 
-Toast.makeText(this.cordova.getActivity(),"welcome to inappbrowser",Toast.LENGTH_LONG).show();
+Toast.makeText(this.cordova.getActivity(),cangoback,Toast.LENGTH_LONG).show();
 
         // Determine if we should hide the location bar.
         showLocationBar = true;
