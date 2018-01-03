@@ -38,7 +38,7 @@ public class InAppBrowserDialog extends Dialog {
         super(context, theme);
         this.context = context;
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(InAppBrowserDialog.this);
         dialog.setCancelable(false);
         dialog.setTitle("Dialog on Android");
         dialog.setMessage("Are you sure you want to delete this entry?" );
