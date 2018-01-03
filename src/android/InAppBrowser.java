@@ -461,8 +461,8 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void goBack() {
     	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_LONG).show();
-        if ((String.valueOf(allowedToGoBack).equals("true")) && this.inAppWebView.canGoBack()) {
-        //if (this.inAppWebView.canGoBack()) {
+        //if ((String.valueOf(allowedToGoBack).equals("true")) && this.inAppWebView.canGoBack()) {
+        if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
     }
