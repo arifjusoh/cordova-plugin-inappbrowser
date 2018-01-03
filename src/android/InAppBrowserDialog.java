@@ -17,6 +17,7 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
+package org.apache.log4j;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -48,7 +49,10 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
-    Logger logger = Logger.getLogger(InAppBrowserDialog.class.getName());
+    public static Logger getRootLogger();
+    public static Logger getLogger(String name);
+
+    //Logger logger = Logger.getLogger(InAppBrowserDialog.class.getName());
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
@@ -64,7 +68,7 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       
- fLogger.finest("back pressed");
+ public void log(Level l, Object message);
 
         if (this.inAppBrowser == null) {
             this.dismiss();
