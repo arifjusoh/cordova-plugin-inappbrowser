@@ -34,20 +34,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.eghl.android.sdk.R;
-import com.eghl.sdk.interfaces.CaptureCallback;
-import com.eghl.sdk.interfaces.MasterpassCallback;
-import com.eghl.sdk.interfaces.QueryCallback;
-import com.eghl.sdk.masterpass.MasterPassActivity;
-import com.eghl.sdk.params.CaptureParams;
-import com.eghl.sdk.params.MasterpassParams;
-import com.eghl.sdk.params.Params;
-import com.eghl.sdk.params.PaymentParams;
-import com.eghl.sdk.params.QueryParams;
-import com.eghl.sdk.payment.PaymentActivity;
-import com.eghl.sdk.response.CaptureResponse;
-import com.eghl.sdk.response.QueryResponse;
-
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
