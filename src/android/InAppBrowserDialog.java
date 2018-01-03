@@ -34,15 +34,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpStack;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.eghl.android.sdk.R;
 import com.eghl.sdk.interfaces.CaptureCallback;
 import com.eghl.sdk.interfaces.MasterpassCallback;
