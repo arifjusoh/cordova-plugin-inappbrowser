@@ -17,7 +17,6 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
-package myapp.business;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,8 +24,6 @@ import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.logging.*;
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -38,9 +35,6 @@ public class InAppBrowserDialog extends Dialog {
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
-
-        InAppBrowserDialog thing = new InAppBrowserDialog();
-        thing.onBackPressed();
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -48,7 +42,32 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
-       fLogger.finest("this is finest");
+
+      ///alert///
+
+      AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+dialog.setCancelable(false);
+dialog.setTitle("Dialog on Android");
+dialog.setMessage("Are you sure you want to delete this entry?" );
+dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int id) {
+        //Action for "Delete".
+    }
+})
+        .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            //Action for "Cancel".
+            }
+        });
+
+final AlertDialog alert = dialog.create();
+alert.show();
+
+      ///alert///
+
+
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
