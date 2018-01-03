@@ -33,29 +33,30 @@ public class InAppBrowserDialog extends Dialog {
     InAppBrowser inAppBrowser = null;
 
 
-
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
-          import android.content.DialogInterface; //in InAppBrowserDialog class
 
-        //AlertDialog.Builder dialog = new AlertDialog.Builder(InAppBrowserDialog.this);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setCancelable(false);
-        dialog.setTitle("Dialog on Android");
-        dialog.setMessage("Are you sure you want to delete this entry?" );
-        dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-    @Override
-    public void onClick(DialogInterface dialog, int id) {
-        //Action for "Delete".
-    }
-})
-        .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            //Action for "Cancel".
-            }
-        });
+AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+builder1.setMessage("Write your message here.");
+builder1.setCancelable(true);
+
+builder1.setPositiveButton(
+    "Yes",
+    new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            dialog.cancel();
+        }
+    });
+
+builder1.setNegativeButton(
+    "No",
+    new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            dialog.cancel();
+        }
+    });
+
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -66,8 +67,8 @@ public class InAppBrowserDialog extends Dialog {
 
       ///alert///
 
-      final AlertDialog alert = dialog.create();
-      alert.show();
+AlertDialog alert11 = builder1.create();
+alert11.show();
 
       ///alert///
 
