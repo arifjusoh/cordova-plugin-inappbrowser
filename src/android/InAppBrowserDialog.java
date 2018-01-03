@@ -32,7 +32,7 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
-    import android.content.DialogInterface; //in InAppBrowserDialog class
+    //import android.content.DialogInterface; //in InAppBrowserDialog class
 
 
 
