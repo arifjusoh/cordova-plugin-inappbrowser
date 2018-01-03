@@ -58,6 +58,9 @@ public class InAppBrowserDialog extends Dialog {
                 }
             });
 
+        AlertDialog alert11 = builder1.create();
+alert11.show();
+
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -68,8 +71,7 @@ public class InAppBrowserDialog extends Dialog {
 
       ///alert///
 
-AlertDialog alert11 = builder1.create();
-alert11.show();
+
 
       ///alert///
 
