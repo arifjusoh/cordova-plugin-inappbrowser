@@ -42,6 +42,7 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
+      LOG.e("back pressed");
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
