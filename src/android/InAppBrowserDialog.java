@@ -21,7 +21,6 @@ package org.apache.cordova.inappbrowser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +31,7 @@ import org.json.JSONObject;
 public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
+    protected static final String LOG_TAG = "InAppBrowser";
 
 
 
@@ -39,36 +39,13 @@ public class InAppBrowserDialog extends Dialog {
         super(context, theme);
         this.context = context;
 
-        //AlertDialog.Builder dialog = new AlertDialog.Builder(InAppBrowserDialog.this);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setCancelable(false);
-        dialog.setTitle("Dialog on Android");
-        dialog.setMessage("Are you sure you want to delete this entry?" );
-        dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-    @Override
-    public void onClick(DialogInterface dialog, int id) {
-        //Action for "Delete".
-    }
-})
-        .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            //Action for "Cancel".
-            }
-        });
-         ///alert///
-
-      final AlertDialog alert = dialog.create();
-      alert.show();
-
-      ///alert///
-    }
 
     public void setInAppBroswer(InAppBrowser browser) {
         this.inAppBrowser = browser;
     }
 
     public void onBackPressed () {
+      LOG.d(LOG_TAG, "back button pressed");
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
