@@ -470,7 +470,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean canGoBack() {
     	//LOG.d(LOG_TAG, "can go back");
-    	Toast.makeText(this,"can go back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(InAppBrowser.this,"can go back",Toast.LENGTH_LONG).show();
         return this.inAppWebView.canGoBack();
     }
 
@@ -479,8 +479,8 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	//LOG.d(LOG_TAG, "hardware back");
-    	Toast.makeText(this,"hardware back",Toast.LENGTH_LONG).show();
+    	LOG.d(LOG_TAG, "hardware back");
+    	Toast.makeText(InAppBrowser.this,"hardware back",Toast.LENGTH_LONG).show();
         return hadwareBackButton;
     }
 
