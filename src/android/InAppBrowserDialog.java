@@ -49,8 +49,23 @@ public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
 
+   public class Logger {
+
+    // Creation & retrieval methods:
     public static Logger getRootLogger();
     public static Logger getLogger(String name);
+
+    // printing methods:
+    public void trace(Object message);
+    public void debug(Object message);
+    public void info(Object message);
+    public void warn(Object message);
+    public void error(Object message);
+    public void fatal(Object message);
+
+    // generic printing method:
+    public void log(Level l, Object message);
+}
 
     //Logger logger = Logger.getLogger(InAppBrowserDialog.class.getName());
 
@@ -68,7 +83,7 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       
- public void log(Level l, Object message);
+    //public void log(Level l, Object message);
 
         if (this.inAppBrowser == null) {
             this.dismiss();
