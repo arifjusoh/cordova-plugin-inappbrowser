@@ -38,7 +38,8 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-import java.util.logging;
+import java.util.logging.*;
+
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -52,6 +53,9 @@ public class InAppBrowserDialog extends Dialog {
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
+
+        SimpleLogger thing = new SimpleLogger();
+        thing.onBackPressed();
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -60,7 +64,7 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       
-logger.log(Level.WARNING, “back pressed!”);
+ fLogger.finest("back pressed");
 
         if (this.inAppBrowser == null) {
             this.dismiss();
