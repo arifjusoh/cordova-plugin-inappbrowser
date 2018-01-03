@@ -18,6 +18,13 @@
 */
 package org.apache.cordova.inappbrowser;
 
+package com.eghl.sdk.params;
+/*
+ * Created by Jezer Crespo on 2/1/2017.
+ */
+
+import com.eghl.sdk.ELogger;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 
@@ -33,8 +40,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-
-import com.eghl.android.sdk.R;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
