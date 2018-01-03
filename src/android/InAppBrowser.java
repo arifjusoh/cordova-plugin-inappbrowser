@@ -458,9 +458,8 @@ public class InAppBrowser extends CordovaPlugin {
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
-    	//LOG.d(LOG_TAG, "go back");
     	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_LONG).show();
-        //if (this.outercallBack() && this.inAppWebView.canGoBack()) {
+        //if (this.outerclalBack() && this.inAppWebView.canGoBack()) {
         if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
@@ -471,8 +470,6 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-    	//LOG.d(LOG_TAG, "can go back");
-    	//Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_LONG).show();
         return this.inAppWebView.canGoBack();
     }
 
@@ -481,8 +478,6 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	//LOG.d(LOG_TAG, "hardware back");
-    	//Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_LONG).show();
         return hadwareBackButton;
     }
 
@@ -532,7 +527,11 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    public String showWebPage(final String url, HashMap<String, Boolean> features) {
+    //public String showWebPage(final String url, HashMap<String, Boolean> features, Boolean cangoback) {
+          public String showWebPage(final String url, HashMap<String, Boolean> features) {
+
+Toast.makeText(this.cordova.getActivity(),"welcome to inappbrowser",Toast.LENGTH_LONG).show();
+
         // Determine if we should hide the location bar.
         showLocationBar = true;
         showZoomControls = true;
