@@ -68,7 +68,7 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       
-      //System.out.println("AAAAA");
+      System.out.println("AAAAA");
 
         if (this.inAppBrowser == null) {
             this.dismiss();
