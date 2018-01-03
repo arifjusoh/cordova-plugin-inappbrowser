@@ -31,14 +31,12 @@ import org.json.JSONObject;
 public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
-    protected static final String LOG_TAG = "InAppBrowser";
-
-
+     protected static final String LOG_TAG = "InAppBrowser";
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
-
+    }
 
     public void setInAppBroswer(InAppBrowser browser) {
         this.inAppBrowser = browser;
