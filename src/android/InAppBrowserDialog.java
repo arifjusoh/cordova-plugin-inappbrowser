@@ -31,7 +31,6 @@ import org.json.JSONObject;
 public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
-     protected static final String LOG_TAG = "InAppBrowser";
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
@@ -43,7 +42,6 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
-      LOG.d(LOG_TAG, "back button pressed");
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
