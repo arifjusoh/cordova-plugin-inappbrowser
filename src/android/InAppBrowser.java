@@ -461,8 +461,8 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void goBack() {
     	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_LONG).show();
-        //if ((String.valueOf(allowedToGoBack).equals("true")) && this.inAppWebView.canGoBack()) {
-        if (this.inAppWebView.canGoBack()) {
+        if ((String.valueOf(allowedToGoBack).equals("true")) && this.inAppWebView.canGoBack()) {
+        //if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
     }
@@ -475,9 +475,9 @@ public class InAppBrowser extends CordovaPlugin {
         return this.inAppWebView.canGoBack();
     }
 
-	public boolean allowedToGoBack() {
-        return this.inAppWebView.allowedToGoBack();
-    }    
+	// public boolean allowedToGoBack() {
+ //        return this.inAppWebView.allowedToGoBack();
+ //    }    
 
     /**
      * Has the user set the hardware back button to go back
