@@ -51,7 +51,7 @@ public class InAppBrowserDialog extends Dialog {
     public void onClick(DialogInterface dialog, int id) {
         //Action for "Delete".
     }
-})
+});
         .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
