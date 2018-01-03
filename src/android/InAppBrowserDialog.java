@@ -17,6 +17,7 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
+package myapp.business;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,6 +25,8 @@ import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.logging.*;
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -35,6 +38,9 @@ public class InAppBrowserDialog extends Dialog {
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
+
+        InAppBrowserDialog thing = new InAppBrowserDialog();
+        thing.onBackPressed();
     }
 
     public void setInAppBroswer(InAppBrowser browser) {
@@ -42,6 +48,7 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
+       fLogger.finest("this is finest");
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
