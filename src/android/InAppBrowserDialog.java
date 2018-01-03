@@ -17,9 +17,6 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
-package com.eghl.sdk.params;
-
-import com.eghl.sdk.ELogger;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -41,6 +38,7 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.logging
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -48,7 +46,8 @@ import java.util.Random;
 public class InAppBrowserDialog extends Dialog {
     Context context;
     InAppBrowser inAppBrowser = null;
-    private static final String TAG = "EGHL";
+    
+    Logger logger = Logger.getLogger(MyClass.class.getName());
 
     public InAppBrowserDialog(Context context, int theme) {
         super(context, theme);
@@ -60,7 +59,9 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
-      ELogger.e(TAG, "back pressed" , e);
+      
+logger.log(Level.WARNING, “back pressed!”);
+
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
