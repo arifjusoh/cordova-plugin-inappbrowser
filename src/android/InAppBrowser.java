@@ -80,6 +80,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SYSTEM = "_system";
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
+    private static final String CANGOBACK = "cangoback";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -99,6 +100,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
+    private boolean allowedToGoBack = true;
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -527,13 +529,14 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    public String showWebPage(final String url, HashMap<String, Boolean> features, Boolean cangoback) {
+    public String showWebPage(final String url, HashMap<String, Boolean> features) {
           //public String showWebPage(final String url, HashMap<String, Boolean> features) {
 
-Toast.makeText(this.cordova.getActivity(),cangoback,Toast.LENGTH_LONG).show();
+Toast.makeText(this.cordova.getActivity(),"welcome to InAppBrowser",Toast.LENGTH_LONG).show();
 
         // Determine if we should hide the location bar.
         showLocationBar = true;
+        allowedToGoBack = false;
         showZoomControls = true;
         openWindowHidden = false;
         mediaPlaybackRequiresUserGesture = false;
@@ -542,6 +545,12 @@ Toast.makeText(this.cordova.getActivity(),cangoback,Toast.LENGTH_LONG).show();
             Boolean show = features.get(LOCATION);
             if (show != null) {
                 showLocationBar = show.booleanValue();
+            }
+            Boolean allowed = features.get(CANGOBACK);
+            if (allowed != null) {
+                allowedToGoBack = allowed.booleanValue();
+
+                Toast.makeText(this.cordova.getActivity(),allowedToGoBack,Toast.LENGTH_LONG).show();
             }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
