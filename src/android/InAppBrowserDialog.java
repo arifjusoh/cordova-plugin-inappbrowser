@@ -38,7 +38,11 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-import java.util.logging.*;
+
+import java.lang.*;
+import java.util.*;
+import com.ibm.as400.access.*;
+
 
 
 /**
@@ -64,7 +68,7 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed () {
       
- //fLogger.finest("back pressed");
+ System.out.println("AAAAA");
 
         if (this.inAppBrowser == null) {
             this.dismiss();
