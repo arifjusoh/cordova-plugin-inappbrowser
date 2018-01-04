@@ -457,7 +457,7 @@ public class InAppBrowser extends CordovaPlugin {
                  try {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
-    				if(String.valueOf(shouldClose).equals("false")) {
+    				if (!shouldClose) {
     					sendUpdate(obj, false);
     				}
 
