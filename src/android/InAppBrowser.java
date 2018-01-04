@@ -443,7 +443,16 @@ public class InAppBrowser extends CordovaPlugin {
                         }
                     }
                 });
-                // NB: From SDK 19: "If you call methods on WebView from any thread
+               
+            }
+        });
+    }
+
+else
+{
+	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
+
+	 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
                 childView.loadUrl("about:blank");
@@ -455,13 +464,6 @@ public class InAppBrowser extends CordovaPlugin {
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
-            }
-        });
-    }
-
-else
-{
-	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
 }
 
 }
