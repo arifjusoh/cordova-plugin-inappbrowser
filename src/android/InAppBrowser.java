@@ -554,7 +554,7 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
         showZoomControls = true;
         openWindowHidden = false;
         mediaPlaybackRequiresUserGesture = false;
-        public string count = 0;
+        string count = 0;
 
         if (features != null) {
             Boolean show = features.get(LOCATION);
