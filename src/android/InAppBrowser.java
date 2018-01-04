@@ -449,13 +449,6 @@ public class InAppBrowser extends CordovaPlugin {
                  if (shouldClose) {
                 childView.loadUrl("about:blank");
 				}
-                // try {
-                //     JSONObject obj = new JSONObject();
-                //     obj.put("type", EXIT_EVENT);
-                //     //sendUpdate(obj, false);
-                // } catch (JSONException ex) {
-                //     LOG.d(LOG_TAG, "Should never happen");
-                // }
 
                  try {
     				JSONObject obj = new JSONObject();
@@ -472,8 +465,6 @@ public class InAppBrowser extends CordovaPlugin {
     			}
 
                }
-            
-        
     });
 }
 
@@ -489,18 +480,6 @@ public class InAppBrowser extends CordovaPlugin {
         //if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
-
-			// try {
-   //              JSONObject obj = new JSONObject();
-   //              obj.put("type", BACK_BUTTON_EVENT);
-   //              //obj2.put("url", url);
-
-   //              sendUpdate(obj, true);
-
-   //          } catch (JSONException ex) {
-   //              LOG.d(LOG_TAG, "Should never happen");
-   //          }
-
     }
 
     /**
