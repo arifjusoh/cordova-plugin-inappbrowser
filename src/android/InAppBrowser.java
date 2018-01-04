@@ -449,55 +449,21 @@ public class InAppBrowser extends CordovaPlugin {
                 childView.loadUrl("about:blank");
 
                 try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
-                    //sendUpdate(obj, false);
-                } catch (JSONException ex) {
-                    LOG.d(LOG_TAG, "Should never happen");
-                }
+    				JSONObject obj = new JSONObject();
+    				obj.put("type", EXIT_EVENT);
+    				if (!shouldClose) {
+    					sendUpdate(obj, false);
+    				}
+
+
+    			} catch (JSONException ex) {
+    				Toast.makeText(this.cordova.getActivity(),"exception:"+ex),Toast.LENGTH_LONG).show();
+
+    				LOG.d(LOG_TAG, "Should never happen");
+    			}
             }
         });
     }
-
-else
-{
-	//Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
-
-	        this.cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final WebView childView = inAppWebView;
-                // The JS protects against multiple calls, so this should happen only when
-                // closeDialog() is called by other native code.
-                if (childView == null) {
-                    return;
-                }
-
-                childView.setWebViewClient(new WebViewClient() {
-                    // NB: wait for about:blank before dismissing
-                    public void onPageFinished(WebView view, String url) {
-                        if (dialog != null) {
-                            //dialog.dismiss();
-                            //dialog = null;
-                        }
-                    }
-                });
-                // NB: From SDK 19: "If you call methods on WebView from any thread
-                // other than your app's UI thread, it can cause unexpected results."
-                // http://developer.android.com/guide/webapps/migrating.html#Threads
-                //childView.loadUrl("about:blank");
-
-                try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
-                    sendUpdate(obj, false);
-                } catch (JSONException ex) {
-                    LOG.d(LOG_TAG, "Should never happen");
-                }
-            }
-        });
-
-}
 
 }
 
