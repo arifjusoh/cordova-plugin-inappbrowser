@@ -422,8 +422,6 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 
-    	//Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
-
     	if(String.valueOf(shouldClose).equals("true"))
     	{
         this.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -463,7 +461,7 @@ public class InAppBrowser extends CordovaPlugin {
 
 else
 {
-	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
+	//Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
 
 	        this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -472,7 +470,6 @@ else
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
-                	Toast.makeText(this.cordova.getActivity(),"childView is null",Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -489,7 +486,7 @@ else
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
                 //childView.loadUrl("about:blank");
-            //Toast.makeText(this.cordova.getActivity(),"going to try",Toast.LENGTH_LONG).show();
+
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("type", EXIT_EVENT);
