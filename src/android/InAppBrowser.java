@@ -477,7 +477,7 @@ else
                     // NB: wait for about:blank before dismissing
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
-                            //dialog.dismiss();
+                            dialog.dismiss();
                             //dialog = null;
                         }
                     }
@@ -490,7 +490,7 @@ else
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("type", EXIT_EVENT);
-                    sendUpdate(obj, false);
+                    //sendUpdate(obj, false);
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
