@@ -1074,18 +1074,18 @@ public class InAppBrowser extends CordovaPlugin {
             view.requestFocus();
 
             try {
-                JSONObject obj = new JSONObject();
-                obj.put("type", LOAD_STOP_EVENT);
-                obj.put("url", url);
+                JSONObject obj1 = new JSONObject();
+                obj1.put("type", LOAD_STOP_EVENT);
+                obj1.put("url", url);
 
-                sendUpdate(obj, true);
+                sendUpdate(obj1, true);
 
                 
-                JSONObject obj = new JSONObject();
-                obj.put("type", BACK_BUTTON_EVENT);
-                obj.put("url", url);
+                JSONObject obj2 = new JSONObject();
+                obj2.put("type", BACK_BUTTON_EVENT);
+                obj2.put("url", url);
 
-                sendUpdate(obj, true);
+                sendUpdate(obj2, true);
 
             } catch (JSONException ex) {
                 LOG.d(LOG_TAG, "Should never happen");
