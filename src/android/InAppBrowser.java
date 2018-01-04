@@ -468,6 +468,10 @@ else
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+            	if(obj =! null)
+            	{
+            		sendUpdate(obj, false);
+            	}
                 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
