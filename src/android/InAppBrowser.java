@@ -114,8 +114,6 @@ public class InAppBrowser extends CordovaPlugin {
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
 
-    public string count = 0;
-
     /**
      * Executes the request and returns PluginResult.
      *
@@ -423,12 +421,10 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-    Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show();
+Toast.makeText(this.cordova.getActivity(),"close",Toast.LENGTH_LONG).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	//if(count.equals("0"))
-            	//{
                 final WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
@@ -453,10 +449,7 @@ public class InAppBrowser extends CordovaPlugin {
                  if (shouldClose) {
                 childView.loadUrl("about:blank");
 				}
-				//count++;
-                //}
-
-
+                
 
                  try {
     				JSONObject obj = new JSONObject();
