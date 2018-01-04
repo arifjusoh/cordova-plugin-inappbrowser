@@ -460,7 +460,7 @@ public class InAppBrowser extends CordovaPlugin {
 
 
     			} catch (JSONException ex) {
-    				Toast.makeText(this.cordova.getActivity(),"exception:"+ex,Toast.LENGTH_LONG).show();
+    				Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
 
     				LOG.d(LOG_TAG, "Should never happen");
     			}
