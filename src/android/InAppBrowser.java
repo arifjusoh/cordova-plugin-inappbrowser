@@ -114,6 +114,8 @@ public class InAppBrowser extends CordovaPlugin {
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
 
+    public string count = 0;
+
     /**
      * Executes the request and returns PluginResult.
      *
@@ -421,7 +423,7 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-Toast.makeText(this.cordova.getActivity(),"close",Toast.LENGTH_LONG).show();
+Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
