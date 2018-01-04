@@ -477,8 +477,8 @@ else
                     // NB: wait for about:blank before dismissing
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
-                            dialog.dismiss();
-                            dialog = null;
+                            //dialog.dismiss();
+                            //dialog = null;
                         }
                     }
                 });
