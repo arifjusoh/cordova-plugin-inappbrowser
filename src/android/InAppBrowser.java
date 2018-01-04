@@ -441,7 +441,7 @@ public class InAppBrowser extends CordovaPlugin {
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
                             dialog.dismiss();
-                            //dialog = null;
+                            dialog = null;
                         }
                     }
                 });
@@ -468,6 +468,7 @@ else
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+            	Toast.makeText(this.cordova.getActivity(),"run",Toast.LENGTH_LONG).show();
                 final WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
