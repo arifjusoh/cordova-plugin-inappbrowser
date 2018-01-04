@@ -461,7 +461,7 @@ public class InAppBrowser extends CordovaPlugin {
 
 else
 {
-	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
+	//Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
 
 	        this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -478,7 +478,7 @@ else
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
                             //dialog.dismiss();
-                            dialog = null;
+                            //dialog = null;
                         }
                     }
                 });
