@@ -114,7 +114,7 @@ public class InAppBrowser extends CordovaPlugin {
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
 
-    public string count;
+    private var count;
 
     /**
      * Executes the request and returns PluginResult.
