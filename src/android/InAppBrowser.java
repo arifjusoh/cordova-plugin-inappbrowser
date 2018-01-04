@@ -464,7 +464,7 @@ public class InAppBrowser extends CordovaPlugin {
 
     	 try {
                 JSONObject obj = new JSONObject();
-                obj2.put("type", BACK_BUTTON_EVENT);
+                obj.put("type", BACK_BUTTON_EVENT);
                 //obj2.put("url", url);
 
                 sendUpdate(obj, true);
