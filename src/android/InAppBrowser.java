@@ -86,7 +86,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String LOAD_START_EVENT = "loadstart";
     private static final String LOAD_STOP_EVENT = "loadstop";
     private static final String LOAD_ERROR_EVENT = "loaderror";
-    private static final String BACK_BUTTON_EVENT = "backbutton";
+    private static final String BACK_BUTTON_EVENT = "backbuttontrigger";
     private static final String CLEAR_ALL_CACHE = "clearcache";
     private static final String CLEAR_SESSION_CACHE = "clearsessioncache";
     private static final String HARDWARE_BACK_BUTTON = "hardwareback";
@@ -100,7 +100,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
-    private boolean allowedToGoBack = false;
+    private boolean allowedToGoBack = false; //default false means cannot go back to history
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -534,9 +534,6 @@ public class InAppBrowser extends CordovaPlugin {
      * @param features jsonObject
      */
     public String showWebPage(final String url, HashMap<String, Boolean> features) {
-          //public String showWebPage(final String url, HashMap<String, Boolean> features) {
-
-Toast.makeText(this.cordova.getActivity(),"welcome to InAppBrowser",Toast.LENGTH_LONG).show();
 
         // Determine if we should hide the location bar.
         showLocationBar = true;
@@ -554,7 +551,7 @@ Toast.makeText(this.cordova.getActivity(),"welcome to InAppBrowser",Toast.LENGTH
             if (allowed != null) {
                 allowedToGoBack = allowed.booleanValue();
 
-                Toast.makeText(this.cordova.getActivity(),String.valueOf(allowedToGoBack),Toast.LENGTH_LONG).show();
+                //Toast.makeText(this.cordova.getActivity(),String.valueOf(allowedToGoBack),Toast.LENGTH_LONG).show();
             }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
@@ -1082,6 +1079,14 @@ Toast.makeText(this.cordova.getActivity(),"welcome to InAppBrowser",Toast.LENGTH
                 obj.put("url", url);
 
                 sendUpdate(obj, true);
+
+                
+                JSONObject obj = new JSONObject();
+                obj.put("type", BACK_BUTTON_EVENT);
+                obj.put("url", url);
+
+                sendUpdate(obj, true);
+
             } catch (JSONException ex) {
                 LOG.d(LOG_TAG, "Should never happen");
             }
