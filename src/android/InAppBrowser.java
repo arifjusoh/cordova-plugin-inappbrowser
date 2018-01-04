@@ -422,8 +422,6 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 
-    	if(String.valueOf(shouldClose).equals("true"))
-    	{
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -449,18 +447,16 @@ public class InAppBrowser extends CordovaPlugin {
                 childView.loadUrl("about:blank");
 
                 try {
-    				JSONObject obj = new JSONObject();
-    				obj.put("type", EXIT_EVENT);
-    				if (!shouldClose) {
-    					sendUpdate(obj, false);
-    				}
-    			} catch (JSONException ex) {
-    				Toast.makeText(this.cordova.getActivity(),"exception:"+ex,Toast.LENGTH_LONG).show();
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", EXIT_EVENT);
+                    //sendUpdate(obj, false);
+                } catch (JSONException ex) {
+                    LOG.d(LOG_TAG, "Should never happen");
+                }
 
-    				LOG.d(LOG_TAG, "Should never happen");
-    			}
+               
             }
-        });
+        
     }
 
 }
