@@ -422,7 +422,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 
-    	//Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
 
     	if(String.valueOf(shouldClose).equals("true"))
     	{
@@ -488,9 +488,8 @@ else
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
                 //childView.loadUrl("about:blank");
-
+            Toast.makeText(this.cordova.getActivity(),"going to try",Toast.LENGTH_LONG).show();
                 try {
-                	Toast.makeText(this.cordova.getActivity(),"exit event",Toast.LENGTH_LONG).show();
                     JSONObject obj = new JSONObject();
                     obj.put("type", EXIT_EVENT);
                     sendUpdate(obj, false);
