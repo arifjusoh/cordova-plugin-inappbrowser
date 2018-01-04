@@ -465,10 +465,8 @@ else
 {
 	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
 
-			
-            @Override
-            public void run() {
-            //Toast.makeText(this.cordova.getActivity(),"going to try",Toast.LENGTH_LONG).show();
+			this.cordova.getActivity().runOnUiThread(new Runnable() {
+           
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("type", EXIT_EVENT);
@@ -476,7 +474,9 @@ else
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
-            }
+            
+        });
+
 }
 
 }
