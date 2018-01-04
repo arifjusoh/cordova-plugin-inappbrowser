@@ -457,7 +457,7 @@ public class InAppBrowser extends CordovaPlugin {
                
             }
         
-    }
+    });
 
 }
 
