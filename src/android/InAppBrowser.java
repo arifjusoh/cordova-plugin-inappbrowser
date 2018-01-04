@@ -468,7 +468,7 @@ else
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	if(isset(obj))
+            	if(isset(obj) && obj = null)
             	{
             		sendUpdate(obj, false);
             	}
