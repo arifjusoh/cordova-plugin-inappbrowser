@@ -421,11 +421,9 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
- Toast.makeText(this.cordova.getActivity(),"closeeee",Toast.LENGTH_LONG).show();
-    	/*
-(String.valueOf(shouldClose).equals("true")
-    	*/
 
+    	if((String.valueOf(shouldClose).equals("true"))
+    	{
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -460,6 +458,15 @@ public class InAppBrowser extends CordovaPlugin {
             }
         });
     }
+
+else
+{
+	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
+}
+
+}
+
+
 
     /**
      * Checks to see if it is possible to go back one page in history, then does so.
