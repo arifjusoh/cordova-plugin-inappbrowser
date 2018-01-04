@@ -80,7 +80,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SYSTEM = "_system";
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
-    private static final String ALLOWEDTOGOBACK = "allowedtogoback";
+    private static final String SHOULD_CLOSE = "shouldclose";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -100,7 +100,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
-    private boolean allowedToGoBack = false; //default false means cannot go back to history
+    private boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -421,6 +421,11 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
+ Toast.makeText(this.cordova.getActivity(),"closeeee",Toast.LENGTH_LONG).show();
+    	/*
+(String.valueOf(shouldClose).equals("true")
+    	*/
+
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -462,21 +467,23 @@ public class InAppBrowser extends CordovaPlugin {
     public void goBack() {
     	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_LONG).show();
 
-    	 try {
-                JSONObject obj = new JSONObject();
-                obj.put("type", BACK_BUTTON_EVENT);
-                //obj2.put("url", url);
-
-                sendUpdate(obj, true);
-
-            } catch (JSONException ex) {
-                LOG.d(LOG_TAG, "Should never happen");
-            }
-
-        if ((String.valueOf(allowedToGoBack).equals("true")) && this.inAppWebView.canGoBack()) {
+//if (shouldClose){}
+        if (this.inAppWebView.canGoBack()) {
         //if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
+
+			// try {
+   //              JSONObject obj = new JSONObject();
+   //              obj.put("type", BACK_BUTTON_EVENT);
+   //              //obj2.put("url", url);
+
+   //              sendUpdate(obj, true);
+
+   //          } catch (JSONException ex) {
+   //              LOG.d(LOG_TAG, "Should never happen");
+   //          }
+
     }
 
     /**
@@ -485,11 +492,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean canGoBack() {
         return this.inAppWebView.canGoBack();
-    }
-
-	// public boolean allowedToGoBack() {
- //        return this.inAppWebView.allowedToGoBack();
- //    }    
+    }  
 
     /**
      * Has the user set the hardware back button to go back
@@ -545,13 +548,11 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    public String showWebPage(final String url, HashMap<String, Boolean> features, String allowed2) {
-
-         Toast.makeText(this.cordova.getActivity(),allowed2,Toast.LENGTH_LONG).show();
+    public String showWebPage(final String url, HashMap<String, Boolean> features) {
 
         // Determine if we should hide the location bar.
         showLocationBar = true;
-        allowedToGoBack = false;
+        shouldClose = true;
         showZoomControls = true;
         openWindowHidden = false;
         mediaPlaybackRequiresUserGesture = false;
@@ -561,11 +562,11 @@ public class InAppBrowser extends CordovaPlugin {
             if (show != null) {
                 showLocationBar = show.booleanValue();
             }
-            Boolean allowed = features.get(ALLOWEDTOGOBACK);
-            if (allowed != null) {
-                allowedToGoBack = allowed.booleanValue();
+            Boolean shouldclose = features.get(SHOULD_CLOSE);
+            if (shouldclose != null) {
+                shouldClose = shouldclose.booleanValue();
 
-                //Toast.makeText(this.cordova.getActivity(),String.valueOf(allowedToGoBack),Toast.LENGTH_LONG).show();
+                //Toast.makeText(this.cordova.getActivity(),String.valueOf(shouldClose),Toast.LENGTH_LONG).show();
             }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
