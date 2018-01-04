@@ -477,8 +477,6 @@ else
                     LOG.d(LOG_TAG, "Should never happen");
                 }
             }
-        });
-
 }
 
 }
