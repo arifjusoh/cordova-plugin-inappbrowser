@@ -453,7 +453,7 @@ public class InAppBrowser extends CordovaPlugin {
                  if (shouldClose) {
                 childView.loadUrl("about:blank");
 				}
-				count++;
+				//count++;
                 //}
 
 
