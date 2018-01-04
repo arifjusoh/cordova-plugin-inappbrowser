@@ -446,13 +446,27 @@ public class InAppBrowser extends CordovaPlugin {
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
                 childView.loadUrl("about:blank");
 
-                try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
-                    //sendUpdate(obj, false);
-                } catch (JSONException ex) {
-                    LOG.d(LOG_TAG, "Should never happen");
-                }
+                // try {
+                //     JSONObject obj = new JSONObject();
+                //     obj.put("type", EXIT_EVENT);
+                //     //sendUpdate(obj, false);
+                // } catch (JSONException ex) {
+                //     LOG.d(LOG_TAG, "Should never happen");
+                // }
+
+                 try {
+    				JSONObject obj = new JSONObject();
+    				obj.put("type", EXIT_EVENT);
+    				if (!shouldClose) {
+    					sendUpdate(obj, false);
+    				}
+
+
+    			} catch (JSONException ex) {
+    				Toast.makeText(this.cordova.getActivity(),"exception:"+ex),Toast.LENGTH_LONG).show();
+
+    				LOG.d(LOG_TAG, "Should never happen");
+    			}
 
                
             }
