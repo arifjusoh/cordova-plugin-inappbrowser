@@ -427,8 +427,8 @@ public class InAppBrowser extends CordovaPlugin {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	if(count.equals("0"))
-            	{
+            	//if(count.equals("0"))
+            	//{
                 final WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
@@ -454,7 +454,7 @@ public class InAppBrowser extends CordovaPlugin {
                 childView.loadUrl("about:blank");
 				}
 				count++;
-                }
+                //}
 
 
 
