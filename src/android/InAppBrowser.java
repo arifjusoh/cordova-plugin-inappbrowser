@@ -422,7 +422,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 
-    	Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
+    	//Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
 
     	if(String.valueOf(shouldClose).equals("true"))
     	{
@@ -463,7 +463,7 @@ public class InAppBrowser extends CordovaPlugin {
 
 else
 {
-	//Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
+	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
 
 	        this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -490,6 +490,7 @@ else
                 //childView.loadUrl("about:blank");
 
                 try {
+                	Toast.makeText(this.cordova.getActivity(),"exit event",Toast.LENGTH_LONG).show();
                     JSONObject obj = new JSONObject();
                     obj.put("type", EXIT_EVENT);
                     sendUpdate(obj, false);
