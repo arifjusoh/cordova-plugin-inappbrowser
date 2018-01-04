@@ -114,6 +114,8 @@ public class InAppBrowser extends CordovaPlugin {
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
 
+    public string count;
+
     /**
      * Executes the request and returns PluginResult.
      *
@@ -554,7 +556,7 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
         showZoomControls = true;
         openWindowHidden = false;
         mediaPlaybackRequiresUserGesture = false;
-        string count = "0";
+        count = "0";
 
         if (features != null) {
             Boolean show = features.get(LOCATION);
