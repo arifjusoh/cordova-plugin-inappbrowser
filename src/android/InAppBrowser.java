@@ -427,9 +427,8 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	if(count == 0)
-            	{
-                final WebView childView = inAppWebView;
+
+                WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
@@ -453,8 +452,6 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
                  if (shouldClose) {
                 childView.loadUrl("about:blank");
 				}
-count++;
-			}
                 
 
                  try {
