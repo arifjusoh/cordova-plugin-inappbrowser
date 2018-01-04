@@ -422,7 +422,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 
-    	Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
+    	//Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
 
     	if(String.valueOf(shouldClose).equals("true"))
     	{
@@ -472,6 +472,7 @@ else
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
+                	Toast.makeText(this.cordova.getActivity(),"childView is null",Toast.LENGTH_LONG).show();
                     return;
                 }
 
