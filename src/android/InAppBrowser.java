@@ -436,16 +436,19 @@ public class InAppBrowser extends CordovaPlugin {
                     // NB: wait for about:blank before dismissing
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
+                        	 if (shouldClose) {
                             dialog.dismiss();
                             dialog = null;
+                        }
                         }
                     }
                 });
                 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
+                if (shouldClose) {
                 childView.loadUrl("about:blank");
-
+				}
                 // try {
                 //     JSONObject obj = new JSONObject();
                 //     obj.put("type", EXIT_EVENT);
@@ -457,7 +460,7 @@ public class InAppBrowser extends CordovaPlugin {
                  try {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
-    				if(String.valueOf(shouldClose).equals("false")){
+    				if (!shouldClose) {
     					sendUpdate(obj, false);
     				}
 
@@ -472,8 +475,6 @@ public class InAppBrowser extends CordovaPlugin {
             }
         
     });
-
-}
 
 
 
