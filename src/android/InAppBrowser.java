@@ -465,6 +465,8 @@ else
 {
 	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
 
+			childView = null;
+
 	        this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -472,7 +474,6 @@ else
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
-                	Toast.makeText(this.cordova.getActivity(),"childView is null",Toast.LENGTH_LONG).show();
                     return;
                 }
 
