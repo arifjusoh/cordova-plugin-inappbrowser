@@ -437,7 +437,7 @@ public class InAppBrowser extends CordovaPlugin {
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
                             dialog.dismiss();
-                            //dialog = null;
+                            dialog = null;
                         }
                     }
                 });
