@@ -488,7 +488,7 @@ else
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
                 //childView.loadUrl("about:blank");
-            Toast.makeText(this.cordova.getActivity(),"going to try",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this.cordova.getActivity(),"going to try",Toast.LENGTH_LONG).show();
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("type", EXIT_EVENT);
