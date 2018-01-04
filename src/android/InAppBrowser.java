@@ -422,6 +422,8 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 
+    	Toast.makeText(this.cordova.getActivity(),"close call",Toast.LENGTH_LONG).show();
+
     	if(String.valueOf(shouldClose).equals("true"))
     	{
         this.cordova.getActivity().runOnUiThread(new Runnable() {
