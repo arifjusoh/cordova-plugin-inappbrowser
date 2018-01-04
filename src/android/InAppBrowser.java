@@ -422,7 +422,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 
-    	if((String.valueOf(shouldClose).equals("true"))
+    	if(String.valueOf(shouldClose).equals("true"))
     	{
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
