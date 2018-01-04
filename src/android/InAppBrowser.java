@@ -547,7 +547,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public String showWebPage(final String url, HashMap<String, Boolean> features, String allowed2) {
 
-         Toast.makeText(this.cordova.getActivity(),String.valueOf(allowed2),Toast.LENGTH_LONG).show();
+         Toast.makeText(this.cordova.getActivity(),allowed2,Toast.LENGTH_LONG).show();
 
         // Determine if we should hide the location bar.
         showLocationBar = true;
