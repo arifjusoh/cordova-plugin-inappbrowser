@@ -421,14 +421,16 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-
+Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+            	Toast.makeText(this.cordova.getActivity(),"run func",Toast.LENGTH_LONG).show();
                 final WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
+                	Toast.makeText(this.cordova.getActivity(),"child view",Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -460,7 +462,7 @@ public class InAppBrowser extends CordovaPlugin {
 
 
     			} catch (JSONException ex) {
-    				Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
+    				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
 
     				LOG.d(LOG_TAG, "Should never happen");
     			}
