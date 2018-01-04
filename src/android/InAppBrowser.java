@@ -545,7 +545,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    public String showWebPage(final String url, HashMap<String, Boolean> features, Boolean allowed2) {
+    public String showWebPage(final String url, HashMap<String, Boolean> features, String allowed2) {
 
          Toast.makeText(this.cordova.getActivity(),String.valueOf(allowed2),Toast.LENGTH_LONG).show();
 
