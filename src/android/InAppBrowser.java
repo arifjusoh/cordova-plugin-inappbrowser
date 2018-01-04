@@ -457,13 +457,13 @@ public class InAppBrowser extends CordovaPlugin {
                  try {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
-    				//if(String.valueOf(shouldClose).equals("false")) {
+    				if(String.valueOf(shouldClose).equals("false")) {
     					sendUpdate(obj, false);
-    				//}
+    				}
 
 
     			} catch (JSONException ex) {
-    				Toast.makeText(this.cordova.getActivity(),"exception:"+ex,Toast.LENGTH_LONG).show();
+    				//Toast.makeText(this.cordova.getActivity(),"exception:"+ex,Toast.LENGTH_LONG).show();
 
     				LOG.d(LOG_TAG, "Should never happen");
     			}
