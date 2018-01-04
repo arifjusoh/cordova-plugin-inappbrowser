@@ -439,7 +439,7 @@ public class InAppBrowser extends CordovaPlugin {
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
                             dialog.dismiss();
-                            dialog = null;
+                            //dialog = null;
                         }
                     }
                 });
@@ -477,7 +477,7 @@ else
                     // NB: wait for about:blank before dismissing
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
-                            dialog.dismiss();
+                            //dialog.dismiss();
                             //dialog = null;
                         }
                     }
