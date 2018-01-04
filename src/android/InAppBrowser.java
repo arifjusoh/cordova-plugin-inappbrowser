@@ -465,9 +465,8 @@ else
 {
 	Toast.makeText(this.cordova.getActivity(),"not allowed to close",Toast.LENGTH_LONG).show();
 
-			childView = null;
-
-	        this.cordova.getActivity().runOnUiThread(new Runnable() {
+			this.cordova.getActivity().runOnUiThread(new Runnable() {
+		    childView = null;
             @Override
             public void run() {
                 final WebView childView = inAppWebView;
