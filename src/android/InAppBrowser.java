@@ -491,11 +491,11 @@ if(count == 0)
 
 else
 { 
-	Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_SHORT).show();
           try {
     				JSONObject objj = new JSONObject();
     				objj.put("type", EXIT_EVENT);
     				 if (!shouldClose) {
+  						Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_SHORT).show();
     					sendUpdate(objj, false);
     				}
 
