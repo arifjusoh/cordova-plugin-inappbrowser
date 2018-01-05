@@ -1170,38 +1170,38 @@ else
          * On received http auth request.
          */
         @Override
-        // public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
+        public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
 
-        //     // Check if there is some plugin which can resolve this auth challenge
-        //     PluginManager pluginManager = null;
-        //     try {
-        //         Method gpm = webView.getClass().getMethod("getPluginManager");
-        //         pluginManager = (PluginManager)gpm.invoke(webView);
-        //     } catch (NoSuchMethodException e) {
-        //         LOG.d(LOG_TAG, e.getLocalizedMessage());
-        //     } catch (IllegalAccessException e) {
-        //         LOG.d(LOG_TAG, e.getLocalizedMessage());
-        //     } catch (InvocationTargetException e) {
-        //         LOG.d(LOG_TAG, e.getLocalizedMessage());
-        //     }
+            // Check if there is some plugin which can resolve this auth challenge
+            PluginManager pluginManager = null;
+            try {
+                Method gpm = webView.getClass().getMethod("getPluginManager");
+                pluginManager = (PluginManager)gpm.invoke(webView);
+            } catch (NoSuchMethodException e) {
+                LOG.d(LOG_TAG, e.getLocalizedMessage());
+            } catch (IllegalAccessException e) {
+                LOG.d(LOG_TAG, e.getLocalizedMessage());
+            } catch (InvocationTargetException e) {
+                LOG.d(LOG_TAG, e.getLocalizedMessage());
+            }
 
-        //     if (pluginManager == null) {
-        //         try {
-        //             Field pmf = webView.getClass().getField("pluginManager");
-        //             pluginManager = (PluginManager)pmf.get(webView);
-        //         } catch (NoSuchFieldException e) {
-        //             LOG.d(LOG_TAG, e.getLocalizedMessage());
-        //         } catch (IllegalAccessException e) {
-        //             LOG.d(LOG_TAG, e.getLocalizedMessage());
-        //         }
-        //     }
+            if (pluginManager == null) {
+                try {
+                    Field pmf = webView.getClass().getField("pluginManager");
+                    pluginManager = (PluginManager)pmf.get(webView);
+                } catch (NoSuchFieldException e) {
+                    LOG.d(LOG_TAG, e.getLocalizedMessage());
+                } catch (IllegalAccessException e) {
+                    LOG.d(LOG_TAG, e.getLocalizedMessage());
+                }
+            }
 
-        //     if (pluginManager != null && pluginManager.onReceivedHttpAuthRequest(webView, new CordovaHttpAuthHandler(handler), host, realm)) {
-        //         return;
-        //     }
+            if (pluginManager != null && pluginManager.onReceivedHttpAuthRequest(webView, new CordovaHttpAuthHandler(handler), host, realm)) {
+                return;
+            }
 
-        //     // By default handle 401 like we'd normally do!
-        //     super.onReceivedHttpAuthRequest(view, handler, host, realm);
-        // }
+            // By default handle 401 like we'd normally do!
+            super.onReceivedHttpAuthRequest(view, handler, host, realm);
+        }
     }
 }
