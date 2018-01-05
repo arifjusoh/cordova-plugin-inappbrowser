@@ -125,6 +125,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return A PluginResult object with a status and message.
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
+    	 Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_LONG).show();
         if (action.equals("open")) {
             this.callbackContext = callbackContext;
             final String url = args.getString(0);
