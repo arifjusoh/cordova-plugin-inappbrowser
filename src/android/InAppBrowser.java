@@ -144,7 +144,7 @@ public class InAppBrowser extends CordovaPlugin {
                     String result = "";
                     // SELF
                     if (SELF.equals(target)) {
-                    	Toast.makeText(this.cordova.getActivity(),"in self",Toast.LENGTH_LONG).show();
+                    	
                         LOG.d(LOG_TAG, "in self");
                         /* This code exists for compatibility between 3.x and 4.x versions of Cordova.
                          * Previously the Config class had a static method, isUrlWhitelisted(). That
