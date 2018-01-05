@@ -427,8 +427,8 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	if(count == 0)
-            	{
+            	//if(count == 0)
+            	//{
                 final WebView childView = inAppWebView;
                  
                 // The JS protects against multiple calls, so this should happen only when
@@ -436,8 +436,8 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
                 if (childView == null) {
                     return;
                 }
-count++;
-            }
+			//count++;
+            //}
 
 
                 childView.setWebViewClient(new WebViewClient() {
@@ -486,7 +486,6 @@ count++;
 
 //if (shouldClose){}
         if (this.inAppWebView.canGoBack()) {
-        //if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
 
@@ -497,6 +496,7 @@ count++;
      * @return boolean
      */
     public boolean canGoBack() {
+    	Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_LONG).show();
         return this.inAppWebView.canGoBack();
     }  
 
@@ -505,6 +505,7 @@ count++;
      * @return boolean
      */
     public boolean hardwareBack() {
+    	Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_LONG).show();
         return hadwareBackButton;
     }
 
@@ -523,6 +524,7 @@ count++;
      * @param url to load
      */
     private void navigate(String url) {
+    	Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_LONG).show();
         InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 
@@ -765,6 +767,7 @@ count++;
 
                 // WebView
                 inAppWebView = new WebView(cordova.getActivity());
+                Toast.makeText(this.cordova.getActivity(),"webview",Toast.LENGTH_LONG).show();
                 inAppWebView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 inAppWebView.setId(Integer.valueOf(6));
                 // File Chooser Implemented ChromeClient
@@ -811,6 +814,7 @@ count++;
 
                 });
                 WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
+                 Toast.makeText(this.cordova.getActivity(),"webview client",Toast.LENGTH_LONG).show();
                 inAppWebView.setWebViewClient(client);
                 WebSettings settings = inAppWebView.getSettings();
                 settings.setJavaScriptEnabled(true);
@@ -853,6 +857,7 @@ count++;
                     CookieManager.getInstance().setAcceptThirdPartyCookies(inAppWebView,true);
                 }
 
+ 				Toast.makeText(this.cordova.getActivity(),"inAppWebView loading",Toast.LENGTH_LONG).show();
                 inAppWebView.loadUrl(url);
                 inAppWebView.setId(Integer.valueOf(6));
                 inAppWebView.getSettings().setLoadWithOverviewMode(true);
