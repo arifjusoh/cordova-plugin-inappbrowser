@@ -436,8 +436,6 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-if(count == 0)
-            	{
             		Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -468,7 +466,6 @@ if(count == 0)
                  if (shouldClose) {
                 childView.loadUrl("about:blank");
 				}
-                
 
                  try {
     				JSONObject obj = new JSONObject();
@@ -486,26 +483,6 @@ if(count == 0)
 
                }
     });
-        count++;
-            }
-
-else
-{ 
-          try {
-    				JSONObject obj = new JSONObject();
-    				obj.put("type", EXIT_EVENT);
-    				 if (!shouldClose) {
-  						Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_SHORT).show();
-    					sendUpdate(obj, false);
-    				}
-
-
-    			} catch (JSONException ex) {
-    				Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_SHORT).show();
-
-    				LOG.d(LOG_TAG, "Should never happen");
-    			}
-}
 }
 
 
@@ -953,21 +930,26 @@ else
         	 //Toast.makeText(this.cordova.getActivity(),"in sendUpdate, callbackContext is not null",Toast.LENGTH_SHORT).show();
         	 Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + " keepCallback: "+keepCallback + " status: "+status,Toast.LENGTH_SHORT).show();
             
-            // PluginResult result = new PluginResult(status, obj);
-            // result.setKeepCallback(keepCallback);
-            // callbackContext.sendPluginResult(result);
+            PluginResult resultA = new PluginResult(status, obj);
+            resultA.setKeepCallback(true);
+            callbackContext.sendPluginResult(resultA);
+
+
+			PluginResult resultB = new PluginResult(status, obj);
+            resultB.setKeepCallback(true);
+            callbackContext.sendPluginResult(resultB);
             
             // if (!keepCallback) {
             // callbackContext = null;
             // }
 
-            PluginResult resultA = new PluginResult(status, obj);
-            resultA.setKeepCallback(true);
-            callbackContext.sendPluginResult(resultA);
+   //          PluginResult resultA = new PluginResult(status, obj);
+   //          resultA.setKeepCallback(true);
+   //          callbackContext.sendPluginResult(resultA);
 
-			PluginResult resultB = new PluginResult(status, obj);
-            resultB.setKeepCallback(true);
-            callbackContext.sendPluginResult(resultB);            
+			// PluginResult resultB = new PluginResult(status, obj);
+   //          resultB.setKeepCallback(true);
+   //          callbackContext.sendPluginResult(resultB);            
 
         }
     }
