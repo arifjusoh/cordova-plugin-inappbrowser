@@ -938,6 +938,7 @@ else
      * @param obj a JSONObject contain event payload information
      */
     private void sendUpdate(JSONObject obj, boolean keepCallback) {
+    	Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + "keepCallback: "+keepCallback,Toast.LENGTH_SHORT).show();
         sendUpdate(obj, keepCallback, PluginResult.Status.OK);
     }
 
