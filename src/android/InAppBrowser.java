@@ -474,7 +474,7 @@ if(count == 0)
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
     				 if (!shouldClose) {
-    					//sendUpdate(obj, false);
+    					sendUpdate(obj, false);
     				}
 
 
@@ -501,7 +501,7 @@ else
 
 
     			} catch (JSONException ex) {
-    				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
+    				Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
 
     				LOG.d(LOG_TAG, "Should never happen");
     			}
