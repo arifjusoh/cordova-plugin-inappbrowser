@@ -144,6 +144,7 @@ public class InAppBrowser extends CordovaPlugin {
                     String result = "";
                     // SELF
                     if (SELF.equals(target)) {
+                    	Toast.makeText(this.cordova.getActivity(),"in self",Toast.LENGTH_LONG).show();
                         LOG.d(LOG_TAG, "in self");
                         /* This code exists for compatibility between 3.x and 4.x versions of Cordova.
                          * Previously the Config class had a static method, isUrlWhitelisted(). That
@@ -220,9 +221,11 @@ public class InAppBrowser extends CordovaPlugin {
                 }
             });
         }
+
         else if (action.equals("close")) {
             closeDialog();
         }
+
         else if (action.equals("injectScriptCode")) {
             String jsWrapper = null;
             if (args.getBoolean(1)) {
@@ -230,6 +233,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             injectDeferredObject(args.getString(0), jsWrapper);
         }
+
         else if (action.equals("injectScriptFile")) {
             String jsWrapper;
             if (args.getBoolean(1)) {
@@ -239,6 +243,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             injectDeferredObject(args.getString(0), jsWrapper);
         }
+
         else if (action.equals("injectStyleCode")) {
             String jsWrapper;
             if (args.getBoolean(1)) {
@@ -248,6 +253,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             injectDeferredObject(args.getString(0), jsWrapper);
         }
+
         else if (action.equals("injectStyleFile")) {
             String jsWrapper;
             if (args.getBoolean(1)) {
@@ -257,6 +263,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             injectDeferredObject(args.getString(0), jsWrapper);
         }
+
         else if (action.equals("show")) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -268,6 +275,7 @@ public class InAppBrowser extends CordovaPlugin {
             pluginResult.setKeepCallback(true);
             this.callbackContext.sendPluginResult(pluginResult);
         }
+
         else if (action.equals("hide")) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -279,9 +287,11 @@ public class InAppBrowser extends CordovaPlugin {
             pluginResult.setKeepCallback(true);
             this.callbackContext.sendPluginResult(pluginResult);
         }
+
         else {
             return false;
         }
+
         return true;
     }
 
