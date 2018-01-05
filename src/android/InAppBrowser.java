@@ -767,7 +767,6 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
 
                 // WebView
                 inAppWebView = new WebView(cordova.getActivity());
-                Toast.makeText(this.cordova.getActivity(),"webview",Toast.LENGTH_LONG).show();
                 inAppWebView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 inAppWebView.setId(Integer.valueOf(6));
                 // File Chooser Implemented ChromeClient
