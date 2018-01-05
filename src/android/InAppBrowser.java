@@ -471,7 +471,7 @@ public class InAppBrowser extends CordovaPlugin {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
     				 if (!shouldClose) {
-    					sendUpdate(obj, false);
+    					sendUpdate(obj, true);
     				}
 
 
@@ -931,12 +931,12 @@ public class InAppBrowser extends CordovaPlugin {
         	 Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + " keepCallback: "+keepCallback + " status: "+status,Toast.LENGTH_SHORT).show();
             
             PluginResult resultA = new PluginResult(status, obj);
-            resultA.setKeepCallback(true);
+            resultA.setKeepCallback(keepCallback);
             callbackContext.sendPluginResult(resultA);
 
 
 			PluginResult resultB = new PluginResult(status, obj);
-            resultB.setKeepCallback(true);
+            resultB.setKeepCallback(keepCallback);
             callbackContext.sendPluginResult(resultB);
             
             // if (!keepCallback) {
