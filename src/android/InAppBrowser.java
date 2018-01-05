@@ -558,6 +558,8 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
      */
     public String showWebPage(final String url, HashMap<String, Boolean> features) {
 
+    	 Toast.makeText(this.cordova.getActivity(),"show web page",Toast.LENGTH_LONG).show();
+
         // Determine if we should hide the location bar.
         showLocationBar = true;
         shouldClose = true;
