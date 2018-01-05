@@ -436,11 +436,12 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void closeDialog() {
 Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show();
+if(count == 0)
+            	{
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	//if(count == 0)
-            	//{
+            	
                 final WebView childView = inAppWebView;
                  
                 // The JS protects against multiple calls, so this should happen only when
@@ -448,10 +449,7 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
                 if (childView == null) {
                     return;
                 }
-			//count++;
-            //}
-
-
+			
                 childView.setWebViewClient(new WebViewClient() {
                     // NB: wait for about:blank before dismissing
                     public void onPageFinished(WebView view, String url) {
@@ -487,6 +485,22 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
 
                }
     });
+        count++;
+            }
+
+          try {
+    				JSONObject obj = new JSONObject();
+    				obj.put("type", EXIT_EVENT);
+    				 if (!shouldClose) {
+    					sendUpdate(obj, false);
+    				}
+
+
+    			} catch (JSONException ex) {
+    				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
+
+    				LOG.d(LOG_TAG, "Should never happen");
+    			}
 }
 
 
@@ -826,13 +840,13 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
                 //     }
 
                 // });
-                // WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
-                // inAppWebView.setWebViewClient(client);
-                // WebSettings settings = inAppWebView.getSettings();
-                // settings.setJavaScriptEnabled(true);
-                // settings.setJavaScriptCanOpenWindowsAutomatically(true);
-                // settings.setBuiltInZoomControls(showZoomControls);
-                // settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
+                WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
+                inAppWebView.setWebViewClient(client);
+                WebSettings settings = inAppWebView.getSettings();
+                settings.setJavaScriptEnabled(true);
+                settings.setJavaScriptCanOpenWindowsAutomatically(true);
+                settings.setBuiltInZoomControls(showZoomControls);
+                settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
 
                 if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     settings.setMediaPlaybackRequiresUserGesture(mediaPlaybackRequiresUserGesture);
