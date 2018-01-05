@@ -474,7 +474,7 @@ if(count == 0)
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
     				 if (!shouldClose) {
-    					sendUpdate(obj, false);
+    					//sendUpdate(obj, false);
     				}
 
 
