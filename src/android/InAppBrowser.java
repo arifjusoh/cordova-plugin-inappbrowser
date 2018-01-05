@@ -126,7 +126,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
     	 Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_LONG).show();
-    	 
+
         if (action.equals("open")) {
             this.callbackContext = callbackContext;
             final String url = args.getString(0); 
@@ -436,9 +436,9 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show();
 if(count == 0)
             	{
+            		Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
