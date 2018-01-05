@@ -124,10 +124,9 @@ public class InAppBrowser extends CordovaPlugin {
      * @param callbackContext the callbackContext used when calling back into JavaScript.
      * @return A PluginResult object with a status and message.
      */
-    initiate:
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
     	 Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_LONG).show();
-
+    	 
         if (action.equals("open")) {
             this.callbackContext = callbackContext;
             final String url = args.getString(0); 
@@ -490,10 +489,19 @@ if(count == 0)
         count++;
             }
 
-          else
-          {
-          	continue initiate;
-          }
+          try {
+    				JSONObject obj = new JSONObject();
+    				obj.put("type", EXIT_EVENT);
+    				 if (!shouldClose) {
+    					sendUpdate(obj, false);
+    				}
+
+
+    			} catch (JSONException ex) {
+    				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
+
+    				LOG.d(LOG_TAG, "Should never happen");
+    			}
 }
 
 
