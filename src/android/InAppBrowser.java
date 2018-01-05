@@ -827,27 +827,27 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
                 //     }
 
                 // });
-                // WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
-                // inAppWebView.setWebViewClient(client);
-                // WebSettings settings = inAppWebView.getSettings();
-                // settings.setJavaScriptEnabled(true);
-                // settings.setJavaScriptCanOpenWindowsAutomatically(true);
-                // settings.setBuiltInZoomControls(showZoomControls);
-                // settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
+                WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
+                inAppWebView.setWebViewClient(client);
+                WebSettings settings = inAppWebView.getSettings();
+                settings.setJavaScriptEnabled(true);
+                settings.setJavaScriptCanOpenWindowsAutomatically(true);
+                settings.setBuiltInZoomControls(showZoomControls);
+                settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
 
-                // if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                //     settings.setMediaPlaybackRequiresUserGesture(mediaPlaybackRequiresUserGesture);
-                // }
+                if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    settings.setMediaPlaybackRequiresUserGesture(mediaPlaybackRequiresUserGesture);
+                }
 
-                // String overrideUserAgent = preferences.getString("OverrideUserAgent", null);
-                // String appendUserAgent = preferences.getString("AppendUserAgent", null);
+                String overrideUserAgent = preferences.getString("OverrideUserAgent", null);
+                String appendUserAgent = preferences.getString("AppendUserAgent", null);
 
-                // if (overrideUserAgent != null) {
-                //     settings.setUserAgentString(overrideUserAgent);
-                // }
-                // if (appendUserAgent != null) {
-                //     settings.setUserAgentString(settings.getUserAgentString() + appendUserAgent);
-                // }
+                if (overrideUserAgent != null) {
+                    settings.setUserAgentString(overrideUserAgent);
+                }
+                if (appendUserAgent != null) {
+                    settings.setUserAgentString(settings.getUserAgentString() + appendUserAgent);
+                }
 
                 //Toggle whether this is enabled or not!
                 Bundle appSettings = cordova.getActivity().getIntent().getExtras();
