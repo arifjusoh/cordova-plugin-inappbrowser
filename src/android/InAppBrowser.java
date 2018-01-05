@@ -493,7 +493,7 @@ else
 { 
 	Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_LONG).show();
           //try {
-    				JSONObject obj = new JSONObject();
+    				//JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
     				 if (!shouldClose) {
     					sendUpdate(obj, false);
