@@ -125,20 +125,20 @@ public class InAppBrowser extends CordovaPlugin {
      * @return A PluginResult object with a status and message.
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
-    	 Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_SHORT).show();
+    	 //Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_SHORT).show();
 
         if (action.equals("open")) {
             this.callbackContext = callbackContext;
             final String url = args.getString(0); 
-             Toast.makeText(this.cordova.getActivity(),"url: "+url,Toast.LENGTH_SHORT).show();
+             //Toast.makeText(this.cordova.getActivity(),"url: "+url,Toast.LENGTH_SHORT).show();
             String t = args.optString(1);
-             Toast.makeText(this.cordova.getActivity(),"t: "+t,Toast.LENGTH_SHORT).show();
+             //Toast.makeText(this.cordova.getActivity(),"t: "+t,Toast.LENGTH_SHORT).show();
             if (t == null || t.equals("") || t.equals(NULL)) {
                 t = SELF;
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-             Toast.makeText(this.cordova.getActivity(),"features: "+features,Toast.LENGTH_SHORT).show();
+             //Toast.makeText(this.cordova.getActivity(),"features: "+features,Toast.LENGTH_SHORT).show();
             LOG.d(LOG_TAG, "target = " + target);
 
             this.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -436,7 +436,7 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-            		Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
+            		//Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -490,7 +490,7 @@ public class InAppBrowser extends CordovaPlugin {
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
-    	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
 
 //if (shouldClose){}
         if (this.inAppWebView.canGoBack()) {
@@ -504,7 +504,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-    	Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
         return this.inAppWebView.canGoBack();
     }  
 
@@ -513,7 +513,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
         return hadwareBackButton;
     }
 
@@ -532,7 +532,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url to load
      */
     private void navigate(String url) {
-    	Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
         InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 
@@ -566,7 +566,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public String showWebPage(final String url, HashMap<String, Boolean> features) {
 
-    	 Toast.makeText(this.cordova.getActivity(),"show web page",Toast.LENGTH_SHORT).show();
+    	 //Toast.makeText(this.cordova.getActivity(),"show web page",Toast.LENGTH_SHORT).show();
 
         // Determine if we should hide the location bar.
         showLocationBar = true;
@@ -915,7 +915,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @param obj a JSONObject contain event payload information
      */
     private void sendUpdate(JSONObject obj, boolean keepCallback) {
-    	Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + "keepCallback: "+keepCallback,Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + "keepCallback: "+keepCallback,Toast.LENGTH_SHORT).show();
         sendUpdate(obj, keepCallback, PluginResult.Status.OK);
     }
 
@@ -927,30 +927,10 @@ public class InAppBrowser extends CordovaPlugin {
      */
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
-        	 //Toast.makeText(this.cordova.getActivity(),"in sendUpdate, callbackContext is not null",Toast.LENGTH_SHORT).show();
-        	 Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + " keepCallback: "+keepCallback + " status: "+status,Toast.LENGTH_SHORT).show();
-            
+        	 //Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + " keepCallback: "+keepCallback + " status: "+status,Toast.LENGTH_SHORT).show();
             PluginResult resultA = new PluginResult(status, obj);
             resultA.setKeepCallback(keepCallback);
-            callbackContext.sendPluginResult(resultA);
-
-
-			// PluginResult resultB = new PluginResult(status, obj);
-   //          resultB.setKeepCallback(keepCallback);
-   //          callbackContext.sendPluginResult(resultB);
-            
-            // if (!keepCallback) {
-            // callbackContext = null;
-            // }
-
-   //          PluginResult resultA = new PluginResult(status, obj);
-   //          resultA.setKeepCallback(true);
-   //          callbackContext.sendPluginResult(resultA);
-
-			// PluginResult resultB = new PluginResult(status, obj);
-   //          resultB.setKeepCallback(true);
-   //          callbackContext.sendPluginResult(resultB);            
-
+            callbackContext.sendPluginResult(resultA);         
         }
     }
 
