@@ -125,20 +125,20 @@ public class InAppBrowser extends CordovaPlugin {
      * @return A PluginResult object with a status and message.
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
-    	 Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_LONG).show();
+    	 Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_SHORT).show();
 
         if (action.equals("open")) {
             this.callbackContext = callbackContext;
             final String url = args.getString(0); 
-             Toast.makeText(this.cordova.getActivity(),"url: "+url,Toast.LENGTH_LONG).show();
+             Toast.makeText(this.cordova.getActivity(),"url: "+url,Toast.LENGTH_SHORT).show();
             String t = args.optString(1);
-             Toast.makeText(this.cordova.getActivity(),"t: "+t,Toast.LENGTH_LONG).show();
+             Toast.makeText(this.cordova.getActivity(),"t: "+t,Toast.LENGTH_SHORT).show();
             if (t == null || t.equals("") || t.equals(NULL)) {
                 t = SELF;
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-             Toast.makeText(this.cordova.getActivity(),"features: "+features,Toast.LENGTH_LONG).show();
+             Toast.makeText(this.cordova.getActivity(),"features: "+features,Toast.LENGTH_SHORT).show();
             LOG.d(LOG_TAG, "target = " + target);
 
             this.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -438,7 +438,7 @@ public class InAppBrowser extends CordovaPlugin {
     public void closeDialog() {
 if(count == 0)
             	{
-            		Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show();
+            		Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -479,7 +479,7 @@ if(count == 0)
 
 
     			} catch (JSONException ex) {
-    				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
+    				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_SHORT).show();
 
     				LOG.d(LOG_TAG, "Should never happen");
     			}
@@ -491,7 +491,7 @@ if(count == 0)
 
 else
 { 
-	Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_LONG).show();
+	Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_SHORT).show();
           try {
     				JSONObject objj = new JSONObject();
     				objj.put("type", EXIT_EVENT);
@@ -501,7 +501,7 @@ else
 
 
     			} catch (JSONException ex) {
-    				Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
+    				Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_SHORT).show();
 
     				LOG.d(LOG_TAG, "Should never happen");
     			}
@@ -513,7 +513,7 @@ else
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
-    	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
 
 //if (shouldClose){}
         if (this.inAppWebView.canGoBack()) {
@@ -527,7 +527,7 @@ else
      * @return boolean
      */
     public boolean canGoBack() {
-    	Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
         return this.inAppWebView.canGoBack();
     }  
 
@@ -536,7 +536,7 @@ else
      * @return boolean
      */
     public boolean hardwareBack() {
-    	Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
         return hadwareBackButton;
     }
 
@@ -555,7 +555,7 @@ else
      * @param url to load
      */
     private void navigate(String url) {
-    	Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
         InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 
@@ -589,7 +589,7 @@ else
      */
     public String showWebPage(final String url, HashMap<String, Boolean> features) {
 
-    	 Toast.makeText(this.cordova.getActivity(),"show web page",Toast.LENGTH_LONG).show();
+    	 Toast.makeText(this.cordova.getActivity(),"show web page",Toast.LENGTH_SHORT).show();
 
         // Determine if we should hide the location bar.
         showLocationBar = true;
@@ -607,7 +607,7 @@ else
             if (shouldclose != null) {
                 shouldClose = shouldclose.booleanValue();
 
-                //Toast.makeText(this.cordova.getActivity(),String.valueOf(shouldClose),Toast.LENGTH_LONG).show();
+                //Toast.makeText(this.cordova.getActivity(),String.valueOf(shouldClose),Toast.LENGTH_SHORT).show();
             }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
