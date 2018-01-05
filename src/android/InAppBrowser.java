@@ -489,6 +489,9 @@ if(count == 0)
         count++;
             }
 
+else
+{ 
+	Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_LONG).show();
           try {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
@@ -502,6 +505,7 @@ if(count == 0)
 
     				LOG.d(LOG_TAG, "Should never happen");
     			}
+}
 }
 
 
