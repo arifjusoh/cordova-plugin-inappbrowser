@@ -967,34 +967,34 @@ else
      * @param resultCode the result code returned from android system
      * @param intent the data from android file chooser
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        // For Android >= 5.0
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            LOG.d(LOG_TAG, "onActivityResult (For Android >= 5.0)");
-            // If RequestCode or Callback is Invalid
-            if(requestCode != FILECHOOSER_REQUESTCODE_LOLLIPOP || mUploadCallbackLollipop == null) {
-                super.onActivityResult(requestCode, resultCode, intent);
-                return;
-            }
-            mUploadCallbackLollipop.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent));
-            mUploadCallbackLollipop = null;
-        }
-        // For Android < 5.0
-        else {
-            LOG.d(LOG_TAG, "onActivityResult (For Android < 5.0)");
-            // If RequestCode or Callback is Invalid
-            if(requestCode != FILECHOOSER_REQUESTCODE || mUploadCallback == null) {
-                super.onActivityResult(requestCode, resultCode, intent);
-                return;
-            }
+    // public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    //     // For Android >= 5.0
+    //     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    //         LOG.d(LOG_TAG, "onActivityResult (For Android >= 5.0)");
+    //         // If RequestCode or Callback is Invalid
+    //         if(requestCode != FILECHOOSER_REQUESTCODE_LOLLIPOP || mUploadCallbackLollipop == null) {
+    //             super.onActivityResult(requestCode, resultCode, intent);
+    //             return;
+    //         }
+    //         mUploadCallbackLollipop.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent));
+    //         mUploadCallbackLollipop = null;
+    //     }
+    //     // For Android < 5.0
+    //     else {
+    //         LOG.d(LOG_TAG, "onActivityResult (For Android < 5.0)");
+    //         // If RequestCode or Callback is Invalid
+    //         if(requestCode != FILECHOOSER_REQUESTCODE || mUploadCallback == null) {
+    //             super.onActivityResult(requestCode, resultCode, intent);
+    //             return;
+    //         }
 
-            if (null == mUploadCallback) return;
-            Uri result = intent == null || resultCode != cordova.getActivity().RESULT_OK ? null : intent.getData();
+    //         if (null == mUploadCallback) return;
+    //         Uri result = intent == null || resultCode != cordova.getActivity().RESULT_OK ? null : intent.getData();
 
-            mUploadCallback.onReceiveValue(result);
-            mUploadCallback = null;
-        }
-    }
+    //         mUploadCallback.onReceiveValue(result);
+    //         mUploadCallback = null;
+    //     }
+    // }
 
     /**
      * The webview client receives notifications about appView
@@ -1170,38 +1170,38 @@ else
          * On received http auth request.
          */
         @Override
-        public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
+        // public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
 
-            // Check if there is some plugin which can resolve this auth challenge
-            PluginManager pluginManager = null;
-            try {
-                Method gpm = webView.getClass().getMethod("getPluginManager");
-                pluginManager = (PluginManager)gpm.invoke(webView);
-            } catch (NoSuchMethodException e) {
-                LOG.d(LOG_TAG, e.getLocalizedMessage());
-            } catch (IllegalAccessException e) {
-                LOG.d(LOG_TAG, e.getLocalizedMessage());
-            } catch (InvocationTargetException e) {
-                LOG.d(LOG_TAG, e.getLocalizedMessage());
-            }
+        //     // Check if there is some plugin which can resolve this auth challenge
+        //     PluginManager pluginManager = null;
+        //     try {
+        //         Method gpm = webView.getClass().getMethod("getPluginManager");
+        //         pluginManager = (PluginManager)gpm.invoke(webView);
+        //     } catch (NoSuchMethodException e) {
+        //         LOG.d(LOG_TAG, e.getLocalizedMessage());
+        //     } catch (IllegalAccessException e) {
+        //         LOG.d(LOG_TAG, e.getLocalizedMessage());
+        //     } catch (InvocationTargetException e) {
+        //         LOG.d(LOG_TAG, e.getLocalizedMessage());
+        //     }
 
-            if (pluginManager == null) {
-                try {
-                    Field pmf = webView.getClass().getField("pluginManager");
-                    pluginManager = (PluginManager)pmf.get(webView);
-                } catch (NoSuchFieldException e) {
-                    LOG.d(LOG_TAG, e.getLocalizedMessage());
-                } catch (IllegalAccessException e) {
-                    LOG.d(LOG_TAG, e.getLocalizedMessage());
-                }
-            }
+        //     if (pluginManager == null) {
+        //         try {
+        //             Field pmf = webView.getClass().getField("pluginManager");
+        //             pluginManager = (PluginManager)pmf.get(webView);
+        //         } catch (NoSuchFieldException e) {
+        //             LOG.d(LOG_TAG, e.getLocalizedMessage());
+        //         } catch (IllegalAccessException e) {
+        //             LOG.d(LOG_TAG, e.getLocalizedMessage());
+        //         }
+        //     }
 
-            if (pluginManager != null && pluginManager.onReceivedHttpAuthRequest(webView, new CordovaHttpAuthHandler(handler), host, realm)) {
-                return;
-            }
+        //     if (pluginManager != null && pluginManager.onReceivedHttpAuthRequest(webView, new CordovaHttpAuthHandler(handler), host, realm)) {
+        //         return;
+        //     }
 
-            // By default handle 401 like we'd normally do!
-            super.onReceivedHttpAuthRequest(view, handler, host, realm);
-        }
+        //     // By default handle 401 like we'd normally do!
+        //     super.onReceivedHttpAuthRequest(view, handler, host, realm);
+        // }
     }
 }
