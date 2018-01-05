@@ -468,6 +468,7 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
                  if (shouldClose) {
                 childView.loadUrl("about:blank");
+                showpara
 				}
                 
 
@@ -784,28 +785,69 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
                 inAppWebView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 inAppWebView.setId(Integer.valueOf(6));
                 // File Chooser Implemented ChromeClient
-               
-                WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
-                inAppWebView.setWebViewClient(client);
-                WebSettings settings = inAppWebView.getSettings();
-                settings.setJavaScriptEnabled(true);
-                settings.setJavaScriptCanOpenWindowsAutomatically(true);
-                settings.setBuiltInZoomControls(showZoomControls);
-                settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
+                // inAppWebView.setWebChromeClient(new InAppChromeClient(thatWebView) {
+                //     // For Android 5.0+
+                //     public boolean onShowFileChooser (WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams)
+                //     {
+                //         LOG.d(LOG_TAG, "File Chooser 5.0+");
+                //         // If callback exists, finish it.
+                //         if(mUploadCallbackLollipop != null) {
+                //             mUploadCallbackLollipop.onReceiveValue(null);
+                //         }
+                //         mUploadCallbackLollipop = filePathCallback;
 
-                if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    settings.setMediaPlaybackRequiresUserGesture(mediaPlaybackRequiresUserGesture);
-                }
+                //         // Create File Chooser Intent
+                //         Intent content = new Intent(Intent.ACTION_GET_CONTENT);
+                //         content.addCategory(Intent.CATEGORY_OPENABLE);
+                //         content.setType("*/*");
 
-                String overrideUserAgent = preferences.getString("OverrideUserAgent", null);
-                String appendUserAgent = preferences.getString("AppendUserAgent", null);
+                //         // Run cordova startActivityForResult
+                //         cordova.startActivityForResult(InAppBrowser.this, Intent.createChooser(content, "Select File"), FILECHOOSER_REQUESTCODE_LOLLIPOP);
+                //         return true;
+                //     }
 
-                if (overrideUserAgent != null) {
-                    settings.setUserAgentString(overrideUserAgent);
-                }
-                if (appendUserAgent != null) {
-                    settings.setUserAgentString(settings.getUserAgentString() + appendUserAgent);
-                }
+                //     // For Android 4.1+
+                //     public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture)
+                //     {
+                //         LOG.d(LOG_TAG, "File Chooser 4.1+");
+                //         // Call file chooser for Android 3.0+
+                //         openFileChooser(uploadMsg, acceptType);
+                //     }
+
+                //     // For Android 3.0+
+                //     public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType)
+                //     {
+                //         LOG.d(LOG_TAG, "File Chooser 3.0+");
+                //         mUploadCallback = uploadMsg;
+                //         Intent content = new Intent(Intent.ACTION_GET_CONTENT);
+                //         content.addCategory(Intent.CATEGORY_OPENABLE);
+
+                //         // run startActivityForResult
+                //         cordova.startActivityForResult(InAppBrowser.this, Intent.createChooser(content, "Select File"), FILECHOOSER_REQUESTCODE);
+                //     }
+
+                // });
+                // WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
+                // inAppWebView.setWebViewClient(client);
+                // WebSettings settings = inAppWebView.getSettings();
+                // settings.setJavaScriptEnabled(true);
+                // settings.setJavaScriptCanOpenWindowsAutomatically(true);
+                // settings.setBuiltInZoomControls(showZoomControls);
+                // settings.setPluginState(android.webkit.WebSettings.PluginState.ON);
+
+                // if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                //     settings.setMediaPlaybackRequiresUserGesture(mediaPlaybackRequiresUserGesture);
+                // }
+
+                // String overrideUserAgent = preferences.getString("OverrideUserAgent", null);
+                // String appendUserAgent = preferences.getString("AppendUserAgent", null);
+
+                // if (overrideUserAgent != null) {
+                //     settings.setUserAgentString(overrideUserAgent);
+                // }
+                // if (appendUserAgent != null) {
+                //     settings.setUserAgentString(settings.getUserAgentString() + appendUserAgent);
+                // }
 
                 //Toggle whether this is enabled or not!
                 Bundle appSettings = cordova.getActivity().getIntent().getExtras();
