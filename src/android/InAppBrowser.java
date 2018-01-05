@@ -952,13 +952,23 @@ else
         if (callbackContext != null) {
         	 //Toast.makeText(this.cordova.getActivity(),"in sendUpdate, callbackContext is not null",Toast.LENGTH_SHORT).show();
         	 Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + " keepCallback: "+keepCallback + " status: "+status,Toast.LENGTH_SHORT).show();
-            PluginResult result = new PluginResult(status, obj);
-            result.setKeepCallback(keepCallback);
-            callbackContext.sendPluginResult(result);
-            if (!keepCallback) {
-            	 Toast.makeText(this.cordova.getActivity(),"in sendUpdate, keepCallback is true",Toast.LENGTH_SHORT).show();
-                //callbackContext = null;
-            }
+            
+            // PluginResult result = new PluginResult(status, obj);
+            // result.setKeepCallback(keepCallback);
+            // callbackContext.sendPluginResult(result);
+            
+            // if (!keepCallback) {
+            // callbackContext = null;
+            // }
+
+            PluginResult resultA = new PluginResult(status, obj);
+            resultA.setKeepCallback(true);
+            callbackContext.sendPluginResult(resultA);
+
+			PluginResult resultB = new PluginResult(status, obj);
+            resultB.setKeepCallback(true);
+            callbackContext.sendPluginResult(resultB);            
+
         }
     }
 
