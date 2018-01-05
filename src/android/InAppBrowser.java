@@ -524,7 +524,7 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
      * @param url to load
      */
     private void navigate(String url) {
-    	Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_LONG).show();
+    	Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_LONG).show();
         InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 
@@ -767,6 +767,7 @@ Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_LONG).show()
 
                 // WebView
                 inAppWebView = new WebView(cordova.getActivity());
+                Toast.makeText(this.cordova.getActivity(),"webview",Toast.LENGTH_LONG).show();
                 inAppWebView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 inAppWebView.setId(Integer.valueOf(6));
                 // File Chooser Implemented ChromeClient
