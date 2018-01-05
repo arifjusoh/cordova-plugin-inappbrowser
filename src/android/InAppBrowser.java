@@ -492,19 +492,19 @@ if(count == 0)
 else
 { 
 	Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_LONG).show();
-          //try {
-    				//JSONObject obj = new JSONObject();
-    				//obj.put("type", EXIT_EVENT);
+          try {
+    				JSONObject objj = new JSONObject();
+    				objj.put("type", EXIT_EVENT);
     				 if (!shouldClose) {
-    					sendUpdate(obj, false);
+    					sendUpdate(objj, false);
     				}
 
 
-    			// } catch (JSONException ex) {
-    			// 	//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
+    			} catch (JSONException ex) {
+    				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_LONG).show();
 
-    			// 	LOG.d(LOG_TAG, "Should never happen");
-    			// }
+    				LOG.d(LOG_TAG, "Should never happen");
+    			}
 }
 }
 
