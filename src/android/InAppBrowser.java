@@ -492,11 +492,11 @@ if(count == 0)
 else
 { 
           try {
-    				JSONObject objj = new JSONObject();
-    				objj.put("type", EXIT_EVENT);
+    				JSONObject obj = new JSONObject();
+    				obj.put("type", EXIT_EVENT);
     				 if (!shouldClose) {
   						Toast.makeText(this.cordova.getActivity(),"count value: "+count,Toast.LENGTH_SHORT).show();
-    					sendUpdate(objj, false);
+    					sendUpdate(obj, false);
     				}
 
 
@@ -948,16 +948,16 @@ else
      * @param status the status code to return to the JavaScript environment
      */
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
-        //if (callbackContext != null) {
+        if (callbackContext != null) {
         	 Toast.makeText(this.cordova.getActivity(),"in sendUpdate, callbackContext is not null",Toast.LENGTH_SHORT).show();
             PluginResult result = new PluginResult(status, obj);
             result.setKeepCallback(keepCallback);
             callbackContext.sendPluginResult(result);
-         //   if (!keepCallback) {
+            if (!keepCallback) {
             	 Toast.makeText(this.cordova.getActivity(),"in sendUpdate, keepCallback is true",Toast.LENGTH_SHORT).show();
-                callbackContext = null;
-           // }
-       // }
+                //callbackContext = null;
+            }
+        }
     }
 
     /**
