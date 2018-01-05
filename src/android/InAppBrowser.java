@@ -950,7 +950,8 @@ else
      */
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
-        	 Toast.makeText(this.cordova.getActivity(),"in sendUpdate, callbackContext is not null",Toast.LENGTH_SHORT).show();
+        	 //Toast.makeText(this.cordova.getActivity(),"in sendUpdate, callbackContext is not null",Toast.LENGTH_SHORT).show();
+        	 Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + "keepCallback: "+keepCallback + "status: "+status,Toast.LENGTH_SHORT).show();
             PluginResult result = new PluginResult(status, obj);
             result.setKeepCallback(keepCallback);
             callbackContext.sendPluginResult(result);
