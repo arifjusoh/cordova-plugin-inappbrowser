@@ -1085,86 +1085,86 @@ else
          * @param url
          * @param favicon
          */
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-            String newloc = "";
-            if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
-                newloc = url;
-            }
-            else
-            {
-                // Assume that everything is HTTP at this point, because if we don't specify,
-                // it really should be.  Complain loudly about this!!!
-                LOG.e(LOG_TAG, "Possible Uncaught/Unknown URI");
-                newloc = "http://" + url;
-            }
+        // @Override
+        // public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        //     super.onPageStarted(view, url, favicon);
+        //     String newloc = "";
+        //     if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
+        //         newloc = url;
+        //     }
+        //     else
+        //     {
+        //         // Assume that everything is HTTP at this point, because if we don't specify,
+        //         // it really should be.  Complain loudly about this!!!
+        //         LOG.e(LOG_TAG, "Possible Uncaught/Unknown URI");
+        //         newloc = "http://" + url;
+        //     }
 
-            // Update the UI if we haven't already
-            if (!newloc.equals(edittext.getText().toString())) {
-                edittext.setText(newloc);
-             }
+        //     // Update the UI if we haven't already
+        //     if (!newloc.equals(edittext.getText().toString())) {
+        //         edittext.setText(newloc);
+        //      }
 
-            try {
-                JSONObject obj = new JSONObject();
-                obj.put("type", LOAD_START_EVENT);
-                obj.put("url", newloc);
-                sendUpdate(obj, true);
-            } catch (JSONException ex) {
-                LOG.e(LOG_TAG, "URI passed in has caused a JSON error.");
-            }
-        }
+        //     try {
+        //         JSONObject obj = new JSONObject();
+        //         obj.put("type", LOAD_START_EVENT);
+        //         obj.put("url", newloc);
+        //         sendUpdate(obj, true);
+        //     } catch (JSONException ex) {
+        //         LOG.e(LOG_TAG, "URI passed in has caused a JSON error.");
+        //     }
+        // }
 
 
 
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
+        // public void onPageFinished(WebView view, String url) {
+        //     super.onPageFinished(view, url);
 
-            // CB-10395 InAppBrowser's WebView not storing cookies reliable to local device storage
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                CookieManager.getInstance().flush();
-            } else {
-                CookieSyncManager.getInstance().sync();
-            }
+        //     // CB-10395 InAppBrowser's WebView not storing cookies reliable to local device storage
+        //     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        //         CookieManager.getInstance().flush();
+        //     } else {
+        //         CookieSyncManager.getInstance().sync();
+        //     }
 
-            // https://issues.apache.org/jira/browse/CB-11248
-            view.clearFocus();
-            view.requestFocus();
+        //     // https://issues.apache.org/jira/browse/CB-11248
+        //     view.clearFocus();
+        //     view.requestFocus();
 
-            try {
-                JSONObject obj = new JSONObject();
-                obj.put("type", LOAD_STOP_EVENT);
-                obj.put("url", url);
+        //     try {
+        //         JSONObject obj = new JSONObject();
+        //         obj.put("type", LOAD_STOP_EVENT);
+        //         obj.put("url", url);
 
-                sendUpdate(obj, true);
+        //         sendUpdate(obj, true);
 
                 
-                //JSONObject obj2 = new JSONObject();
-                //obj2.put("type", BACK_BUTTON_EVENT);
-                //obj2.put("url", url);
+        //         //JSONObject obj2 = new JSONObject();
+        //         //obj2.put("type", BACK_BUTTON_EVENT);
+        //         //obj2.put("url", url);
 
-                //sendUpdate(obj2, true);
+        //         //sendUpdate(obj2, true);
 
-            } catch (JSONException ex) {
-                LOG.d(LOG_TAG, "Should never happen");
-            }
-        }
+        //     } catch (JSONException ex) {
+        //         LOG.d(LOG_TAG, "Should never happen");
+        //     }
+        // }
 
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            super.onReceivedError(view, errorCode, description, failingUrl);
+        // public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        //     super.onReceivedError(view, errorCode, description, failingUrl);
 
-            try {
-                JSONObject obj = new JSONObject();
-                obj.put("type", LOAD_ERROR_EVENT);
-                obj.put("url", failingUrl);
-                obj.put("code", errorCode);
-                obj.put("message", description);
+        //     try {
+        //         JSONObject obj = new JSONObject();
+        //         obj.put("type", LOAD_ERROR_EVENT);
+        //         obj.put("url", failingUrl);
+        //         obj.put("code", errorCode);
+        //         obj.put("message", description);
 
-                sendUpdate(obj, true, PluginResult.Status.ERROR);
-            } catch (JSONException ex) {
-                LOG.d(LOG_TAG, "Should never happen");
-            }
-        }
+        //         sendUpdate(obj, true, PluginResult.Status.ERROR);
+        //     } catch (JSONException ex) {
+        //         LOG.d(LOG_TAG, "Should never happen");
+        //     }
+        // }
 
         /**
          * On received http auth request.
