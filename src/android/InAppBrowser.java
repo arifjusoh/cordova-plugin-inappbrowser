@@ -71,11 +71,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
-import javax.swing.JOptionPane;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-
 
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
