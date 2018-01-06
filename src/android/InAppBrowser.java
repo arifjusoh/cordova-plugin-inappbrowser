@@ -17,6 +17,7 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
+package com.mkyong.confirmDialog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
