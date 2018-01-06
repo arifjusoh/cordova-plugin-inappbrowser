@@ -929,17 +929,19 @@ public class InAppBrowser extends CordovaPlugin {
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
         	 //Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + " keepCallback: "+keepCallback + " status: "+status,Toast.LENGTH_SHORT).show();
-            // PluginResult resultA = new PluginResult(status, obj);
-            // resultA.setKeepCallback(keepCallback);
-            // callbackContext.sendPluginResult(resultA);
+            PluginResult resultA = new PluginResult(status, obj);
+            resultA.setKeepCallback(keepCallback);
+            callbackContext.sendPluginResult(resultA);
 
-            PluginResult pluginResult = new  PluginResult(PluginResult.Status.NO_RESULT); 
-			pluginResult.setKeepCallback(true); 
-			return pluginResult;    
+             Toast.makeText(this.cordova.getActivity(),"callbackContext: "+callbackContext+" result A: "+resultA,Toast.LENGTH_SHORT).show();
 
-			PluginResult result = new PluginResult(PluginResult.Status.OK, data); 
-			result.setKeepCallback(false); 
-			this.success(result, this.myCallbackId);	
+   //          PluginResult pluginResult = new  PluginResult(PluginResult.Status.NO_RESULT); 
+			// pluginResult.setKeepCallback(true); 
+			// return pluginResult;    
+
+			// PluginResult result = new PluginResult(PluginResult.Status.OK, data); 
+			// result.setKeepCallback(false); 
+			// this.success(result, this.myCallbackId);	
         }
     }
 
