@@ -442,8 +442,6 @@ public class InAppBrowser extends CordovaPlugin {
 
             @Override
             public void run() {
-            	
-//confirm("you want to delete the user?");
 
                 final WebView childView = inAppWebView;
                  
@@ -496,6 +494,8 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public void goBack() {
     	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
+
+confirm("you want to delete the user?");
 
 //if (shouldClose){}
         if (this.inAppWebView.canGoBack()) {
