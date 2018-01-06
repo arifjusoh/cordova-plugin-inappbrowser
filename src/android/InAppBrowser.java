@@ -445,7 +445,10 @@ public class InAppBrowser extends CordovaPlugin {
             		//Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
 
- JDialog.setDefaultLookAndFeelDecorated(true);
+            @Override
+            public void run() {
+
+            	 JDialog.setDefaultLookAndFeelDecorated(true);
     int response = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     if (response == JOptionPane.NO_OPTION) {
@@ -455,9 +458,6 @@ public class InAppBrowser extends CordovaPlugin {
     } else if (response == JOptionPane.CLOSED_OPTION) {
       System.out.println("JOptionPane closed");
     }
-
-            @Override
-            public void run() {
             	
                 final WebView childView = inAppWebView;
                  
