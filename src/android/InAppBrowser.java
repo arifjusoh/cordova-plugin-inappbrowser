@@ -493,7 +493,16 @@ public class InAppBrowser extends CordovaPlugin {
     });
 }
 
+public class ConfirmDialog1 {
 
+    public static void main(String[] args) {
+
+        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
+        // 0=yes, 1=no, 2=cancel
+        System.out.println(input);
+
+    }
+}
     /**
      * Checks to see if it is possible to go back one page in history, then does so.
      */
@@ -501,14 +510,6 @@ public class InAppBrowser extends CordovaPlugin {
     	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
 
 
-
-    
-
-        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
-        // 0=yes, 1=no, 2=cancel
-        System.out.println(input);
-
-    
 
 
 //if (shouldClose){}
