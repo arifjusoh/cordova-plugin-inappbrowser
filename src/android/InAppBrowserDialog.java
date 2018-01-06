@@ -44,8 +44,6 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed() {
-
-       if (!shouldClose) {
     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
         .setTitle("Exit")
         .setMessage("You are about to exit, are you sure?")
@@ -72,6 +70,5 @@ public class InAppBrowserDialog extends Dialog {
         });
         alertDialogBuilder.create();
         alertDialogBuilder.show();
-} 
 }
 }
