@@ -471,9 +471,9 @@ public class InAppBrowser extends CordovaPlugin {
                  try {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
-    				 if (!shouldClose) { //if user should be asked before closing
+    				// if (!shouldClose) { //if user should be asked before closing
     					sendUpdate(obj, true);
-    				}
+    			//	}
 
 
     			} catch (JSONException ex) {
