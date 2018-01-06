@@ -443,7 +443,7 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public void run() {
             	
-confirm("you want to delete the user?");
+//confirm("you want to delete the user?");
 
                 final WebView childView = inAppWebView;
                  
