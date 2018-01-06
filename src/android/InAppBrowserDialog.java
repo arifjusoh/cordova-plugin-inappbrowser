@@ -44,24 +44,8 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed() {
-      if (shouldClose)
-      {
-        if (this.inAppBrowser == null) {
-            this.dismiss();
-        } else {
-            // better to go through the in inAppBrowser
-            // because it does a clean up
-            if (this.inAppBrowser.hardwareBack() && this.inAppBrowser.canGoBack()) {
-                this.inAppBrowser.goBack();
-            }  else {
-                this.inAppBrowser.closeDialog();
-            }
-        }
-      }
-
-      else
-      {
-      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
+      
+    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
         .setTitle("Exit")
         .setMessage("You are about to exit, are you sure?")
         .setPositiveButton("Exit", new DialogInterface.OnClickListener(){
@@ -87,6 +71,5 @@ public class InAppBrowserDialog extends Dialog {
         });
         alertDialogBuilder.create();
         alertDialogBuilder.show();
-   }
 }
 }
