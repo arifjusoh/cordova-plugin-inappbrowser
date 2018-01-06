@@ -732,9 +732,7 @@ public class InAppBrowser extends CordovaPlugin {
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                        //closeDialog();
-                    	 if (this.inAppWebView.canGoBack()) {
-            			 this.inAppWebView.goBack();
-        			     }
+                    	goBack();
                     }
                 });
 
