@@ -18,6 +18,11 @@
 */
 package org.apache.cordova.inappbrowser;
 
+
+package com.mkyong.confirmDialog;
+
+import javax.swing.JOptionPane;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -495,11 +500,17 @@ public class InAppBrowser extends CordovaPlugin {
     public void goBack() {
     	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
 
-<script>
 
- confirm("you want to delete the user?"); // this will pop up confirmation box and if yes is clicked it call servlet else return to page
-    
-</script>
+public class ConfirmDialog1 {
+
+    public static void main(String[] args) {
+
+        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
+        // 0=yes, 1=no, 2=cancel
+        System.out.println(input);
+
+    }
+}
 
 //if (shouldClose){}
         if (this.inAppWebView.canGoBack()) {
