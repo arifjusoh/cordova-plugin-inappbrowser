@@ -52,9 +52,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.content.DialogInterface;
-import android.app.AlertDialog;
-import android.app.Dialog;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
@@ -512,10 +509,10 @@ public class InAppBrowser extends CordovaPlugin {
                 else {
                     // better to go through the in inAppBrowser
                     // because it does a clean up
-                    if (inAppBrowser.canGoBack()) {
-                        inAppBrowser.goBack();
+                    if (this.inAppWebView.canGoBack()) {
+                       this.inAppWebView.goBack();
                     }  else {
-                        inAppBrowser.closeDialog();
+                       this.inAppWebView.closeDialog();
                     }
                 }
             }
