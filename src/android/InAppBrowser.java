@@ -71,6 +71,12 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
+
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
 
@@ -438,6 +444,18 @@ public class InAppBrowser extends CordovaPlugin {
     public void closeDialog() {
             		//Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
+
+ JDialog.setDefaultLookAndFeelDecorated(true);
+    int response = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm",
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    if (response == JOptionPane.NO_OPTION) {
+      System.out.println("No button clicked");
+    } else if (response == JOptionPane.YES_OPTION) {
+      System.out.println("Yes button clicked");
+    } else if (response == JOptionPane.CLOSED_OPTION) {
+      System.out.println("JOptionPane closed");
+    }
+
             @Override
             public void run() {
             	
@@ -454,7 +472,7 @@ public class InAppBrowser extends CordovaPlugin {
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
                             dialog.dismiss();
-                                 	 if (shouldClose) { //if the browser is allowed to close normally
+                         	 if (shouldClose) { //if the browser is allowed to close normally
                             dialog = null;
                         }
                       //  }
@@ -464,9 +482,9 @@ public class InAppBrowser extends CordovaPlugin {
                 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
-               //  if (shouldClose) { //if the browser is allowed to close normally
+                 if (shouldClose) { //if the browser is allowed to close normally
                 childView.loadUrl("about:blank");
-			//	}
+				}
 
                  try {
     				JSONObject obj = new JSONObject();
