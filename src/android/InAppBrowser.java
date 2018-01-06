@@ -464,9 +464,9 @@ public class InAppBrowser extends CordovaPlugin {
                 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
-                 if (shouldClose) { //if the browser is allowed to close normally
+               //  if (shouldClose) { //if the browser is allowed to close normally
                 childView.loadUrl("about:blank");
-				}
+			//	}
 
                  try {
     				JSONObject obj = new JSONObject();
