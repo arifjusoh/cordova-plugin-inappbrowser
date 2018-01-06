@@ -495,7 +495,7 @@ public class InAppBrowser extends CordovaPlugin {
     public void goBack() {
     	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
 
-<script type='javascript'>
+<script>
 
  confirm("you want to delete the user?"); // this will pop up confirmation box and if yes is clicked it call servlet else return to page
     
