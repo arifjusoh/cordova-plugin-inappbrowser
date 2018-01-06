@@ -62,9 +62,9 @@ public class InAppBrowserDialog extends Dialog {
     else
       {
     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
-        .setTitle("Exit")
-        .setMessage("You are about to exit, are you sure?")
-        .setPositiveButton("Exit", new DialogInterface.OnClickListener(){
+        .setTitle("Are you sure you want to quit")
+        .setMessage("Pressing EXIT button will close and abandon the payment session")
+        .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
                 if (inAppBrowser == null) {
                     dismiss();
@@ -80,7 +80,7 @@ public class InAppBrowserDialog extends Dialog {
                 }
             }
         })
-        .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog,int which){
                 dialog.cancel();
             }
