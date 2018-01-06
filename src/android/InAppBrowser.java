@@ -52,6 +52,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+ import android.content.DialogInterface;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
