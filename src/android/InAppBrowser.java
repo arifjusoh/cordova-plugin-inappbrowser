@@ -52,6 +52,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.content.DialogInterface;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
@@ -493,12 +494,37 @@ public class InAppBrowser extends CordovaPlugin {
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
-    	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
 
-//if (shouldClose){}
-        if (this.inAppWebView.canGoBack()) {
-            this.inAppWebView.goBack();
-        }
+        // if (this.inAppWebView.canGoBack()) {
+        //     this.inAppWebView.goBack();
+        // }
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
+        .setTitle("Exit")
+        .setMessage("You are about to exit, are you sure?")
+        .setPositiveButton("Exit", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                if (inAppBrowser == null) {
+                    dismiss();
+                } 
+                else {
+                    // better to go through the in inAppBrowser
+                    // because it does a clean up
+                    if (inAppBrowser.canGoBack()) {
+                        inAppBrowser.goBack();
+                    }  else {
+                        inAppBrowser.closeDialog();
+                    }
+                }
+            }
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog,int which){
+                dialog.cancel();
+            }
+        });
+        alertDialogBuilder.create();
+        alertDialogBuilder.show();
 
     }
 
