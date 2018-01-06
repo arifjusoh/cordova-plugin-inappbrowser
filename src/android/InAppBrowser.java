@@ -17,7 +17,6 @@
        under the License.
 */
 package org.apache.cordova.inappbrowser;
-package com.mkyong.confirmDialog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -71,11 +70,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
-
-import javax.swing.JOptionPane;
-
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -131,18 +125,6 @@ public class InAppBrowser extends CordovaPlugin {
      * @param callbackContext the callbackContext used when calling back into JavaScript.
      * @return A PluginResult object with a status and message.
      */
-
-public class ConfirmDialog1 {
-
-    public static void main(String[] args) {
-
-        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
-        // 0=yes, 1=no, 2=cancel
-        System.out.println(input);
-
-    }
-}
-    
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
     	 //Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_SHORT).show();
 
@@ -458,11 +440,11 @@ public class ConfirmDialog1 {
             		//Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
 
-
-
             @Override
             public void run() {
             	
+confirm("you want to delete the user?");
+
                 final WebView childView = inAppWebView;
                  
                 // The JS protects against multiple calls, so this should happen only when
