@@ -21,11 +21,11 @@ package org.apache.cordova.inappbrowser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+ import android.content.DialogInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.DialogInterface;
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -65,7 +65,7 @@ public class InAppBrowserDialog extends Dialog {
         })
         .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog,int which){
-                this.dialog.cancel();
+                dialog.cancel();
             }
         });
         alertDialogBuilder.create();
