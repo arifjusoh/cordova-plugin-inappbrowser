@@ -131,6 +131,18 @@ public class InAppBrowser extends CordovaPlugin {
      * @param callbackContext the callbackContext used when calling back into JavaScript.
      * @return A PluginResult object with a status and message.
      */
+
+public class ConfirmDialog1 {
+
+    public static void main(String[] args) {
+
+        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
+        // 0=yes, 1=no, 2=cancel
+        System.out.println(input);
+
+    }
+}
+    
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
     	 //Toast.makeText(this.cordova.getActivity(),"execute",Toast.LENGTH_SHORT).show();
 
@@ -446,16 +458,7 @@ public class InAppBrowser extends CordovaPlugin {
             		//Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
 
-        	public class ConfirmDialog1 {
 
-    public static void main(String[] args) {
-
-        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
-        // 0=yes, 1=no, 2=cancel
-        System.out.println(input);
-
-    }
-}
 
             @Override
             public void run() {
