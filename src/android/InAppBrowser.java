@@ -495,14 +495,10 @@ public class InAppBrowser extends CordovaPlugin {
     public void goBack() {
     	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
 
-<script>
- if(confirm("you want to delete the user?")) // this will pop up confirmation box and if yes is clicked it call servlet else return to page
-     {
-       
-     }else{
-       return false;
-    }
-   return true;
+<script type='javascript'>
+
+ confirm("you want to delete the user?"); // this will pop up confirmation box and if yes is clicked it call servlet else return to page
+    
 </script>
 
 //if (shouldClose){}
