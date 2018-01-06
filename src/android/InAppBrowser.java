@@ -509,7 +509,7 @@ public class InAppBrowser extends CordovaPlugin {
         .setPositiveButton("Exit", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
                 if (inAppWebView == null) {
-                    this.dismiss();
+                    dismiss();
                 } 
                 else {
                     // better to go through the in inAppBrowser
