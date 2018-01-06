@@ -508,16 +508,16 @@ public class InAppBrowser extends CordovaPlugin {
         .setMessage("You are about to exit, are you sure?")
         .setPositiveButton("Exit", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
-                if (inAppBrowser == null) {
+                if (inAppWebView == null) {
                     dismiss();
                 } 
                 else {
                     // better to go through the in inAppBrowser
                     // because it does a clean up
-                    if (inAppBrowser.hardwareBack() && inAppBrowser.canGoBack()) {
-                        inAppBrowser.goBack();
+                    if (inAppWebView.hardwareBack() && inAppWebView.canGoBack()) {
+                        inAppWebView.goBack();
                     }  else {
-                        inAppBrowser.closeDialog();
+                        inAppWebView.closeDialog();
                     }
                 }
             }
