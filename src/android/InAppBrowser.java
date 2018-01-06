@@ -79,6 +79,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SYSTEM = "_system";
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
+    private static final String SHOULD_CLOSE = "shouldclose";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -97,6 +98,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
+    private boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -535,6 +537,10 @@ public class InAppBrowser extends CordovaPlugin {
             if (show != null) {
                 showLocationBar = show.booleanValue();
             }
+            Boolean shouldclose = features.get(SHOULD_CLOSE);
+            if (shouldclose != null) {
+                shouldClose = shouldclose.booleanValue();
+            }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
                 showZoomControls = zoom.booleanValue();
@@ -823,11 +829,11 @@ public class InAppBrowser extends CordovaPlugin {
 
                 // Add the back and forward buttons to our action button container layout
                 actionButtonContainer.addView(back);
-                actionButtonContainer.addView(forward);
+                //actionButtonContainer.addView(forward);
 
                 // Add the views to our toolbar
                 toolbar.addView(actionButtonContainer);
-                toolbar.addView(edittext);
+                //toolbar.addView(edittext);
                 toolbar.addView(close);
 
                 // Don't add the toolbar if its been disabled
