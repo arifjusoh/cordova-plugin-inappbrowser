@@ -446,19 +446,15 @@ public class InAppBrowser extends CordovaPlugin {
             		//Toast.makeText(this.cordova.getActivity(),"close func",Toast.LENGTH_SHORT).show();
         this.cordova.getActivity().runOnUiThread(new Runnable() {
 
-        	public class JOptionPaneTest2 {
- 
-    JDialog.setDefaultLookAndFeelDecorated(true);
-    int response = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm",
-        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-    if (response == JOptionPane.NO_OPTION) {
-      System.out.println("No button clicked");
-    } else if (response == JOptionPane.YES_OPTION) {
-      System.out.println("Yes button clicked");
-    } else if (response == JOptionPane.CLOSED_OPTION) {
-      System.out.println("JOptionPane closed");
+        	public class ConfirmDialog1 {
+
+    public static void main(String[] args) {
+
+        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
+        // 0=yes, 1=no, 2=cancel
+        System.out.println(input);
+
     }
-  
 }
 
             @Override
