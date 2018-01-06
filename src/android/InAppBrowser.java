@@ -933,7 +933,7 @@ public class InAppBrowser extends CordovaPlugin {
             resultA.setKeepCallback(keepCallback);
             callbackContext.sendPluginResult(resultA);
 
-             Toast.makeText(this.cordova.getActivity(),"callbackContext: "+callbackContext.sendPluginResult(resultA),Toast.LENGTH_LONG).show();
+             //Toast.makeText(this.cordova.getActivity(),"callbackContext: "+callbackContext.sendPluginResult(resultA),Toast.LENGTH_LONG).show();
 
    //          PluginResult pluginResult = new  PluginResult(PluginResult.Status.NO_RESULT); 
 			// pluginResult.setKeepCallback(true); 
