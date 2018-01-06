@@ -26,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.cordova.LOG;
 
+import android.widget.Toast;
+
 /**
  * Created by Oliver on 22/11/2013.
  */
@@ -44,9 +46,10 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
-       //Toast.makeText(this.cordova.getActivity(),String.valueOf(shouldClose),Toast.LENGTH_SHORT).show();
+      
         if (this.inAppBrowser == null) {
             this.dismiss();
+             Toast.makeText(this.cordova.getActivity(),String.valueOf(shouldClose),Toast.LENGTH_SHORT).show();
         } else {
             // better to go through the in inAppBrowser
             // because it does a clean up
