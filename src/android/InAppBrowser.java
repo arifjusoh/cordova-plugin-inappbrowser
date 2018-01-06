@@ -453,7 +453,7 @@ public class InAppBrowser extends CordovaPlugin {
                     // NB: wait for about:blank before dismissing
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
-                        	 if (shouldClose) {
+                        	 if (shouldClose) { //if the browser is allowed to close normally
                             dialog.dismiss();
                         }
                             dialog = null;
@@ -464,22 +464,30 @@ public class InAppBrowser extends CordovaPlugin {
                 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
-                 if (shouldClose) {
+                 if (shouldClose) { //if the browser is allowed to close normally
                 childView.loadUrl("about:blank");
 				}
 
                  try {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
-    				 if (!shouldClose) {
-    					sendUpdate(obj, true);
+    				 if (!shouldClose) { //if user should be asked before closing
+    					//sendUpdate(obj, true);
+
+    					PluginResult result = new PluginResult(PluginResult.Status.OK, "success");
+        				result.setKeepCallback(true);
+         				callback.success("done");
+         				return null;
     				}
 
 
     			} catch (JSONException ex) {
     				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_SHORT).show();
 
-    				LOG.d(LOG_TAG, "Should never happen");
+    				//LOG.d(LOG_TAG, "Should never happen");
+
+    					callback.error("Some problem occured.Try again later");
+           				return null;
     			}
 
                }
@@ -929,9 +937,15 @@ public class InAppBrowser extends CordovaPlugin {
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
         	 //Toast.makeText(this.cordova.getActivity(),"obj: "+ obj + " keepCallback: "+keepCallback + " status: "+status,Toast.LENGTH_SHORT).show();
-            PluginResult resultA = new PluginResult(status, obj);
-            resultA.setKeepCallback(keepCallback);
-            callbackContext.sendPluginResult(resultA);         
+            // PluginResult resultA = new PluginResult(status, obj);
+            // resultA.setKeepCallback(keepCallback);
+            // callbackContext.sendPluginResult(resultA);
+
+            PluginResult pluginResult = new  PluginResult(PluginResult.Status.NO_RESULT); 
+			pluginResult.setKeepCallback(true); 
+			return pluginResult;    
+
+
         }
     }
 
