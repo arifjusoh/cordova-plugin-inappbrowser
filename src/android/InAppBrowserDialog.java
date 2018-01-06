@@ -50,7 +50,7 @@ public class InAppBrowserDialog extends Dialog {
         .setPositiveButton("Exit", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){
                 if (this.inAppBrowser == null) {
-                    dismiss();
+                    this.dismiss();
                 } 
                 else {
                     // better to go through the in inAppBrowser
