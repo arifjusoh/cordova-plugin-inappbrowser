@@ -472,22 +472,14 @@ public class InAppBrowser extends CordovaPlugin {
     				JSONObject obj = new JSONObject();
     				obj.put("type", EXIT_EVENT);
     				 if (!shouldClose) { //if user should be asked before closing
-    					//sendUpdate(obj, true);
-
-    					PluginResult result = new PluginResult(PluginResult.Status.OK, "success");
-        				result.setKeepCallback(true);
-         				callback.success("done");
-         				return null;
+    					sendUpdate(obj, true);
     				}
 
 
     			} catch (JSONException ex) {
     				//Toast.makeText(this.cordova.getActivity(),"exception:"+String.valueOf(ex),Toast.LENGTH_SHORT).show();
 
-    				//LOG.d(LOG_TAG, "Should never happen");
-
-    					callback.error("Some problem occured.Try again later");
-           				return null;
+    				LOG.d(LOG_TAG, "Should never happen");
     			}
 
                }
@@ -945,7 +937,9 @@ public class InAppBrowser extends CordovaPlugin {
 			pluginResult.setKeepCallback(true); 
 			return pluginResult;    
 
-
+			PluginResult result = new PluginResult(PluginResult.Status.OK, data); 
+			result.setKeepCallback(false); 
+			this.success(result, this.myCallbackId);	
         }
     }
 
