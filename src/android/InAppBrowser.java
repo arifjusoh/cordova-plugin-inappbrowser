@@ -18,11 +18,6 @@
 */
 package org.apache.cordova.inappbrowser;
 
-
-package com.mkyong.confirmDialog;
-
-import javax.swing.JOptionPane;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -75,6 +70,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+
+import javax.swing.JOptionPane;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -447,7 +447,7 @@ public class InAppBrowser extends CordovaPlugin {
 
             @Override
             public void run() {
-
+            	
                 final WebView childView = inAppWebView;
                  
                 // The JS protects against multiple calls, so this should happen only when
@@ -460,20 +460,20 @@ public class InAppBrowser extends CordovaPlugin {
                     // NB: wait for about:blank before dismissing
                     public void onPageFinished(WebView view, String url) {
                         if (dialog != null) {
+                        //	 if (shouldClose) { //if the browser is allowed to close normally
                             dialog.dismiss();
-                         	 if (shouldClose) { //if the browser is allowed to close normally
                             dialog = null;
                         }
                       //  }
-                        }
+                       // }
                     }
                 });
                 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads
-                 if (shouldClose) { //if the browser is allowed to close normally
+              //   if (shouldClose) { //if the browser is allowed to close normally
                 childView.loadUrl("about:blank");
-				}
+			//	}
 
                  try {
     				JSONObject obj = new JSONObject();
@@ -493,24 +493,12 @@ public class InAppBrowser extends CordovaPlugin {
     });
 }
 
-public class ConfirmDialog1 {
 
-    public static void main(String[] args) {
-
-        int input = JOptionPane.showConfirmDialog(null, "Do you like bacon?");
-        // 0=yes, 1=no, 2=cancel
-        System.out.println(input);
-
-    }
-}
     /**
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
     	//Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
-
-
-
 
 //if (shouldClose){}
         if (this.inAppWebView.canGoBack()) {
