@@ -47,7 +47,7 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed () {
-       Toast.makeText(this.cordova.getActivity(),String.valueOf(shouldClose),Toast.LENGTH_SHORT).show();
+       //Toast.makeText(this.cordova.getActivity(),String.valueOf(shouldClose),Toast.LENGTH_SHORT).show();
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
