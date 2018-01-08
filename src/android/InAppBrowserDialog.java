@@ -26,6 +26,8 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.widget.Toast;
+
 
 /**
  * Created by Oliver on 22/11/2013.
@@ -44,6 +46,7 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed() {
+      Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
       if(InAppBrowser.shouldClose)
       {
         if (this.inAppBrowser == null) {
