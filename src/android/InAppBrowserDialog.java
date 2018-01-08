@@ -46,9 +46,9 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed() {
-      Toast.makeText(this.cordova.getActivity(),"on back pressed",Toast.LENGTH_SHORT).show();
       if(InAppBrowser.shouldClose)
       {
+        Toast.makeText(this.cordova.getActivity(),"should close aan",Toast.LENGTH_SHORT).show();
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
@@ -64,6 +64,7 @@ public class InAppBrowserDialog extends Dialog {
 
     else
       {
+        Toast.makeText(this.cordova.getActivity(),"ayy ta bolay la",Toast.LENGTH_SHORT).show();
     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
         .setTitle("Are you sure you want to quit")
         .setMessage("Pressing EXIT button will close and abandon the payment session")
