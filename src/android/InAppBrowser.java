@@ -733,7 +733,7 @@ public class InAppBrowser extends CordovaPlugin {
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                        //closeDialog();
-						Toast.makeText(this.cordova.getActivity(),"toolbar close clicked",Toast.LENGTH_SHORT).show();
+						//Toast.makeText(this.cordova.getActivity(),"toolbar close clicked",Toast.LENGTH_SHORT).show();
                     	InAppBrowser.hardwareBack();
                     }
                 });
