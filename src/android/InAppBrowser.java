@@ -460,7 +460,6 @@ public class InAppBrowser extends CordovaPlugin {
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
-    	Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
         if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
@@ -471,7 +470,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-    	 Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
+    	 //Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
 
         return this.inAppWebView.canGoBack();
     }
@@ -481,7 +480,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	 Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
+    	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
 
         return hadwareBackButton;
     }
@@ -734,7 +733,8 @@ public class InAppBrowser extends CordovaPlugin {
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                        //closeDialog();
-                    	InAppBrowserDialog.onBackPressed();
+
+                    	this.InAppBrowser.hardwareBack();
                     }
                 });
 
