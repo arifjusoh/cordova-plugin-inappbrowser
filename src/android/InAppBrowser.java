@@ -217,6 +217,7 @@ public class InAppBrowser extends CordovaPlugin {
             });
         }
         else if (action.equals("close")) {
+    		Toast.makeText(this.cordova.getActivity(),"if condition for close",Toast.LENGTH_SHORT).show();
             closeDialog();
         }
         else if (action.equals("injectScriptCode")) {
@@ -420,9 +421,6 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-
-    	Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
-
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -734,8 +732,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                       //closeDialog();
-                    	hardwareBack();
+                       closeDialog();
                     }
                 });
 
