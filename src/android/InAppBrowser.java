@@ -420,6 +420,9 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
+
+    	Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
+
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
