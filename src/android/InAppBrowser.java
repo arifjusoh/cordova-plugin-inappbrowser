@@ -19,6 +19,7 @@
 package org.apache.cordova.inappbrowser;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.provider.Browser;
 import android.content.res.Resources;
@@ -61,12 +62,6 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.LOG;
 import org.apache.cordova.PluginManager;
 import org.apache.cordova.PluginResult;
-
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -441,7 +436,7 @@ public class InAppBrowser extends CordovaPlugin {
                     if (inAppBrowser.hardwareBack() && inAppBrowser.canGoBack()) {
                         inAppBrowser.goBack();
                     }  else {
-                        alert("call closeDialog here");
+                        inAppBrowser.closeDialog();
                     }
                 }
             }
