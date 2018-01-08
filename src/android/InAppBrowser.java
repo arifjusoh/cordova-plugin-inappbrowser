@@ -426,13 +426,13 @@ public class InAppBrowser extends CordovaPlugin {
     public void closeDialog() {
 
     	//if(shouldClose)
-      {
+     // {
          //closeDialog();
       	alert("normal close");
-      }
+    //  }
 
     //else
-      {
+    //  {
     // AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
     //     .setTitle("Are you sure you want to quit")
     //     .setMessage("Pressing EXIT button will close and abandon the payment session")
@@ -460,7 +460,7 @@ public class InAppBrowser extends CordovaPlugin {
     //     });
     //     alertDialogBuilder.create();
     //     alertDialogBuilder.show();
-      }
+   //   }
 
 /*
         this.cordova.getActivity().runOnUiThread(new Runnable() {
