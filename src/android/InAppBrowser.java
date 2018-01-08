@@ -437,21 +437,21 @@ public class InAppBrowser extends CordovaPlugin {
         .setTitle("Are you sure you want to quit")
         .setMessage("Pressing EXIT button will close and abandon the payment session")
         .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                if (inAppBrowser == null) {
-                    dismiss();
-                } 
-                else {
-                    // better to go through the in inAppBrowser
-                    // because it does a clean up
-                    if (hardwareBack() && canGoBack()) {
-                        goBack();
-                    }  else {
-                        //closeDialog();
-                        Toast.makeText(this.cordova.getActivity(),"normal close",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
+            // public void onClick(DialogInterface dialog, int which){
+            //     if (inAppBrowser == null) {
+            //         dismiss();
+            //     } 
+            //     else {
+            //         // better to go through the in inAppBrowser
+            //         // because it does a clean up
+            //         if (hardwareBack() && canGoBack()) {
+            //             goBack();
+            //         }  else {
+            //             //closeDialog();
+            //             Toast.makeText(this.cordova.getActivity(),"normal close",Toast.LENGTH_SHORT).show();
+            //         }
+            //     }
+            // }
         })
         .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog,int which){
