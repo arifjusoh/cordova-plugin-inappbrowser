@@ -16,7 +16,7 @@
        specific language governing permissions and limitations
        under the License.
 */
-       
+
 package org.apache.cordova.inappbrowser;
 
 import android.annotation.SuppressLint;
@@ -474,7 +474,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-    	 //Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
+    	 Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
 
         return this.inAppWebView.canGoBack();
     }
@@ -484,7 +484,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
+    	 Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
 
         return hadwareBackButton;
     }
