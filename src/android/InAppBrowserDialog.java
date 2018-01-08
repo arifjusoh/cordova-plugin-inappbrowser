@@ -43,7 +43,7 @@ public class InAppBrowserDialog extends Dialog {
         this.inAppBrowser = browser;
     }
 
-    public void onBackPressed() {
+    public static void onBackPressed() {
       if(InAppBrowser.shouldClose)
       {
         if (this.inAppBrowser == null) {
