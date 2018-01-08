@@ -104,7 +104,7 @@ public class InAppBrowser extends CordovaPlugin {
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
     private boolean clearSessionCache = false;
-    private static boolean hadwareBackButton = true;
+    public static boolean hadwareBackButton = true;
     private boolean mediaPlaybackRequiresUserGesture = false;
     private boolean shouldPauseInAppBrowser = false;
     private boolean useWideViewPort = true;
@@ -733,7 +733,7 @@ public class InAppBrowser extends CordovaPlugin {
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                        //closeDialog();
-
+						Toast.makeText(this.cordova.getActivity(),"toolbar close clicked",Toast.LENGTH_SHORT).show();
                     	InAppBrowser.hardwareBack();
                     }
                 });
