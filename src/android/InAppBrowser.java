@@ -428,7 +428,7 @@ public class InAppBrowser extends CordovaPlugin {
     	//if(shouldClose)
      // {
          //closeDialog();
-      	alert("normal close");
+      	//alert("normal close");
     //  }
 
     //else
