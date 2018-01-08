@@ -217,7 +217,7 @@ public class InAppBrowser extends CordovaPlugin {
             });
         }
         else if (action.equals("close")) {
-    		Toast.makeText(this.cordova.getActivity(),"if condition for close",Toast.LENGTH_SHORT).show();
+    		//Toast.makeText(this.cordova.getActivity(),"if condition for close",Toast.LENGTH_SHORT).show();
             closeDialog();
         }
         else if (action.equals("injectScriptCode")) {
@@ -470,7 +470,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-    	 //Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
+    	 Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
 
         return this.inAppWebView.canGoBack();
     }
@@ -480,7 +480,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
+    	 Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
 
         return hadwareBackButton;
     }
