@@ -19,7 +19,6 @@
 package org.apache.cordova.inappbrowser;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.provider.Browser;
 import android.content.res.Resources;
@@ -62,6 +61,12 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.LOG;
 import org.apache.cordova.PluginManager;
 import org.apache.cordova.PluginResult;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -421,6 +426,38 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
+
+    	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
+        .setTitle("Are you sure you want to quit")
+        .setMessage("Pressing EXIT button will close and abandon the payment session")
+        .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                if (inAppBrowser == null) {
+                    dismiss();
+                } 
+                else {
+                    // better to go through the in inAppBrowser
+                    // because it does a clean up
+                    if (inAppBrowser.hardwareBack() && inAppBrowser.canGoBack()) {
+                        inAppBrowser.goBack();
+                    }  else {
+                        alert("call closeDialog here");
+                    }
+                }
+            }
+        })
+        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog,int which){
+                dialog.cancel();
+            }
+        });
+        alertDialogBuilder.create();
+        alertDialogBuilder.show();
+    }
+
+
+    /*
+
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -454,7 +491,7 @@ public class InAppBrowser extends CordovaPlugin {
                 }
             }
         });
-    }
+    */
 
     /**
      * Checks to see if it is possible to go back one page in history, then does so.
@@ -731,10 +768,8 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                       //closeDialog();
-						inAppWebView.canGoBack();
-                    	//InAppBrowser.hardwareBack();
-                    }
+                       closeDialog();
+						}
                 });
 
                 // WebView
