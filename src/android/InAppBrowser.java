@@ -710,32 +710,31 @@ public class InAppBrowser extends CordovaPlugin {
                     }
                 });
 
-                // // Close/Done button
-                // ImageButton close = new ImageButton(cordova.getActivity());
-                // RelativeLayout.LayoutParams closeLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-                // closeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                // close.setLayoutParams(closeLayoutParams);
-                // close.setContentDescription("Close Button");
-                // close.setId(Integer.valueOf(5));
-                // int closeResId = activityRes.getIdentifier("ic_action_remove", "drawable", cordova.getActivity().getPackageName());
-                // Drawable closeIcon = activityRes.getDrawable(closeResId);
-                // if (Build.VERSION.SDK_INT >= 16)
-                //     close.setBackground(null);
-                // else
-                //     close.setBackgroundDrawable(null);
-                // close.setImageDrawable(closeIcon);
-                // close.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                // back.setPadding(0, this.dpToPixels(10), 0, this.dpToPixels(10));
-                // if (Build.VERSION.SDK_INT >= 16)
-                //     close.getAdjustViewBounds();
+                // Close/Done button
+                ImageButton close = new ImageButton(cordova.getActivity());
+                RelativeLayout.LayoutParams closeLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+                closeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                close.setLayoutParams(closeLayoutParams);
+                close.setContentDescription("Close Button");
+                close.setId(Integer.valueOf(5));
+                int closeResId = activityRes.getIdentifier("ic_action_remove", "drawable", cordova.getActivity().getPackageName());
+                Drawable closeIcon = activityRes.getDrawable(closeResId);
+                if (Build.VERSION.SDK_INT >= 16)
+                    close.setBackground(null);
+                else
+                    close.setBackgroundDrawable(null);
+                close.setImageDrawable(closeIcon);
+                close.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                back.setPadding(0, this.dpToPixels(10), 0, this.dpToPixels(10));
+                if (Build.VERSION.SDK_INT >= 16)
+                    close.getAdjustViewBounds();
 
-                // close.setOnClickListener(new View.OnClickListener() {
-                //     public void onClick(View v) {
-                //     	 //Toast.makeText(this.cordova.getActivity(),"toolbar close pressed",Toast.LENGTH_SHORT).show();
-                //        //closeDialog();
-                //     	 goBack();
-                //     }
-                // });
+                close.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                    	 //Toast.makeText(this.cordova.getActivity(),"toolbar close pressed",Toast.LENGTH_SHORT).show();
+                       closeDialog();
+                    }
+                });
 
                 // WebView
                 inAppWebView = new WebView(cordova.getActivity());
