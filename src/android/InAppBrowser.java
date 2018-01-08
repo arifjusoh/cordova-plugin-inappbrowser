@@ -479,7 +479,7 @@ public class InAppBrowser extends CordovaPlugin {
      * Has the user set the hardware back button to go back
      * @return boolean
      */
-    public boolean hardwareBack() {
+    public static boolean hardwareBack() {
     	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
 
         return hadwareBackButton;
