@@ -424,45 +424,6 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-
-    	if(shouldClose)
-      {
-         //closeDialog();
-      	Toast.makeText(this.cordova.getActivity(),"normal close",Toast.LENGTH_SHORT).show();
-      }
-
-    else
-      {
-    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
-        .setTitle("Are you sure you want to quit")
-        .setMessage("Pressing EXIT button will close and abandon the payment session")
-        .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
-            // public void onClick(DialogInterface dialog, int which){
-            //     if (inAppBrowser == null) {
-            //         dismiss();
-            //     } 
-            //     else {
-            //         // better to go through the in inAppBrowser
-            //         // because it does a clean up
-            //         if (hardwareBack() && canGoBack()) {
-            //             goBack();
-            //         }  else {
-            //             //closeDialog();
-            //             Toast.makeText(this.cordova.getActivity(),"normal close",Toast.LENGTH_SHORT).show();
-            //         }
-            //     }
-            // }
-        })
-        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog,int which){
-                dialog.cancel();
-            }
-        });
-        alertDialogBuilder.create();
-        alertDialogBuilder.show();
-      }
-
-/*
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -495,8 +456,7 @@ public class InAppBrowser extends CordovaPlugin {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
             }
-        });
-        */
+        }); 
     }
 
     /**
