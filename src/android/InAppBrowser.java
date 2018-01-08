@@ -765,11 +765,11 @@ if(shouldClose)
         })
         .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog,int which){
-                dialog.cancel();
+                //dialog.cancel();
             }
         });
-        alertDialogBuilder.create();
-        alertDialogBuilder.show();
+        //alertDialogBuilder.create();
+        //alertDialogBuilder.show();
       }
 
                     }
