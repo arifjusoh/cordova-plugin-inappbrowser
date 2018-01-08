@@ -480,7 +480,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	 Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
+    	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
 
         return hadwareBackButton;
     }
@@ -732,7 +732,8 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                       closeDialog();
+                       //closeDialog();
+                    	this.inAppBrowser.canGoBack();
                     }
                 });
 
