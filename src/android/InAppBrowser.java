@@ -744,7 +744,7 @@ if(shouldClose)
 
     else
       {
-    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
+    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.cordova.getActivity())
         .setTitle("Are you sure you want to quit")
         .setMessage("Pressing EXIT button will close and abandon the payment session")
         .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
