@@ -734,7 +734,7 @@ public class InAppBrowser extends CordovaPlugin {
                     public void onClick(View v) {
                        //closeDialog();
 
-                    	this.InAppBrowser.hardwareBack();
+                    	hardwareBack();
                     }
                 });
 
