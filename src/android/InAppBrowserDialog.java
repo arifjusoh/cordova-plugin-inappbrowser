@@ -26,8 +26,6 @@ import android.content.Context;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.widget.Toast;
-
 
 /**
  * Created by Oliver on 22/11/2013.
