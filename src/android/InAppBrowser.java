@@ -71,6 +71,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+ import android.content.DialogInterface;
+
+
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
 
