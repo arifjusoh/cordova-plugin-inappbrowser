@@ -53,6 +53,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+ import android.content.DialogInterface;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
 import org.apache.cordova.CordovaArgs;
@@ -731,9 +735,43 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                       closeDialog();
-                       Activity act = this.cordova.getActivity();
-                       act.finish(); 
+                       //closeDialog();
+                       
+if(shouldClose)
+      {
+         closeDialog();
+      }
+
+    else
+      {
+    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
+        .setTitle("Are you sure you want to quit")
+        .setMessage("Pressing EXIT button will close and abandon the payment session")
+        .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                if (inAppBrowser == null) {
+                    dismiss();
+                } 
+                else {
+                    // better to go through the in inAppBrowser
+                    // because it does a clean up
+                    if (hardwareBack() && canGoBack()) {
+                        goBack();
+                    }  else {
+                        closeDialog();
+                    }
+                }
+            }
+        })
+        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog,int which){
+                dialog.cancel();
+            }
+        });
+        alertDialogBuilder.create();
+        alertDialogBuilder.show();
+      }
+
                     }
                 });
 
