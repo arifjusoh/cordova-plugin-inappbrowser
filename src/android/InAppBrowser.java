@@ -71,11 +71,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
- import android.content.DialogInterface;
-
-
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
 
@@ -768,35 +763,8 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                      // closeDialog();
-						
-					    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
-        .setTitle("Are you sure you want to quit")
-        .setMessage("Pressing EXIT button will close and abandon the payment session")
-        .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                if (inAppBrowser == null) {
-                    dismiss();
-                } 
-                else {
-                    // better to go through the in inAppBrowser
-                    // because it does a clean up
-                    if (inAppBrowser.hardwareBack() && inAppBrowser.canGoBack()) {
-                        inAppBrowser.goBack();
-                    }  else {
-                       // inAppBrowser.closeDialog();
-                    	Toast.makeText(this.cordova.getActivity(),"load close dialog here",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        })
-        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog,int which){
-                dialog.cancel();
-            }
-        });
-        alertDialogBuilder.create();
-        alertDialogBuilder.show();	}
+                       closeDialog();
+						}
                 });
 
                 // WebView
