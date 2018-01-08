@@ -104,7 +104,7 @@ public class InAppBrowser extends CordovaPlugin {
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
     private boolean clearSessionCache = false;
-    public static boolean hadwareBackButton = true;
+    private boolean hadwareBackButton = true;
     private boolean mediaPlaybackRequiresUserGesture = false;
     private boolean shouldPauseInAppBrowser = false;
     private boolean useWideViewPort = true;
@@ -460,6 +460,7 @@ public class InAppBrowser extends CordovaPlugin {
      * Checks to see if it is possible to go back one page in history, then does so.
      */
     public void goBack() {
+    	 Toast.makeText(this.cordova.getActivity(),"go back",Toast.LENGTH_SHORT).show();
         if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
@@ -479,7 +480,7 @@ public class InAppBrowser extends CordovaPlugin {
      * Has the user set the hardware back button to go back
      * @return boolean
      */
-    public static boolean hardwareBack() {
+    public boolean hardwareBack() {
     	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
 
         return hadwareBackButton;
@@ -732,9 +733,9 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                       //closeDialog();
-						//Toast.makeText(this.cordova.getActivity(),"toolbar close clicked",Toast.LENGTH_SHORT).show();
-                    	InAppBrowser.hardwareBack();
+                       closeDialog();
+
+                    	//InAppBrowser.hardwareBack();
                     }
                 });
 
