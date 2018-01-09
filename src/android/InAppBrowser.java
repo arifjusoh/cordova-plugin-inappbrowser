@@ -104,7 +104,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
-    private static boolean shouldClose = true; //default true means can close, unless specified otherwise
+    public static boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
