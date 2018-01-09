@@ -80,7 +80,7 @@ import java.util.StringTokenizer;
 public class InAppBrowser extends CordovaPlugin {
 
     private static final String NULL = "null";
-    protected static final String LOG_TAG = "InAppBrowser";
+    public static final String LOG_TAG = "InAppBrowser";
     private static final String SELF = "_self";
     private static final String SYSTEM = "_system";
     public static final String EXIT_EVENT = "exit";

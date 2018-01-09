@@ -66,7 +66,7 @@ public class InAppBrowserDialog extends Dialog {
                      obj.put("type", InAppBrowser.EXIT_EVENT);
                      this.inAppBrowser.sendUpdate(obj, false);
                  } catch (JSONException ex) {
-                     //LOG.d("InAppBrowser", "Should never happen");
+                     LOG.d(InAppBrowser.LOG_TAG, "Should never happen");
                  }
       }
 }
