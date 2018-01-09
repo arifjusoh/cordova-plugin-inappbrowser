@@ -63,10 +63,10 @@ public class InAppBrowserDialog extends Dialog {
       {
          try {
                      JSONObject obj = new JSONObject();
-                     obj.put("type", InappBrowser.EXIT_EVENT);
-                     InappBrowser.sendUpdate(obj, false);
+//                     obj.put("type", InappBrowser.EXIT_EVENT);
+  //                   InappBrowser.sendUpdate(obj, false);
                  } catch (JSONException ex) {
-                     LOG.d(LOG_TAG, "Should never happen");
+    //                 LOG.d(LOG_TAG, "Should never happen");
                  }
       }
 }
