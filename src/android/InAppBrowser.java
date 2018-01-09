@@ -749,7 +749,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                     	else
                     	{
-                           closeDialog();   		
+                           //closeDialog();   		
                     	}
                 }
                 });
