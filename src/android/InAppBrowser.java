@@ -753,6 +753,7 @@ public class InAppBrowser extends CordovaPlugin {
                  } catch (JSONException ex) {
                      LOG.d(LOG_TAG, "Should never happen");
                  }
+                 finish();
                      	}
                 }
                 });
