@@ -102,7 +102,7 @@ public class InAppBrowser extends CordovaPlugin {
     private InAppBrowserDialog dialog;
     private WebView inAppWebView;
     private EditText edittext;
-    private CallbackContext callbackContext;
+    private static CallbackContext callbackContext;
     private boolean showLocationBar = true;
     public static boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
