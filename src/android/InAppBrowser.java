@@ -85,7 +85,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SYSTEM = "_system";
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
-    public static final String SHOULD_CLOSE = "shouldclose";
+    private static final String SHOULD_CLOSE = "shouldclose";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -104,7 +104,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
-    public static boolean shouldClose = true; //default true means can close, unless specified otherwise
+    private boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -736,10 +736,10 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                    	//if(shouldclose)
-                    	//{
+                    	if(shouldClose)
+                    	{
                            closeDialog();
-                    	//}
+                    	}
 
                     	// else
                     	// {
