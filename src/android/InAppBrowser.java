@@ -104,7 +104,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
-    private boolean shouldClose = true; //default true means can close, unless specified otherwise
+    private static boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -429,8 +429,7 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public void run() {
 
-            	if(shouldClose) //if browser should close normally
-                    	{
+            	
                     		final WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
@@ -459,18 +458,6 @@ public class InAppBrowser extends CordovaPlugin {
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
-                    	}
-
-                    	else
-                    	{
-                    		try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
-                    sendUpdate(obj, true);
-                } catch (JSONException ex) {
-                    LOG.d(LOG_TAG, "Should never happen");
-                }
-                    	}
 
             }
         }); 
@@ -752,21 +739,21 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                    	//if(shouldClose) //if browser should close normally
-                    	//{
+                    	if(shouldClose) //if browser should close normally
+                    	{
                            closeDialog();
-                    	//}
+                    	}
 
-                //     	else
-                //     	{
-                //     		 try {
-                //     JSONObject obj = new JSONObject();
-                //     obj.put("type", EXIT_EVENT);
-                //     sendUpdate(obj, false);
-                // } catch (JSONException ex) {
-                //     LOG.d(LOG_TAG, "Should never happen");
-                // }
-                //     	}
+                     	else
+                     	{
+                     		 try {
+                     JSONObject obj = new JSONObject();
+                     obj.put("type", EXIT_EVENT);
+                     sendUpdate(obj, false);
+                 } catch (JSONException ex) {
+                     LOG.d(LOG_TAG, "Should never happen");
+                 }
+                     	}
                 }
                 });
 
