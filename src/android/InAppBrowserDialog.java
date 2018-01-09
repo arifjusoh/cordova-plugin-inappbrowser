@@ -18,62 +18,13 @@
 */
 package org.apache.cordova.inappbrowser;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.provider.Browser;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.text.InputType;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
-import android.webkit.HttpAuthHandler;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
  import android.content.DialogInterface;
 
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.Config;
-import org.apache.cordova.CordovaArgs;
-import org.apache.cordova.CordovaHttpAuthHandler;
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.LOG;
-import org.apache.cordova.PluginManager;
-import org.apache.cordova.PluginResult;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.StringTokenizer;
 
 /**
  * Created by Oliver on 22/11/2013.
