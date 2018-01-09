@@ -454,7 +454,7 @@ public class InAppBrowser extends CordovaPlugin {
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("type", EXIT_EVENT);
-                    sendUpdate(obj, true);
+                    sendUpdate(obj, false);
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
@@ -749,7 +749,7 @@ public class InAppBrowser extends CordovaPlugin {
                      		 try {
                      JSONObject obj = new JSONObject();
                      obj.put("type", EXIT_EVENT);
-                     sendUpdate(obj, false);
+                     sendUpdate(obj, true);
                  } catch (JSONException ex) {
                      LOG.d(LOG_TAG, "Should never happen");
                  }
