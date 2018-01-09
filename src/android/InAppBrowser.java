@@ -83,7 +83,7 @@ public class InAppBrowser extends CordovaPlugin {
     protected static final String LOG_TAG = "InAppBrowser";
     private static final String SELF = "_self";
     private static final String SYSTEM = "_system";
-    private static final String EXIT_EVENT = "exit";
+    public static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
     private static final String SHOULD_CLOSE = "shouldclose";
     private static final String ZOOM = "zoom";
@@ -102,7 +102,7 @@ public class InAppBrowser extends CordovaPlugin {
     private InAppBrowserDialog dialog;
     private WebView inAppWebView;
     private EditText edittext;
-    private CallbackContext callbackContext;
+    private static CallbackContext callbackContext;
     private boolean showLocationBar = true;
     public static boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
@@ -896,7 +896,7 @@ public class InAppBrowser extends CordovaPlugin {
      *
      * @param obj a JSONObject contain event payload information
      */
-    private void sendUpdate(JSONObject obj, boolean keepCallback) {
+    public static void sendUpdate(JSONObject obj, boolean keepCallback) {
         sendUpdate(obj, keepCallback, PluginResult.Status.OK);
     }
 
@@ -906,7 +906,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @param obj a JSONObject contain event payload information
      * @param status the status code to return to the JavaScript environment
      */
-    private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
+    private static void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
             PluginResult result = new PluginResult(status, obj);
             result.setKeepCallback(keepCallback);
