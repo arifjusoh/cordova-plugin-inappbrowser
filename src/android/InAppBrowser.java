@@ -741,12 +741,12 @@ public class InAppBrowser extends CordovaPlugin {
                            closeDialog();
                     	}
 
-                    	else
-                    	{
-                    		JSONObject obj = new JSONObject();
-                    		obj.put("type", EXIT_EVENT);
-                    		sendUpdate(obj, false);
-                    	}
+                    	// else
+                    	// {
+                    	// 	JSONObject obj = new JSONObject();
+                    	// 	obj.put("type", EXIT_EVENT);
+                    	// 	sendUpdate(obj, false);
+                    	// }
                 }
                 });
 
