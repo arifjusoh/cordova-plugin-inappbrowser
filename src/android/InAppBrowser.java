@@ -738,18 +738,18 @@ public class InAppBrowser extends CordovaPlugin {
                     public void onClick(View v) {
                     	if(shouldClose)
                     	{
-                //             try {
-                //     JSONObject obj = new JSONObject();
-                //     obj.put("type", EXIT_EVENT);
-                //     sendUpdate(obj, false);
-                // } catch (JSONException ex) {
-                //     LOG.d(LOG_TAG, "Should never happen");
-                // }
+                           closeDialog();
                     	}
 
                     	else
                     	{
-                           //closeDialog();   		
+                    		 try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", EXIT_EVENT);
+                    sendUpdate(obj, false);
+                } catch (JSONException ex) {
+                    LOG.d(LOG_TAG, "Should never happen");
+                }
                     	}
                 }
                 });
