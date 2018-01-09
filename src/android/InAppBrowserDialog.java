@@ -23,6 +23,8 @@ import android.app.Dialog;
 import android.content.Context;
  import android.content.DialogInterface;
 
+ import org.apache.cordova.LOG;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
