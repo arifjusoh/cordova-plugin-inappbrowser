@@ -43,8 +43,7 @@ public class InAppBrowserDialog extends Dialog {
     }
 
     public void onBackPressed() {
-      if(InAppBrowser.shouldClose)
-      {
+      
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
@@ -56,36 +55,5 @@ public class InAppBrowserDialog extends Dialog {
                 this.inAppBrowser.closeDialog();
             }
         }
-      }
-
-    else
-      {
-    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
-        .setTitle("Are you sure you want to quit")
-        .setMessage("Pressing EXIT button will close and abandon the payment session")
-        .setPositiveButton("EXIT", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                if (inAppBrowser == null) {
-                    dismiss();
-                } 
-                else {
-                    // better to go through the in inAppBrowser
-                    // because it does a clean up
-                    if (inAppBrowser.hardwareBack() && inAppBrowser.canGoBack()) {
-                        inAppBrowser.goBack();
-                    }  else {
-                        inAppBrowser.closeDialog();
-                    }
-                }
-            }
-        })
-        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog,int which){
-                dialog.cancel();
-            }
-        });
-        alertDialogBuilder.create();
-        alertDialogBuilder.show();
-      }
 }
 }
