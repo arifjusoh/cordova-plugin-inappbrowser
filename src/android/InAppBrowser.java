@@ -736,10 +736,10 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                    	if(shouldclose)
-                    	{
+                    	//if(shouldclose)
+                    	//{
                            closeDialog();
-                    	}
+                    	//}
 
                     	// else
                     	// {
