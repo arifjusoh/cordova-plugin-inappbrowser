@@ -736,8 +736,18 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                       closeDialog();
-                    }
+                    	if(shouldclose)
+                    	{
+                           closeDialog();
+                    	}
+
+                    	else
+                    	{
+                    		JSONObject obj = new JSONObject();
+                    		obj.put("type", EXIT_EVENT);
+                    		sendUpdate(obj, false);
+                    	}
+                }
                 });
 
                 // WebView
