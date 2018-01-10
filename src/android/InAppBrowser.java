@@ -531,9 +531,10 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, url);
         }
 
-        //@TargetApi(Build.VERSION_CODES.N)
+        //@TargetApi(Build.VERSION_CODES.N)	
         //@Override
-        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+        //public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+        private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
             if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                 paymentPresentor.handleShouldInterceptRequest(view, request.getUrl().toString());
 
@@ -545,7 +546,8 @@ public class InAppBrowser extends CordovaPlugin {
         /**
          * Return WebResourceResponse with CSS markup from an asset (e.g. "assets/style.css").
          */
-        private WebResourceResponse getCssWebResourceResponseFromAsset() {
+        //private WebResourceResponse getCssWebResourceResponseFromAsset() {
+        private void getCssWebResourceResponseFromAsset() {
             try {
                 return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
             } catch (IOException e) {
@@ -561,7 +563,8 @@ public class InAppBrowser extends CordovaPlugin {
          }
          */
 
-        private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+        //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+         private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
             return new WebResourceResponse("text/css", "UTF-8", data);
         }
     }
@@ -1093,6 +1096,7 @@ public class InAppBrowser extends CordovaPlugin {
          */
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        	 Toast.makeText(this.cordova.getActivity(),"on page started",Toast.LENGTH_SHORT).show();
             super.onPageStarted(view, url, favicon);
             String newloc = "";
             if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
