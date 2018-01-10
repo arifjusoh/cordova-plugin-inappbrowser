@@ -1096,7 +1096,7 @@ public class InAppBrowser extends CordovaPlugin {
          */
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-        	 Toast.makeText(this.cordova.getActivity(),"on page started",Toast.LENGTH_SHORT).show();
+        	 //Toast.makeText(this.cordova.getActivity(),"on page started",Toast.LENGTH_SHORT).show();
             super.onPageStarted(view, url, favicon);
             String newloc = "";
             if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
