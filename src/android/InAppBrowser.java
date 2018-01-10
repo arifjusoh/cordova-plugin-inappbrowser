@@ -1126,63 +1126,63 @@ public class InAppBrowser extends CordovaPlugin {
         }
 
         //public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-        private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
-             if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 {
-        	 	//paymentpresentor.handleshouldinterceptrequest starts here
-        	 	 if (request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-        	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
+     //    private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
+     //         if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+     //             {
+     //    	 	//paymentpresentor.handleshouldinterceptrequest starts here
+     //    	 	 if (request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+     //    	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
 
-        	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-		                try{
-		                    Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
-		                    int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-		                    String message = uri.getQueryParameter("TxnMessage");
-		                    String rawResponse = convertQueryToJSON(uri);
-		                    Intent data = buildExtra(status, message, rawResponse);
-		                    //listener.onFinish(status, data,triggerReturnUrl);
+     //    	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+		   //              try{
+		   //                  Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
+		   //                  int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+		   //                  String message = uri.getQueryParameter("TxnMessage");
+		   //                  String rawResponse = convertQueryToJSON(uri);
+		   //                  Intent data = buildExtra(status, message, rawResponse);
+		   //                  //listener.onFinish(status, data,triggerReturnUrl);
 
-		                } catch(NumberFormatException e){
-		                    Toast.makeText(this.cordova.getActivity(),"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
-		                    //listener.onReadJSON(view);
-		                }
-			            } 
+		   //              } catch(NumberFormatException e){
+		   //                  Toast.makeText(this.cordova.getActivity(),"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
+		   //                  //listener.onReadJSON(view);
+		   //              }
+			  //           } 
 
-			            else {
-			                Toast.makeText(this.cordova.getActivity(),"Got return url",Toast.LENGTH_SHORT).show();
-			                //listener.onReadJSON(view);
-			            }
-        	 	 }
-        	 	 //paymentpresentor.handleshouldinterceptrequest ends here
+			  //           else {
+			  //               Toast.makeText(this.cordova.getActivity(),"Got return url",Toast.LENGTH_SHORT).show();
+			  //               //listener.onReadJSON(view);
+			  //           }
+     //    	 	 }
+     //    	 	 //paymentpresentor.handleshouldinterceptrequest ends here
 
-  				return getCssWebResourceResponseFromAsset();
+  			// 	return getCssWebResourceResponseFromAsset();
         	 	
-        	 	//return false, stop the loading and exit browser 
-				 try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
-                    sendUpdate(obj, false);
-                } catch (JSONException ex) {
-                    LOG.d(LOG_TAG, "Should never happen");
-                }
-        	 }
+     //    	 	//return false, stop the loading and exit browser 
+				 // try {
+     //                JSONObject obj = new JSONObject();
+     //                obj.put("type", EXIT_EVENT);
+     //                sendUpdate(obj, false);
+     //            } catch (JSONException ex) {
+     //                LOG.d(LOG_TAG, "Should never happen");
+     //            }
+     //    	 }
 
-            return super.shouldInterceptRequest(view, request);
-        }
+     //        return super.shouldInterceptRequest(view, request);
+     //    }
 
-        //private WebResourceResponse getCssWebResourceResponseFromAsset() {
-        private void getCssWebResourceResponseFromAsset() {
-            try {
-                return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            } catch (IOException e) {
-                return null;
-            }
-        }         
+     //    //private WebResourceResponse getCssWebResourceResponseFromAsset() {
+     //    private void getCssWebResourceResponseFromAsset() {
+     //        try {
+     //            return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+     //        } catch (IOException e) {
+     //            return null;
+     //        }
+     //    }         
 
-        //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-         private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            return new WebResourceResponse("text/css", "UTF-8", data);
-        }
+     //    //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+     //     private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
+     //        return new WebResourceResponse("text/css", "UTF-8", data);
+     //    }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
