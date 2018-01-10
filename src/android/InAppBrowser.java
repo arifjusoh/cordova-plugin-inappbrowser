@@ -518,10 +518,10 @@ public class InAppBrowser extends CordovaPlugin {
         this.inAppWebView.requestFocus();
     }
 
-    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCION STARTS HERE /////////////////////////////////////////////
+    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
 
-    @SuppressWarnings("deprecation")
-        @Override
+        //@SuppressWarnings("deprecation")
+        //@Override
         public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
             if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
                 paymentPresentor.handleShouldInterceptRequest(view, url);
@@ -530,8 +530,8 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, url);
         }
 
-        @TargetApi(Build.VERSION_CODES.N)
-        @Override
+        //@TargetApi(Build.VERSION_CODES.N)
+        //@Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                 paymentPresentor.handleShouldInterceptRequest(view, request.getUrl().toString());
@@ -551,10 +551,11 @@ public class InAppBrowser extends CordovaPlugin {
                 return null;
             }
         }
-        /*
-         * Return WebResourceResponse with CSS markup from a raw resource (e.g. "raw/style.css").
-         *
-         * private WebResourceResponse getCssWebResourceResponseFromRawResource() {
+
+         /*
+         Return WebResourceResponse with CSS markup from a raw resource (e.g. "raw/style.css").
+         
+         private WebResourceResponse getCssWebResourceResponseFromRawResource() {
          return getUtf8EncodedCssWebResourceResponse(getResources().openRawResource(R.raw.style));
          }
          */
