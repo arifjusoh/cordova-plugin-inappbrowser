@@ -1049,7 +1049,7 @@ public class InAppBrowser extends CordovaPlugin {
         }
 
 
-        private String convertQueryToJSON(Uri uri){
+        private String convertQueryToJSON(Uri uri){ 
         try{
             Set<String> names = uri.getQueryParameterNames();
             JSONObject json = new JSONObject();
