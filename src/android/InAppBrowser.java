@@ -523,9 +523,20 @@ public class InAppBrowser extends CordovaPlugin {
         //@SuppressWarnings("deprecation")
         //@Override
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        private void shouldInterceptRequest(WebView view, String url) {
+        public void shouldInterceptRequest(WebView view, String url) {
         	 Toast.makeText(this.cordova.getActivity(),"HERE",Toast.LENGTH_SHORT).show();
         	 Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
+
+        	 if(url.contains("MerchantReturnURL"))
+        	 {
+        	 	return false;
+        	 }
+
+        	 else
+        	 {
+        	 	return true;
+        	 }
+
             // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
             //     paymentPresentor.handleShouldInterceptRequest(view, url);
             //     return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
@@ -1102,6 +1113,9 @@ public class InAppBrowser extends CordovaPlugin {
             super.onPageStarted(view, url, favicon);
             String newloc = "";
 
+            //call intercept function here and pass url to it, and get the response whether to continue opening the inappbrowser or not
+            shouldInterceptRequest(view, url);
+
             if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
                 newloc = url;
             }
@@ -1119,10 +1133,6 @@ public class InAppBrowser extends CordovaPlugin {
              }
 
             try {
-
-            //call intercept function here and pass url to it, and get the response whether to continue opening the inappbrowser or not
-            shouldInterceptRequest(view, newloc);
-
                 JSONObject obj = new JSONObject();
                 obj.put("type", LOAD_START_EVENT);
                 obj.put("url", newloc);
