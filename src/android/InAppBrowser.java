@@ -518,6 +518,53 @@ public class InAppBrowser extends CordovaPlugin {
         this.inAppWebView.requestFocus();
     }
 
+    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCION STARTS HERE /////////////////////////////////////////////
+
+    @SuppressWarnings("deprecation")
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+                paymentPresentor.handleShouldInterceptRequest(view, url);
+                return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+            }
+            return super.shouldInterceptRequest(view, url);
+        }
+
+        @TargetApi(Build.VERSION_CODES.N)
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                paymentPresentor.handleShouldInterceptRequest(view, request.getUrl().toString());
+
+                return getCssWebResourceResponseFromAsset();
+            }
+            return super.shouldInterceptRequest(view, request);
+        }
+
+        /**
+         * Return WebResourceResponse with CSS markup from an asset (e.g. "assets/style.css").
+         */
+        private WebResourceResponse getCssWebResourceResponseFromAsset() {
+            try {
+                return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+            } catch (IOException e) {
+                return null;
+            }
+        }
+        /*
+         * Return WebResourceResponse with CSS markup from a raw resource (e.g. "raw/style.css").
+         *
+         * private WebResourceResponse getCssWebResourceResponseFromRawResource() {
+         return getUtf8EncodedCssWebResourceResponse(getResources().openRawResource(R.raw.style));
+         }
+         */
+
+        private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+            return new WebResourceResponse("text/css", "UTF-8", data);
+        }
+    }
+
+    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
     /**
      * Should we show the location bar?
