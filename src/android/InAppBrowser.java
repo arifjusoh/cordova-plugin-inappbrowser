@@ -519,7 +519,7 @@ public class InAppBrowser extends CordovaPlugin {
     }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
-
+    /*
         //@SuppressWarnings("deprecation")
         //@Override
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
@@ -543,9 +543,9 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, request);
         }
 
-        /**
-         * Return WebResourceResponse with CSS markup from an asset (e.g. "assets/style.css").
-         */
+        
+          //Return WebResourceResponse with CSS markup from an asset (e.g. "assets/style.css").
+         
         //private WebResourceResponse getCssWebResourceResponseFromAsset() {
         private void getCssWebResourceResponseFromAsset() {
             try {
@@ -555,20 +555,20 @@ public class InAppBrowser extends CordovaPlugin {
             }
         }
 
-         /*
-         Return WebResourceResponse with CSS markup from a raw resource (e.g. "raw/style.css").
          
-         private WebResourceResponse getCssWebResourceResponseFromRawResource() {
-         return getUtf8EncodedCssWebResourceResponse(getResources().openRawResource(R.raw.style));
-         }
-         */
+         //Return WebResourceResponse with CSS markup from a raw resource (e.g. "raw/style.css").
+         
+         //private WebResourceResponse getCssWebResourceResponseFromRawResource() {
+         //return getUtf8EncodedCssWebResourceResponse(getResources().openRawResource(R.raw.style));
+         //}
+         
 
         //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
          private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
             return new WebResourceResponse("text/css", "UTF-8", data);
         }
     }
-
+*/
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
     /**
