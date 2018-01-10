@@ -99,6 +99,10 @@ public class InAppBrowser extends CordovaPlugin {
     private static final Boolean DEFAULT_HARDWARE_BACK = true;
     private static final String USER_WIDE_VIEW_PORT = "useWideViewPort";
 
+    public static final String TXN_STATUS = "TxnStatus";
+    public static final String TXN_MESSAGE = "TxnMessage";
+    public static final String RAW_RESPONSE = "RawResponse";
+
     private InAppBrowserDialog dialog;
     private WebView inAppWebView;
     private EditText edittext;
@@ -117,6 +121,8 @@ public class InAppBrowser extends CordovaPlugin {
     private ValueCallback<Uri[]> mUploadCallbackLollipop;
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
+    public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
+    public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
 
     /**
      * Executes the request and returns PluginResult.
@@ -1034,44 +1040,136 @@ public class InAppBrowser extends CordovaPlugin {
             return false;
         }
 
+        private String validateMerchantReturnURL(String merchantReturnURL) {
+        if (merchantReturnURL.contains(";")) {
+            return merchantReturnURL.replace(";", "&");
+        }
+
+        return merchantReturnURL;
+        }
+
+
+        private String convertQueryToJSON(Uri uri){
+        try{
+            Set<String> names = uri.getQueryParameterNames();
+            JSONObject json = new JSONObject();
+
+            for(String name: names){
+                String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
+                json.put(name,value);
+
+            }
+            return json.toString();
+
+        }catch(Exception e){
+            //ELogger.e(TAG,"Error converting to json",e);
+        	Toast.makeText(this.cordova.getActivity(),"Error converting to json",Toast.LENGTH_SHORT).show();
+            return "";
+        }
+
+    }
+
+
+        private Intent buildExtra(int status, String message, String rawResponse){
+        Intent data = new Intent();
+        data.putExtra(TXN_STATUS,status);
+        data.putExtra(TXN_MESSAGE,message);
+        data.putExtra(RAW_RESPONSE,rawResponse);
+        return data;
+    }
 
         ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        public boolean shouldInterceptRequest(WebView webView, String url) {
-        	 // Toast.makeText(this.cordova.getActivity(),"HERE",Toast.LENGTH_SHORT).show();
-        	 // Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
+        private void shouldInterceptRequest(WebView webView, String url) {
 
-        	 // if(url.contains("MerchantReturnURL"))
-        	 // {
-        	 // 	return false;
-        	 // }
+        	 if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+        	 {
+        	 	//paymentpresentor.handleshouldinterceptrequest starts here
+        	 	 if (url.contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+        	 	 	 Uri uri = Uri.parse(url); 
 
-        	 // else
-        	 // {
-        	 // 	return true;
-        	 // }
+        	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus")) {
+		                try{
+		                    Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
+		                    int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+		                    String message = uri.getQueryParameter("TxnMessage");
+		                    String rawResponse = convertQueryToJSON(uri);
+		                    Intent data = buildExtra(status, message, rawResponse);
+		                    //listener.onFinish(status, data,triggerReturnUrl);
 
-         //   if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
-            //     paymentPresentor.handleShouldInterceptRequest(view, url);
-           //     return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
-           // }
-           // return super.shouldInterceptRequest(view, url);
+		                } catch(NumberFormatException e){
+		                    Toast.makeText(this.cordova.getActivity(),"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
+		                    //listener.onReadJSON(view);
+		                }
+			            } 
+
+			            else {
+			                Toast.makeText(this.cordova.getActivity(),"Got return url",Toast.LENGTH_SHORT).show();
+			                //listener.onReadJSON(view);
+			            }
+        	 	 }
+        	 	 //paymentpresentor.handleshouldinterceptrequest ends here
+
+				return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+        	 	
+        	 	//return false, stop the loading and exit browser 
+				 try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", EXIT_EVENT);
+                    sendUpdate(obj, false);
+                } catch (JSONException ex) {
+                    LOG.d(LOG_TAG, "Should never happen");
+                }
+        	 }
+            return super.shouldInterceptRequest(view, url);
         }
-/*
+
         //public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
         private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
-            if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                paymentPresentor.handleShouldInterceptRequest(view, request.getUrl().toString());
+             if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 {
+        	 	//paymentpresentor.handleshouldinterceptrequest starts here
+        	 	 if (request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+        	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
 
-                return getCssWebResourceResponseFromAsset();
-            }
+        	 	 	  if (uri.getEncodedQuery() != null && (uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus")) {
+		                try{
+		                    Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
+		                    int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+		                    String message = uri.getQueryParameter("TxnMessage");
+		                    String rawResponse = convertQueryToJSON(uri);
+		                    Intent data = buildExtra(status, message, rawResponse);
+		                    //listener.onFinish(status, data,triggerReturnUrl);
+
+		                } catch(NumberFormatException e){
+		                    Toast.makeText(this.cordova.getActivity(),"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
+		                    //listener.onReadJSON(view);
+		                }
+			            } 
+
+			            else {
+			                Toast.makeText(this.cordova.getActivity(),"Got return url",Toast.LENGTH_SHORT).show();
+			                //listener.onReadJSON(view);
+			            }
+        	 	 }
+        	 	 //paymentpresentor.handleshouldinterceptrequest ends here
+
+  				return getCssWebResourceResponseFromAsset();
+        	 	
+        	 	//return false, stop the loading and exit browser 
+				 try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", EXIT_EVENT);
+                    sendUpdate(obj, false);
+                } catch (JSONException ex) {
+                    LOG.d(LOG_TAG, "Should never happen");
+                }
+        	 }
+
             return super.shouldInterceptRequest(view, request);
         }
 
-        
-          //Return WebResourceResponse with CSS markup from an asset (e.g. "assets/style.css").
-         
         //private WebResourceResponse getCssWebResourceResponseFromAsset() {
         private void getCssWebResourceResponseFromAsset() {
             try {
@@ -1079,22 +1177,14 @@ public class InAppBrowser extends CordovaPlugin {
             } catch (IOException e) {
                 return null;
             }
-        }
-
-         
-         //Return WebResourceResponse with CSS markup from a raw resource (e.g. "raw/style.css").
-         
-         //private WebResourceResponse getCssWebResourceResponseFromRawResource() {
-         //return getUtf8EncodedCssWebResourceResponse(getResources().openRawResource(R.raw.style));
-         //}
-         
+        }         
 
         //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
          private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
             return new WebResourceResponse("text/css", "UTF-8", data);
         }
     }
-*/
+
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
 
