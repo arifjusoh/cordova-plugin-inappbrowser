@@ -1038,19 +1038,19 @@ public class InAppBrowser extends CordovaPlugin {
         ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        public boolean shouldInterceptRequest11(WebView webView, String url) {
-        	 Toast.makeText(this.cordova.getActivity(),"HERE",Toast.LENGTH_SHORT).show();
-        	 Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
+        public boolean shouldInterceptRequest(WebView webView, String url) {
+        	 // Toast.makeText(this.cordova.getActivity(),"HERE",Toast.LENGTH_SHORT).show();
+        	 // Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
 
-        	 if(url.contains("MerchantReturnURL"))
-        	 {
-        	 	return false;
-        	 }
+        	 // if(url.contains("MerchantReturnURL"))
+        	 // {
+        	 // 	return false;
+        	 // }
 
-        	 else
-        	 {
-        	 	return true;
-        	 }
+        	 // else
+        	 // {
+        	 // 	return true;
+        	 // }
 
          //   if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
             //     paymentPresentor.handleShouldInterceptRequest(view, url);
