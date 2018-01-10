@@ -524,6 +524,7 @@ public class InAppBrowser extends CordovaPlugin {
         //@Override
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         private void shouldInterceptRequest(WebView view, String url) {
+        	 Toast.makeText(this.cordova.getActivity(),"HERE",Toast.LENGTH_SHORT).show();
         	 Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
             // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
             //     paymentPresentor.handleShouldInterceptRequest(view, url);
