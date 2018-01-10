@@ -1102,9 +1102,6 @@ public class InAppBrowser extends CordovaPlugin {
             super.onPageStarted(view, url, favicon);
             String newloc = "";
 
-            //call intercept function here and pass url to it, and get the response whether to continue opening the inappbrowser or not
-            shouldInterceptRequest(view, url);
-
             if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
                 newloc = url;
             }
@@ -1122,6 +1119,10 @@ public class InAppBrowser extends CordovaPlugin {
              }
 
             try {
+
+            //call intercept function here and pass url to it, and get the response whether to continue opening the inappbrowser or not
+            shouldInterceptRequest(view, newloc);
+
                 JSONObject obj = new JSONObject();
                 obj.put("type", LOAD_START_EVENT);
                 obj.put("url", newloc);
