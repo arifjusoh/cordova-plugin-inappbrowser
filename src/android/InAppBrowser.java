@@ -1126,9 +1126,10 @@ public class InAppBrowser extends CordovaPlugin {
         }
 
         //public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-        private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
-             if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 {
+         private void shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+
+        	 if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+        	 {
         	 	//paymentpresentor.handleshouldinterceptrequest starts here
         	 	 if (request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
         	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
@@ -1155,8 +1156,8 @@ public class InAppBrowser extends CordovaPlugin {
         	 	 }
         	 	 //paymentpresentor.handleshouldinterceptrequest ends here
 
-  				return getCssWebResourceResponseFromAsset();
-        	 	
+				return getCssWebResourceResponseFromAsset();
+				
         	 	//return false, stop the loading and exit browser 
 				 try {
                     JSONObject obj = new JSONObject();
@@ -1166,8 +1167,7 @@ public class InAppBrowser extends CordovaPlugin {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
         	 }
-
-            return super.shouldInterceptRequest(view, request);
+             return super.shouldInterceptRequest(view, request);
         }
 
         // //private WebResourceResponse getCssWebResourceResponseFromAsset() {
