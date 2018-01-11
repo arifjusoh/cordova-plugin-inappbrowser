@@ -31,6 +31,16 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.eghl.android.sdk.R;
+import com.eghl.sdk.ELogger;
+import com.eghl.sdk.PaymentBaseActivity;
+import com.eghl.sdk.Utils;
+import com.eghl.sdk.params.Params;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
