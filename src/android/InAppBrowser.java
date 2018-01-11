@@ -1091,8 +1091,8 @@ public class InAppBrowser extends CordovaPlugin {
 
         ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
-        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        //private void shouldInterceptRequest(WebView webView, String url) {
+        //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+        private void shouldInterceptRequest(WebView webView, String url) {
 
         	 if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
         	 {
@@ -1136,8 +1136,8 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, url);
         }
            
-           public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
-          //private void shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+           //public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+          private void shouldInterceptRequest(WebView webView, WebResourceRequest request) {
              if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
         	 	//paymentpresentor.handleshouldinterceptrequest starts here
