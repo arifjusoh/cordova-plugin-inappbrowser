@@ -1190,10 +1190,10 @@ public class InAppBrowser extends CordovaPlugin {
             }
         }         
 
-        //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-         private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            return new WebResourceResponse("text/css", "UTF-8", data);
-        }
+        // //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+        //  private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
+        //     return new WebResourceResponse("text/css", "UTF-8", data);
+        // }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
