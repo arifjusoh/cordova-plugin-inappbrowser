@@ -1133,7 +1133,7 @@ public class InAppBrowser extends CordovaPlugin {
         }
 
         //public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-          private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
+          private void shouldInterceptRequest(WebView webView, WebResourceRequest request) {
           //private void shouldInterceptRequest(WebView view, String url) {
              if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
 			   //if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
