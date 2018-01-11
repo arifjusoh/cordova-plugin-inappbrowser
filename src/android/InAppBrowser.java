@@ -54,6 +54,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import android.text.TextUtils;
+import android.util.Log;
+import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
  import android.content.DialogInterface;
@@ -1126,16 +1133,16 @@ public class InAppBrowser extends CordovaPlugin {
         }
 
         //public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-        //private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
-          private void shouldInterceptRequest(WebView view, String url) {
-             //if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-			   if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+          private void shouldInterceptRequest(WebView view, WebResourceRequest request) {
+          //private void shouldInterceptRequest(WebView view, String url) {
+             if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+			   //if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
         	 	//paymentpresentor.handleshouldinterceptrequest starts here
-        	 	 //if(request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-        	 	   if(url.contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-        	 	 	 //Uri uri = Uri.parse(request.getUrl().toString()); 
-        	 	   	   Uri uri = Uri.parse(url); 
+        	 	 if(request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+        	 	   //if(url.contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+        	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
+        	 	   	 //Uri uri = Uri.parse(url); 
 
         	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
 		                try{
