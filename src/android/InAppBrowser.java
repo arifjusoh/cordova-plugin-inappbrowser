@@ -18,7 +18,6 @@
 */
 
 package org.apache.cordova.inappbrowser;
-package com.eghl.sdk.payment;
 
 import android.annotation.TargetApi;
 
