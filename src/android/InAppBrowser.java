@@ -1136,17 +1136,12 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, url);
         }
 
-        //public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
           private void shouldInterceptRequest(WebView webView, WebResourceRequest request) {
-          //private void shouldInterceptRequest(WebView view, String url) {
              if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-			   //if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
         	 	//paymentpresentor.handleshouldinterceptrequest starts here
         	 	 if(request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-        	 	   //if(url.contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
         	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
-        	 	   	 //Uri uri = Uri.parse(url); 
 
         	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
 		                try{
@@ -1185,8 +1180,8 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, request);
         }
 
-        //private WebResourceResponse getCssWebResourceResponseFromAsset() {
-        private void getCssWebResourceResponseFromAsset() {
+        private WebResourceResponse getCssWebResourceResponseFromAsset() {
+        //private void getCssWebResourceResponseFromAsset() {
             try {
                 return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
             } catch (IOException e) {
@@ -1194,8 +1189,8 @@ public class InAppBrowser extends CordovaPlugin {
             }
         }         
 
-        //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-         private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
+        private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+         //private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
             return new WebResourceResponse("text/css", "UTF-8", data);
         }
 
