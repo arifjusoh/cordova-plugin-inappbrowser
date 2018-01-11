@@ -1084,7 +1084,7 @@ public class InAppBrowser extends CordovaPlugin {
     
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-        @SuppressWarnings("deprecation")
+        //@SuppressWarnings("deprecation")
         @Override
         private void shouldInterceptRequest(WebView webView, String url) {
 
