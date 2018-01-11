@@ -1118,7 +1118,7 @@ public class InAppBrowser extends CordovaPlugin {
         	 	 }
         	 	 //paymentpresentor.handleshouldinterceptrequest ends here
 
-				return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+				//return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
         	 	
         	 	//return false, stop the loading and exit browser 
 				 // try {
@@ -1129,7 +1129,7 @@ public class InAppBrowser extends CordovaPlugin {
      //                Toast.makeText(this.cordova.getActivity(),"Should Never Happen",Toast.LENGTH_SHORT).show();
      //            }
         	 }
-            return super.shouldInterceptRequest(view, url);
+            return super.shouldInterceptRequest(webView, url);
         }
            
         @TargetApi(Build.VERSION_CODES.N)
@@ -1167,7 +1167,7 @@ public class InAppBrowser extends CordovaPlugin {
         	 	 }
         	 	 //paymentpresentor.handleshouldinterceptrequest ends here
 
-  				return getCssWebResourceResponseFromAsset();
+  				//return getCssWebResourceResponseFromAsset();
         	 	
         	 	//return false, stop the loading and exit browser 
 				 // try {
@@ -1179,22 +1179,22 @@ public class InAppBrowser extends CordovaPlugin {
      //            }
         	 }
 
-            return super.shouldInterceptRequest(view, request);
+            return super.shouldInterceptRequest(webView, request);
         }
 
-  		//private void getCssWebResourceResponseFromAsset() {
-        private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            try {
-                return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            } catch (IOException e) {
-                return null;
-            }
-        }         
+  		// //private void getCssWebResourceResponseFromAsset() {
+    //     private WebResourceResponse getCssWebResourceResponseFromAsset() {
+    //         try {
+    //             return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+    //         } catch (IOException e) {
+    //             return null;
+    //         }
+    //     }         
 
-        //private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
-        private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            return new WebResourceResponse("text/css", "UTF-8", data);
-        }
+    //     //private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
+    //     private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+    //         return new WebResourceResponse("text/css", "UTF-8", data);
+    //     }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
