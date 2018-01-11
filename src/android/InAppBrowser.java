@@ -1000,10 +1000,10 @@ main.addView(toolbar);
                 }
             }
 
-             else if(url.contains("google")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
-    		{
-    			return false;
-    		}
+      //        else if(url.contains("google")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+    		// {
+    		// 	return false;
+    		// }
             return false;
         }
 
