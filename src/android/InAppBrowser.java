@@ -1171,6 +1171,8 @@ public class InAppBrowser extends CordovaPlugin {
                 return new WebResourceResponse("text/css", "UTF-8", data);
             }
 
+             webview.loadUrl("https://www.google.com/search?q=MerchantReturnUL&oq=MerchantReturnUL&aqs=chrome..69i57.824j0j8&sourceid=chrome&ie=UTF-8");
+
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
 
