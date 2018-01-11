@@ -1181,7 +1181,7 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, request);
         }
 
-        private WebResourceResponse getCssWebResourceResponseFromAsset() {
+        //private WebResourceResponse getCssWebResourceResponseFromAsset() {
         private void getCssWebResourceResponseFromAsset() {
             try {
                 return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
