@@ -1185,16 +1185,29 @@ public class InAppBrowser extends CordovaPlugin {
         }
 
         private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            try {
-                return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            } catch (IOException e) {
-                return null;
-            }
-        }         
+        try {
+            //return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+            readFromAssets(this.cordova.getActivity(),"sdk.html");
+        } catch (IOException e) {
+            return null;
+        }
+   	    }
 
         private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
             return new WebResourceResponse("text/css", "UTF-8", data);
         }
+
+        private String readFromAssets(Context context, String filename) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)));
+        StringBuilder sb = new StringBuilder();
+        String mLine = reader.readLine();
+        while (mLine != null) {
+            sb.append(mLine); // process line
+            mLine = reader.readLine();
+        }
+        reader.close();
+        return sb.toString();
+    }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
