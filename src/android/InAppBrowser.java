@@ -18,7 +18,6 @@
 */
 
 package org.apache.cordova.inappbrowser;
-package com.eghl.sdk.payment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -61,12 +60,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
-
-import com.eghl.android.sdk.R;
-import com.eghl.sdk.ELogger;
-import com.eghl.sdk.PaymentBaseActivity;
-import com.eghl.sdk.Utils;
-import com.eghl.sdk.params.Params;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
