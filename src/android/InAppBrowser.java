@@ -1089,7 +1089,7 @@ public class InAppBrowser extends CordovaPlugin {
         	 {
         	 	//paymentpresentor.handleshouldinterceptrequest starts here
 
-        	 	var validated_merchant_return_url = merchantReturnURL.replace(";", "&");
+        	 	var validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
     
         	 	 if (url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
         	 	 	 Uri uri = Uri.parse(url); 
@@ -1135,7 +1135,10 @@ public class InAppBrowser extends CordovaPlugin {
              if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
         	 	//paymentpresentor.handleshouldinterceptrequest starts here
-        	 	 if(request.getUrl().toString().contains(validateMerchantReturnURL(MERCHANT_RETURN_URL))) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+
+				var validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+
+        	 	 if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
         	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
 
         	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
