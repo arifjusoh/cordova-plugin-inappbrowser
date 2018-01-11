@@ -83,6 +83,10 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
+
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
 
@@ -1190,10 +1194,10 @@ public class InAppBrowser extends CordovaPlugin {
             }
         }         
 
-        // //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-        //  private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
-        //     return new WebResourceResponse("text/css", "UTF-8", data);
-        // }
+        //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+         private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
+            return new WebResourceResponse("text/css", "UTF-8", data);
+        }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
