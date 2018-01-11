@@ -16,6 +16,7 @@
        specific language governing permissions and limitations
        under the License.
 */
+
 package org.apache.cordova.inappbrowser;
 
 import android.annotation.SuppressLint;
@@ -51,6 +52,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import android.text.TextUtils;
+import android.util.Log;
+import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+ import android.content.DialogInterface;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
@@ -70,15 +83,20 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
+
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
 
     private static final String NULL = "null";
-    protected static final String LOG_TAG = "InAppBrowser";
+    public static final String LOG_TAG = "InAppBrowser";
     private static final String SELF = "_self";
     private static final String SYSTEM = "_system";
-    private static final String EXIT_EVENT = "exit";
+    public static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
+    private static final String SHOULD_CLOSE = "shouldclose";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -92,11 +110,16 @@ public class InAppBrowser extends CordovaPlugin {
     private static final Boolean DEFAULT_HARDWARE_BACK = true;
     private static final String USER_WIDE_VIEW_PORT = "useWideViewPort";
 
+    public static final String TXN_STATUS = "TxnStatus";
+    public static final String TXN_MESSAGE = "TxnMessage";
+    public static final String RAW_RESPONSE = "RawResponse";
+
     private InAppBrowserDialog dialog;
     private WebView inAppWebView;
     private EditText edittext;
-    private CallbackContext callbackContext;
+    private static CallbackContext callbackContext;
     private boolean showLocationBar = true;
+    public static boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -109,6 +132,8 @@ public class InAppBrowser extends CordovaPlugin {
     private ValueCallback<Uri[]> mUploadCallbackLollipop;
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
+    public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
+    public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
 
     /**
      * Executes the request and returns PluginResult.
@@ -420,7 +445,9 @@ public class InAppBrowser extends CordovaPlugin {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final WebView childView = inAppWebView;
+
+            	
+                    		final WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
@@ -448,8 +475,9 @@ public class InAppBrowser extends CordovaPlugin {
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
+
             }
-        });
+        }); 
     }
 
     /**
@@ -466,6 +494,8 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
+    	 //Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
+
         return this.inAppWebView.canGoBack();
     }
 
@@ -474,6 +504,8 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
+    	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
+
         return hadwareBackButton;
     }
 
@@ -503,7 +535,7 @@ public class InAppBrowser extends CordovaPlugin {
         this.inAppWebView.requestFocus();
     }
 
-
+    
     /**
      * Should we show the location bar?
      *
@@ -534,6 +566,10 @@ public class InAppBrowser extends CordovaPlugin {
             Boolean show = features.get(LOCATION);
             if (show != null) {
                 showLocationBar = show.booleanValue();
+            }
+            Boolean shouldclose = features.get(SHOULD_CLOSE);
+            if (shouldclose != null) {
+                shouldClose = shouldclose.booleanValue();
             }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
@@ -720,8 +756,22 @@ public class InAppBrowser extends CordovaPlugin {
 
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        closeDialog();
-                    }
+                    	if(shouldClose) //if browser should close normally
+                    	{
+                           closeDialog();
+                    	}
+
+                     	else
+                     	{
+                     		 try {
+                     JSONObject obj = new JSONObject();
+                     obj.put("type", EXIT_EVENT);
+                     sendUpdate(obj, true);
+                 } catch (JSONException ex) {
+                     LOG.d(LOG_TAG, "Should never happen");
+                 }
+                     	}
+                }
                 });
 
                 // WebView
@@ -823,19 +873,18 @@ public class InAppBrowser extends CordovaPlugin {
 
                 // Add the back and forward buttons to our action button container layout
                 actionButtonContainer.addView(back);
-                actionButtonContainer.addView(forward);
+                //actionButtonContainer.addView(forward);
 
-               // Add the views to our toolbar
-toolbar.addView(actionButtonContainer);
-if (getShowLocationBar()) {
-    toolbar.addView(edittext);
-    // We add this here if the user want the full bar, then we need this buttons.
-    actionButtonContainer.addView(back);
-    actionButtonContainer.addView(forward);
-}
-toolbar.addView(close);
+                // Add the views to our toolbar
+                toolbar.addView(actionButtonContainer);
+                //toolbar.addView(edittext);
+                toolbar.addView(close);
 
-main.addView(toolbar);
+                // Don't add the toolbar if its been disabled
+                if (getShowLocationBar()) {
+                    // Add our toolbar to our main view/layout
+                    main.addView(toolbar);
+                }
 
                 // Add our webview to our main view/layout
                 main.addView(inAppWebView);
@@ -864,7 +913,7 @@ main.addView(toolbar);
      *
      * @param obj a JSONObject contain event payload information
      */
-    private void sendUpdate(JSONObject obj, boolean keepCallback) {
+    public static void sendUpdate(JSONObject obj, boolean keepCallback) {
         sendUpdate(obj, keepCallback, PluginResult.Status.OK);
     }
 
@@ -874,7 +923,7 @@ main.addView(toolbar);
      * @param obj a JSONObject contain event payload information
      * @param status the status code to return to the JavaScript environment
      */
-    private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
+    public static void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
             PluginResult result = new PluginResult(status, obj);
             result.setKeepCallback(keepCallback);
@@ -1000,12 +1049,155 @@ main.addView(toolbar);
                 }
             }
 
-             else if(url.contains("google")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+            else if(url.contains("google")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
     		{
     			return false;
     		}
             return false;
         }
+
+    //     private String convertQueryToJSON(Uri uri){ 
+    //     try{
+    //         Set<String> names = uri.getQueryParameterNames();
+    //         JSONObject json = new JSONObject();
+
+    //         for(String name: names){
+    //             String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
+    //             json.put(name,value);
+
+    //         }
+    //         return json.toString();
+
+    //     }catch(Exception e){
+    //         //ELogger.e(TAG,"Error converting to json",e);
+    //     	Toast.makeText(this.cordova.getActivity(),"Error converting to json",Toast.LENGTH_SHORT).show();
+    //         return "";
+    //     }
+
+    // }
+
+
+    //     private Intent buildExtra(int status, String message, String rawResponse){
+    //     Intent data = new Intent();
+    //     data.putExtra(TXN_STATUS,status);
+    //     data.putExtra(TXN_MESSAGE,message);
+    //     data.putExtra(RAW_RESPONSE,rawResponse);
+    //     return data;
+    // }
+
+        ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
+    
+    //     @SuppressWarnings("deprecation")
+    //     @Override
+    //     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+    //     	 if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+    //     	 {
+    //     	 	//paymentpresentor.handleshouldinterceptrequest starts here
+
+    //     	 	var validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+    
+    //     	 	 if (url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+    //     	 	 	 Uri uri = Uri.parse(url); 
+
+    //     	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+		  //               try{
+		  //                   Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
+		  //                   int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+		  //                   String message = uri.getQueryParameter("TxnMessage");
+		  //                   //String rawResponse = convertQueryToJSON(uri);
+		  //                   //Intent data = buildExtra(status, message, rawResponse);
+		  //                   //listener.onFinish(status, data,triggerReturnUrl);
+
+		  //               } catch(NumberFormatException e){
+		  //                   Toast.makeText(this.cordova.getActivity(),"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
+		  //                   //listener.onReadJSON(view);
+		  //               }
+			 //            } 
+
+			 //            else {
+			 //                Toast.makeText(this.cordova.getActivity(),"Got return url",Toast.LENGTH_SHORT).show();
+			 //                //listener.onReadJSON(view);
+			 //            }
+    //     	 	 }
+    //     	 	 //paymentpresentor.handleshouldinterceptrequest ends here
+
+				// return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+        	 	
+    //     	 	//return false, stop the loading and exit browser 
+				//  try {
+    //                 JSONObject obj = new JSONObject();
+    //                 obj.put("type", EXIT_EVENT);
+    //                 sendUpdate(obj, false);
+    //             } catch (JSONException ex) {
+    //                 Toast.makeText(this.cordova.getActivity(),"Should Never Happen",Toast.LENGTH_SHORT).show();
+    //             }
+    //     	 }
+    //         return super.shouldInterceptRequest(view, url);
+    //     }
+           
+    //     @TargetApi(Build.VERSION_CODES.N)
+    //     @Override
+    //       public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+    //          if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+    //              {
+    //     	 	//paymentpresentor.handleshouldinterceptrequest starts here
+
+				// var validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+
+    //     	 	 if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+    //     	 	 	 Uri uri = Uri.parse(request.getUrl().toString()); 
+
+    //     	 	 	  if (uri.getEncodedQuery() != null && uri.getQueryParameter("TxnStatus") && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+		  //               try{
+		  //                   Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
+		  //                   int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+		  //                   String message = uri.getQueryParameter("TxnMessage");
+		  //                   //String rawResponse = convertQueryToJSON(uri);
+		  //                   //Intent data = buildExtra(status, message, rawResponse);
+		  //                   //listener.onFinish(status, data,triggerReturnUrl);
+
+		  //               } catch(NumberFormatException e){
+		  //                   Toast.makeText(this.cordova.getActivity(),"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
+		  //                   //listener.onReadJSON(view);
+		  //               }
+			 //            } 
+
+			 //            else {
+			 //                Toast.makeText(this.cordova.getActivity(),"Got return url",Toast.LENGTH_SHORT).show();
+			 //                //listener.onReadJSON(view);
+			 //            }
+    //     	 	 }
+    //     	 	 //paymentpresentor.handleshouldinterceptrequest ends here
+
+  		// 		return getCssWebResourceResponseFromAsset();
+        	 	
+    //     	 	//return false, stop the loading and exit browser 
+				//  try {
+    //                 JSONObject obj = new JSONObject();
+    //                 obj.put("type", EXIT_EVENT);
+    //                 sendUpdate(obj, false);
+    //             } catch (JSONException ex) {
+    //                 Toast.makeText(this.cordova.getActivity(),"Should never happen",Toast.LENGTH_SHORT).show();
+    //             }
+    //     	 }
+
+    //         return super.shouldInterceptRequest(view, request);
+    //     }
+
+    //     private WebResourceResponse getCssWebResourceResponseFromAsset() {
+    //         try {
+    //             return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+    //         } catch (IOException e) {
+    //             return null;
+    //         }
+    //     }         
+
+    //     private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+    //         return new WebResourceResponse("text/css", "UTF-8", data);
+    //     }
+
+    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
+
 
 
         /*
@@ -1017,8 +1209,10 @@ main.addView(toolbar);
          */
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        	 //Toast.makeText(this.cordova.getActivity(),"on page started",Toast.LENGTH_SHORT).show();
             super.onPageStarted(view, url, favicon);
             String newloc = "";
+
             if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
                 newloc = url;
             }
