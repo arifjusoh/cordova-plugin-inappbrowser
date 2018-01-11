@@ -1051,34 +1051,34 @@ public class InAppBrowser extends CordovaPlugin {
             return false;
         }
 
-    //     private String convertQueryToJSON(Uri uri){ 
-    //     try{
-    //         Set<String> names = uri.getQueryParameterNames();
-    //         JSONObject json = new JSONObject();
+        private String convertQueryToJSON(Uri uri){ 
+        try{
+            Set<String> names = uri.getQueryParameterNames();
+            JSONObject json = new JSONObject();
 
-    //         for(String name: names){
-    //             String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
-    //             json.put(name,value);
+            for(String name: names){
+                String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
+                json.put(name,value);
 
-    //         }
-    //         return json.toString();
+            }
+            return json.toString();
 
-    //     }catch(Exception e){
-    //         //ELogger.e(TAG,"Error converting to json",e);
-    //     	Toast.makeText(this.cordova.getActivity(),"Error converting to json",Toast.LENGTH_SHORT).show();
-    //         return "";
-    //     }
+        }catch(Exception e){
+            //ELogger.e(TAG,"Error converting to json",e);
+        	Toast.makeText(this.cordova.getActivity(),"Error converting to json",Toast.LENGTH_SHORT).show();
+            return "";
+        }
 
-    // }
+    }
 
 
-    //     private Intent buildExtra(int status, String message, String rawResponse){
-    //     Intent data = new Intent();
-    //     data.putExtra(TXN_STATUS,status);
-    //     data.putExtra(TXN_MESSAGE,message);
-    //     data.putExtra(RAW_RESPONSE,rawResponse);
-    //     return data;
-    // }
+        private Intent buildExtra(int status, String message, String rawResponse){
+        Intent data = new Intent();
+        data.putExtra(TXN_STATUS,status);
+        data.putExtra(TXN_MESSAGE,message);
+        data.putExtra(RAW_RESPONSE,rawResponse);
+        return data;
+    }
 
         ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
