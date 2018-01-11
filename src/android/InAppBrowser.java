@@ -1090,10 +1090,10 @@ public class InAppBrowser extends CordovaPlugin {
         @SuppressWarnings("deprecation")
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        	 if(url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+        	 if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
         	 {
-        	 	//paymentpresentor.handleshouldinterceptrequest starts here
 
+        	 	//paymentpresentor.handleshouldinterceptrequest starts here
         	 	var validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
     
         	 	 if (url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
@@ -1138,10 +1138,10 @@ public class InAppBrowser extends CordovaPlugin {
         @TargetApi(Build.VERSION_CODES.N)
         @Override
           public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-             if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+             if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
-        	 	//paymentpresentor.handleshouldinterceptrequest starts here
 
+        	 	//paymentpresentor.handleshouldinterceptrequest starts here
 				var validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
 
         	 	 if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
