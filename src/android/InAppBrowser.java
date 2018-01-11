@@ -1082,9 +1082,10 @@ public class InAppBrowser extends CordovaPlugin {
 
         ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
+        //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+
         @SuppressWarnings("deprecation")
         @Override
-        //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         private void shouldInterceptRequest(WebView webView, String url) {
 
         	 if(!TRIGGER_RETURN_URL && url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
