@@ -1082,8 +1082,8 @@ public class InAppBrowser extends CordovaPlugin {
 
         ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
-        @SuppressWarnings("deprecation")
-        @Override
+        //@SuppressWarnings("deprecation")
+        //@Override
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         private void shouldInterceptRequest(WebView webView, String url) {
 
@@ -1132,8 +1132,8 @@ public class InAppBrowser extends CordovaPlugin {
             return super.shouldInterceptRequest(view, url);
         }
            
-        @TargetApi(Build.VERSION_CODES.N)
-        @Override
+        //@TargetApi(Build.VERSION_CODES.N)
+        //@Override
            //public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
           private void shouldInterceptRequest(WebView webView, WebResourceRequest request) {
              if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
