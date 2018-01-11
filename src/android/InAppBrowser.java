@@ -1082,8 +1082,8 @@ public class InAppBrowser extends CordovaPlugin {
 
         ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
-        //@SuppressWarnings("deprecation")
-        //@Override
+        @SuppressWarnings("deprecation")
+        @Override
         //public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         private void shouldInterceptRequest(WebView webView, String url) {
 
@@ -1101,8 +1101,8 @@ public class InAppBrowser extends CordovaPlugin {
 		                    Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
 		                    int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
 		                    String message = uri.getQueryParameter("TxnMessage");
-		                    String rawResponse = convertQueryToJSON(uri);
-		                    Intent data = buildExtra(status, message, rawResponse);
+		                    //String rawResponse = convertQueryToJSON(uri);
+		                    //Intent data = buildExtra(status, message, rawResponse);
 		                    //listener.onFinish(status, data,triggerReturnUrl);
 
 		                } catch(NumberFormatException e){
@@ -1121,19 +1121,19 @@ public class InAppBrowser extends CordovaPlugin {
 				return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
         	 	
         	 	//return false, stop the loading and exit browser 
-				 try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
-                    sendUpdate(obj, false);
-                } catch (JSONException ex) {
-                    LOG.d(LOG_TAG, "Should never happen");
-                }
+				 // try {
+     //                JSONObject obj = new JSONObject();
+     //                obj.put("type", EXIT_EVENT);
+     //                sendUpdate(obj, false);
+     //            } catch (JSONException ex) {
+     //                LOG.d(LOG_TAG, "Should never happen");
+     //            }
         	 }
             return super.shouldInterceptRequest(view, url);
         }
            
-        //@TargetApi(Build.VERSION_CODES.N)
-        //@Override
+        @TargetApi(Build.VERSION_CODES.N)
+        @Override
            //public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
           private void shouldInterceptRequest(WebView webView, WebResourceRequest request) {
              if(!TRIGGER_RETURN_URL && request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
