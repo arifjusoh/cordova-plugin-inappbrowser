@@ -1182,18 +1182,18 @@ public class InAppBrowser extends CordovaPlugin {
      //    }
 
         //private WebResourceResponse getCssWebResourceResponseFromAsset() {
-        private void getCssWebResourceResponseFromAsset() {
-            try {
-                return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            } catch (IOException e) {
-                return null;
-            }
-        }         
+        // private void getCssWebResourceResponseFromAsset() {
+        //     try {
+        //         return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+        //     } catch (IOException e) {
+        //         return null;
+        //     }
+        // }         
 
-        //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-         private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            return new WebResourceResponse("text/css", "UTF-8", data);
-        }
+        // //private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+        //  private void getUtf8EncodedCssWebResourceResponse(InputStream data) {
+        //     return new WebResourceResponse("text/css", "UTF-8", data);
+        // }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
