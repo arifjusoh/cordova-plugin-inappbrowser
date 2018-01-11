@@ -998,6 +998,7 @@ public class InAppBrowser extends CordovaPlugin {
          */
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
+        	Toast.makeText(this.cordova.getActivity(),"should Override Url Loading",Toast.LENGTH_SHORT).show();
             if (url.startsWith(WebView.SCHEME_TEL)) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -1051,7 +1052,12 @@ public class InAppBrowser extends CordovaPlugin {
 
             else if(url.contains("google")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
     		{
-    			return false;
+    			 try {
+                    
+                    return false;
+                } catch (android.content.ActivityNotFoundException e) {
+                    Toast.makeText(this.cordova.getActivity(),"Error converting to json",Toast.LENGTH_SHORT).show();
+                }
     		}
             return false;
         }
