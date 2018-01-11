@@ -1050,13 +1050,8 @@ public class InAppBrowser extends CordovaPlugin {
             }
 
             else if(url.contains("google")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
-    		{  //Toast.makeText(this.cordova.getActivity(),"google",Toast.LENGTH_SHORT).show();
-    			 try {
-                    
-                    return false;
-                } catch (android.content.ActivityNotFoundException e) {
-                    Toast.makeText(this.cordova.getActivity(),"Error converting to json",Toast.LENGTH_SHORT).show();
-                }
+    		{
+    			return false;
     		}
             return false;
         }
