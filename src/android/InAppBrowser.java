@@ -1174,7 +1174,7 @@ public class InAppBrowser extends CordovaPlugin {
                     obj.put("type", EXIT_EVENT);
                     sendUpdate(obj, false);
                 } catch (JSONException ex) {
-                    LOG.d(LOG_TAG, "Should never happen");
+                    Toast.makeText(this.cordova.getActivity(),"Should never happen",Toast.LENGTH_SHORT).show();
                 }
         	 }
 
