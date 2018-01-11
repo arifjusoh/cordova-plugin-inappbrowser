@@ -1053,7 +1053,123 @@ public class InAppBrowser extends CordovaPlugin {
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
     
-     
+       @SuppressWarnings("deprecation")
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                if(url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+                {
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+
+                    if (url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                        Uri uri = Uri.parse(url);
+
+                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                            try{
+                                Toast.makeText(MainActivity.this,"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                String message = uri.getQueryParameter("TxnMessage");
+                                String rawResponse = convertQueryToJSON(uri);
+                                Intent data = buildExtra(status, message, rawResponse);
+                                //listener.onFinish(status, data,triggerReturnUrl);
+
+                            } catch(NumberFormatException e){
+                                Toast.makeText(MainActivity.this,"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
+                                //listener.onReadJSON(view);
+                            }
+                        }
+
+                        else {
+                            Toast.makeText(MainActivity.this,"Got return url",Toast.LENGTH_SHORT).show();
+                            //listener.onReadJSON(view);
+                        }
+                    }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
+
+                    Toast.makeText(MainActivity.this,"APP TO BE CLOSED HERE",Toast.LENGTH_SHORT).show();
+                    return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+                }
+                return super.shouldInterceptRequest(view, url);
+            }
+
+     @TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                {
+
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+
+                    if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                        Uri uri = Uri.parse(request.getUrl().toString());
+
+                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                            try{
+                                Toast.makeText(MainActivity.this,"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                String message = uri.getQueryParameter("TxnMessage");
+                                String rawResponse = convertQueryToJSON(uri);
+                                Intent data = buildExtra(status, message, rawResponse);
+                                //listener.onFinish(status, data,triggerReturnUrl);
+
+                            } catch(NumberFormatException e){
+                                Toast.makeText(MainActivity.this,"TxnStatus is not numerical",Toast.LENGTH_SHORT).show();
+                                //listener.onReadJSON(view);
+                            }
+                        }
+
+                        else {
+                            Toast.makeText(MainActivity.this,"Got return url",Toast.LENGTH_SHORT).show();
+                            //listener.onReadJSON(view);
+                        }
+                    }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
+
+                    Toast.makeText(MainActivity.this,"APP TO BE CLOSED HERE",Toast.LENGTH_SHORT).show();
+                     return getCssWebResourceResponseFromAsset();
+                }
+
+                return super.shouldInterceptRequest(view, request);
+            }
+
+            private String convertQueryToJSON(Uri uri){
+                 try{
+                     Set<String> names = uri.getQueryParameterNames();
+                     JSONObject json = new JSONObject();
+
+                     for(String name: names){
+                         String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
+                         json.put(name,value);
+                     }
+                     return json.toString();
+
+                 }catch(Exception e){
+                     //ELogger.e(TAG,"Error converting to json",e);
+                 	Toast.makeText(MainActivity.this,"Error converting to json",Toast.LENGTH_SHORT).show();
+                     return "";
+                 }
+             }
+
+            private Intent buildExtra(int status, String message, String rawResponse) {
+                     Intent data = new Intent();
+                     data.putExtra(TXN_STATUS, status);
+                     data.putExtra(TXN_MESSAGE, message);
+                     data.putExtra(RAW_RESPONSE, rawResponse);
+                     return data;
+                 }
+
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
 
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
