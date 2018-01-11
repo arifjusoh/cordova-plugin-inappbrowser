@@ -1101,8 +1101,8 @@ public class InAppBrowser extends CordovaPlugin {
 		                    Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
 		                    int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
 		                    String message = uri.getQueryParameter("TxnMessage");
-		                    //String rawResponse = convertQueryToJSON(uri);
-		                    //Intent data = buildExtra(status, message, rawResponse);
+		                    String rawResponse = convertQueryToJSON(uri);
+		                    Intent data = buildExtra(status, message, rawResponse);
 		                    //listener.onFinish(status, data,triggerReturnUrl);
 
 		                } catch(NumberFormatException e){
@@ -1126,7 +1126,7 @@ public class InAppBrowser extends CordovaPlugin {
                     obj.put("type", EXIT_EVENT);
                     sendUpdate(obj, false);
                 } catch (JSONException ex) {
-                    //LOG.d(LOG_TAG, "Should never happen");
+                    LOG.d(LOG_TAG, "Should never happen");
                 }
         	 }
             return super.shouldInterceptRequest(view, url);
@@ -1150,8 +1150,8 @@ public class InAppBrowser extends CordovaPlugin {
 		                    Toast.makeText(this.cordova.getActivity(),"beforePageStarted: Query params exist",Toast.LENGTH_SHORT).show();
 		                    int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
 		                    String message = uri.getQueryParameter("TxnMessage");
-		                    //String rawResponse = convertQueryToJSON(uri);
-		                    //Intent data = buildExtra(status, message, rawResponse);
+		                    String rawResponse = convertQueryToJSON(uri);
+		                    Intent data = buildExtra(status, message, rawResponse);
 		                    //listener.onFinish(status, data,triggerReturnUrl);
 
 		                } catch(NumberFormatException e){
