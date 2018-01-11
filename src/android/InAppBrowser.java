@@ -1050,7 +1050,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
 
             else if(url.contains("google")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
-    		{    Toast.makeText(this.cordova.getActivity(),"google",Toast.LENGTH_SHORT).show();
+    		{   LOG.e(LOG_TAG, "google loading...");
     			return false;
     		}
             return false;
