@@ -1129,7 +1129,7 @@ public class InAppBrowser extends CordovaPlugin {
                     Toast.makeText(this.cordova.getActivity(),"Should Never Happen",Toast.LENGTH_SHORT).show();
                 }
         	 }
-            return super.shouldInterceptRequest(webView, url);
+            return super.shouldInterceptRequest(view, url);
         }
            
         @TargetApi(Build.VERSION_CODES.N)
@@ -1179,7 +1179,7 @@ public class InAppBrowser extends CordovaPlugin {
                 }
         	 }
 
-            return super.shouldInterceptRequest(webView, request);
+            return super.shouldInterceptRequest(view, request);
         }
 
   		//private void getCssWebResourceResponseFromAsset() {
