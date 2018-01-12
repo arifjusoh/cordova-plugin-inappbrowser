@@ -1121,7 +1121,8 @@ public class InAppBrowser extends CordovaPlugin {
                     Log.d("", "APP TO BE CLOSED HERE - 1");
                      Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
 
-                    return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+                    //return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+                	return getCssWebResourceResponseFromAsset();
                 }
                 return super.shouldInterceptRequest(view, url);
             }
