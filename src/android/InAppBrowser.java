@@ -75,7 +75,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
 import java.util.Set;
-import java.io.*;
 
 import static android.text.TextUtils.isDigitsOnly;
 ////////////////////  for shouldInterceptRequest //////////////////////
@@ -1123,7 +1122,6 @@ public class InAppBrowser extends CordovaPlugin {
                      Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
 
                     return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
-                	//return getCssWebResourceResponseFromAsset();
                 }
                 return super.shouldInterceptRequest(view, url);
             }
@@ -1246,11 +1244,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
 
             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                try {
-                    return new WebResourceResponse("text/css", "UTF-8", data);
-                } catch (IOException e) {
-                    return null;
-                }
+                return new WebResourceResponse("text/css", "UTF-8", data);
             }
       
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
