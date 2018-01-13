@@ -1073,7 +1073,7 @@ public class InAppBrowser extends CordovaPlugin {
 
         //@SuppressWarnings("deprecation");
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView webView, String merchant_return_url) {
+            public boolean shouldInterceptRequest(WebView webView, String merchant_return_url) {
                 Log.d(TAG,"inside 1st condition - A");
                 Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
 
