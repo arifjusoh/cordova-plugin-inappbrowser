@@ -1124,7 +1124,7 @@ public class InAppBrowser extends CordovaPlugin {
 
             //@TargetApi(Build.VERSION_CODES.N)
             @Override
-            public boolean WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+            public void WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
 
                 // if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                 // {
@@ -1136,7 +1136,7 @@ public class InAppBrowser extends CordovaPlugin {
                 //     //return getCssWebResourceResponseFromAsset();
                 // }
 
-                return super.shouldInterceptRequest(webView, request);
+                super.shouldInterceptRequest(webView, request);
             }
 
             // private String convertQueryToJSON(Uri uri){
