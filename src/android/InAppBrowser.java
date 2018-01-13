@@ -1124,51 +1124,8 @@ public class InAppBrowser extends CordovaPlugin {
 
             //@TargetApi(Build.VERSION_CODES.N)
             @Override
-            public boolean WebResourceResponse shouldInterceptRequest(WebView webView, String merchant_return_url) {
-
-                if(merchant_return_url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                {
-                    //paymentpresentor.handleshouldinterceptrequest starts here
-                    //validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
-
-                   // if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-                        
-                        // Uri uri = Uri.parse(request.getUrl().toString());
-
-                        // if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-
-                        //     try{
-                        //         int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                               
-                        //         String message = uri.getQueryParameter("TxnMessage");
-                               
-                        //         String rawResponse = convertQueryToJSON(uri);
-                               
-                        //         Intent data = buildExtra(status, message, rawResponse);
-                               
-                        //     } catch(NumberFormatException e){
-                                
-                        //     }
-                        // }
-
-                        // else {
-                           
-                        // }
-                  //  }
-                    //paymentpresentor.handleshouldinterceptrequest ends here
-
-//                    try {
-//                        JSONObject obj = new JSONObject();
-//                        obj.put("type", EXIT_EVENT);
-//                        sendUpdate(obj, false);
-//                    } catch (JSONException ex) {
-//                        LOG.d(LOG_TAG, "Should never happen");
-//                    }
-
-                    //return getCssWebResourceResponseFromAsset();
-                }
-
-                super.shouldInterceptRequest(webView, url);
+            public void WebResourceResponse shouldInterceptRequest(WebView webView, String merchant_return_url) {
+                super.shouldInterceptRequest(webView, merchant_return_url);
             }
 
             // private String convertQueryToJSON(Uri uri){
