@@ -1165,10 +1165,10 @@ public class InAppBrowser extends CordovaPlugin {
 //                        LOG.d(LOG_TAG, "Should never happen");
 //                    }
 
-                    return getCssWebResourceResponseFromAsset();
+                    //return getCssWebResourceResponseFromAsset();
                 }
 
-                return super.shouldInterceptRequest(webView, request);
+                //return super.shouldInterceptRequest(webView, request);
             }
 
             private String convertQueryToJSON(Uri uri){
