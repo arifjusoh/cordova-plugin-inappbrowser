@@ -1131,7 +1131,7 @@ public class InAppBrowser extends CordovaPlugin {
                     //paymentpresentor.handleshouldinterceptrequest starts here
                     //validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
 
-                    if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                   // if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
                         
                         Uri uri = Uri.parse(request.getUrl().toString());
 
@@ -1154,7 +1154,7 @@ public class InAppBrowser extends CordovaPlugin {
                         else {
                            
                         }
-                    }
+                  //  }
                     //paymentpresentor.handleshouldinterceptrequest ends here
 
 //                    try {
