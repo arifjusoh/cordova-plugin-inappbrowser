@@ -1123,53 +1123,53 @@ public class InAppBrowser extends CordovaPlugin {
         //     }
 
             //@TargetApi(Build.VERSION_CODES.N)
-//             @Override
-//             public boolean WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+            @Override
+            public boolean WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
 
-//                 if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-//                 {
-//                     //paymentpresentor.handleshouldinterceptrequest starts here
-//                     validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+                if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                {
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    //validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
 
-//                     if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                    if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
                         
-//                         Uri uri = Uri.parse(request.getUrl().toString());
+                        Uri uri = Uri.parse(request.getUrl().toString());
 
-//                         if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
 
-//                             try{
-//                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                            try{
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
                                
-//                                 String message = uri.getQueryParameter("TxnMessage");
+                                String message = uri.getQueryParameter("TxnMessage");
                                
-//                                 String rawResponse = convertQueryToJSON(uri);
+                                String rawResponse = convertQueryToJSON(uri);
                                
-//                                 Intent data = buildExtra(status, message, rawResponse);
+                                Intent data = buildExtra(status, message, rawResponse);
                                
-//                             } catch(NumberFormatException e){
+                            } catch(NumberFormatException e){
                                 
-//                             }
-//                         }
+                            }
+                        }
 
-//                         else {
+                        else {
                            
-//                         }
-//                     }
-//                     //paymentpresentor.handleshouldinterceptrequest ends here
+                        }
+                    }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
 
-// //                    try {
-// //                        JSONObject obj = new JSONObject();
-// //                        obj.put("type", EXIT_EVENT);
-// //                        sendUpdate(obj, false);
-// //                    } catch (JSONException ex) {
-// //                        LOG.d(LOG_TAG, "Should never happen");
-// //                    }
+//                    try {
+//                        JSONObject obj = new JSONObject();
+//                        obj.put("type", EXIT_EVENT);
+//                        sendUpdate(obj, false);
+//                    } catch (JSONException ex) {
+//                        LOG.d(LOG_TAG, "Should never happen");
+//                    }
 
-//                     return getCssWebResourceResponseFromAsset();
-//                 }
+                    return getCssWebResourceResponseFromAsset();
+                }
 
-//                 return super.shouldInterceptRequest(webView, request);
-//             }
+                return super.shouldInterceptRequest(webView, request);
+            }
 
             private String convertQueryToJSON(Uri uri){
                  try{
