@@ -1126,57 +1126,89 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public void WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
 
-                // if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                // {
-                //     //paymentpresentor.handleshouldinterceptrequest starts here
-                //     //validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+                if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                {
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    //validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
 
-                //     if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL))))
-                //     }
-                //     //return getCssWebResourceResponseFromAsset();
-                // }
+                    if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                        
+                        Uri uri = Uri.parse(request.getUrl().toString());
+
+                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+
+                            try{
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                               
+                                String message = uri.getQueryParameter("TxnMessage");
+                               
+                                String rawResponse = convertQueryToJSON(uri);
+                               
+                                Intent data = buildExtra(status, message, rawResponse);
+                               
+                            } catch(NumberFormatException e){
+                                
+                            }
+                        }
+
+                        else {
+                           
+                        }
+                    }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
+
+//                    try {
+//                        JSONObject obj = new JSONObject();
+//                        obj.put("type", EXIT_EVENT);
+//                        sendUpdate(obj, false);
+//                    } catch (JSONException ex) {
+//                        LOG.d(LOG_TAG, "Should never happen");
+//                    }
+
+                    //return getCssWebResourceResponseFromAsset();
+                }
 
                 super.shouldInterceptRequest(webView, request);
             }
 
-            // private String convertQueryToJSON(Uri uri){
-            //      try{
-            //          Set<String> names = uri.getQueryParameterNames();
-            //          JSONObject json = new JSONObject();
+            private String convertQueryToJSON(Uri uri){
+                 try{
+                     Set<String> names = uri.getQueryParameterNames();
+                     JSONObject json = new JSONObject();
 
-            //          for(String name: names){
-            //              String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
-            //              json.put(name,value);
-            //          }
-            //          return json.toString();
+                     for(String name: names){
+                         String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
+                         json.put(name,value);
+                     }
+                     return json.toString();
 
-            //      }catch(Exception e){
-            //          //ELogger.e(TAG,"Error converting to json",e);
-            //          Log.d("", "Error Converting to JSON");
-            //          Toast.makeText(this.cordova.getActivity(), "Error Converting to JSON", Toast.LENGTH_LONG).show();
-            //          return "";
-            //      }
-            //  }
+                 }catch(Exception e){
+                     //ELogger.e(TAG,"Error converting to json",e);
+                     Log.d("", "Error Converting to JSON");
+                     Toast.makeText(this.cordova.getActivity(), "Error Converting to JSON", Toast.LENGTH_LONG).show();
+                     return "";
+                 }
+             }
 
-            // private Intent buildExtra(int status, String message, String rawResponse) {
-            //          Intent data = new Intent();
-            //          data.putExtra(TXN_STATUS, status);
-            //          data.putExtra(TXN_MESSAGE, message);
-            //          data.putExtra(RAW_RESPONSE, rawResponse);
-            //          return data;
-            //      }
+            private Intent buildExtra(int status, String message, String rawResponse) {
+                     Intent data = new Intent();
+                     data.putExtra(TXN_STATUS, status);
+                     data.putExtra(TXN_MESSAGE, message);
+                     data.putExtra(RAW_RESPONSE, rawResponse);
+                     return data;
+                 }
 
-            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            //     try {
-            //         return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            //     } catch (IOException e) {
-            //         return null;
-            //     }
-            // }
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
 
-            // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            //     return new WebResourceResponse("text/css", "UTF-8", data);
-            // }
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
 
     /////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
 
