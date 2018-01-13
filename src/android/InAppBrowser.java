@@ -1124,20 +1124,20 @@ public class InAppBrowser extends CordovaPlugin {
 
             //@TargetApi(Build.VERSION_CODES.N)
             @Override
-            // public boolean WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+            public boolean WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
 
-            //     if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-            //     {
-            //         //paymentpresentor.handleshouldinterceptrequest starts here
-            //         //validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+                // if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                // {
+                //     //paymentpresentor.handleshouldinterceptrequest starts here
+                //     //validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
 
-            //         if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL))))
-            //         }
-            //         //return getCssWebResourceResponseFromAsset();
-            //     }
+                //     if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL))))
+                //     }
+                //     //return getCssWebResourceResponseFromAsset();
+                // }
 
-            //     //return super.shouldInterceptRequest(webView, request);
-            // }
+                return super.shouldInterceptRequest(webView, request);
+            }
 
             // private String convertQueryToJSON(Uri uri){
             //      try{
