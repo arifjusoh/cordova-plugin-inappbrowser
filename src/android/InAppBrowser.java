@@ -1016,115 +1016,115 @@ public class InAppBrowser extends CordovaPlugin {
          * @param webView
          * @param url
          */
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-            if (url.startsWith(WebView.SCHEME_TEL)) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse(url));
-                    cordova.getActivity().startActivity(intent);
-                    return true;
-                } catch (android.content.ActivityNotFoundException e) {
-                    LOG.e(LOG_TAG, "Error dialing " + url + ": " + e.toString());
-                }
-            } else if (url.startsWith("geo:") || url.startsWith(WebView.SCHEME_MAILTO) || url.startsWith("market:") || url.startsWith("intent:")) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(url));
-                    cordova.getActivity().startActivity(intent);
-                    return true;
-                } catch (android.content.ActivityNotFoundException e) {
-                    LOG.e(LOG_TAG, "Error with " + url + ": " + e.toString());
-                }
-            }
-            // If sms:5551212?body=This is the message
-            else if (url.startsWith("sms:")) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
+        // @Override
+        // public boolean shouldOverrideUrlLoading(WebView webView, String url) {
+        //     if (url.startsWith(WebView.SCHEME_TEL)) {
+        //         try {
+        //             Intent intent = new Intent(Intent.ACTION_DIAL);
+        //             intent.setData(Uri.parse(url));
+        //             cordova.getActivity().startActivity(intent);
+        //             return true;
+        //         } catch (android.content.ActivityNotFoundException e) {
+        //             LOG.e(LOG_TAG, "Error dialing " + url + ": " + e.toString());
+        //         }
+        //     } else if (url.startsWith("geo:") || url.startsWith(WebView.SCHEME_MAILTO) || url.startsWith("market:") || url.startsWith("intent:")) {
+        //         try {
+        //             Intent intent = new Intent(Intent.ACTION_VIEW);
+        //             intent.setData(Uri.parse(url));
+        //             cordova.getActivity().startActivity(intent);
+        //             return true;
+        //         } catch (android.content.ActivityNotFoundException e) {
+        //             LOG.e(LOG_TAG, "Error with " + url + ": " + e.toString());
+        //         }
+        //     }
+        //     // If sms:5551212?body=This is the message
+        //     else if (url.startsWith("sms:")) {
+        //         try {
+        //             Intent intent = new Intent(Intent.ACTION_VIEW);
 
-                    // Get address
-                    String address = null;
-                    int parmIndex = url.indexOf('?');
-                    if (parmIndex == -1) {
-                        address = url.substring(4);
-                    } else {
-                        address = url.substring(4, parmIndex);
+        //             // Get address
+        //             String address = null;
+        //             int parmIndex = url.indexOf('?');
+        //             if (parmIndex == -1) {
+        //                 address = url.substring(4);
+        //             } else {
+        //                 address = url.substring(4, parmIndex);
 
-                        // If body, then set sms body
-                        Uri uri = Uri.parse(url);
-                        String query = uri.getQuery();
-                        if (query != null) {
-                            if (query.startsWith("body=")) {
-                                intent.putExtra("sms_body", query.substring(5));
-                            }
-                        }
-                    }
-                    intent.setData(Uri.parse("sms:" + address));
-                    intent.putExtra("address", address);
-                    intent.setType("vnd.android-dir/mms-sms");
-                    cordova.getActivity().startActivity(intent);
-                    return true;
-                } catch (android.content.ActivityNotFoundException e) {
-                    LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
-                }
-            }
-            return false;
-        }
+        //                 // If body, then set sms body
+        //                 Uri uri = Uri.parse(url);
+        //                 String query = uri.getQuery();
+        //                 if (query != null) {
+        //                     if (query.startsWith("body=")) {
+        //                         intent.putExtra("sms_body", query.substring(5));
+        //                     }
+        //                 }
+        //             }
+        //             intent.setData(Uri.parse("sms:" + address));
+        //             intent.putExtra("address", address);
+        //             intent.setType("vnd.android-dir/mms-sms");
+        //             cordova.getActivity().startActivity(intent);
+        //             return true;
+        //         } catch (android.content.ActivityNotFoundException e) {
+        //             LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
+        //         }
+        //     }
+        //     return false;
+        // }
 
-        //@SuppressWarnings("deprecation");
-            // @Override
-            // public boolean shouldInterceptRequest(WebView webView, String merchant_return_url) {
-            //     Log.d(TAG,"inside 1st condition - A");
-            //     Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
+        // //@SuppressWarnings("deprecation");
+        //     @Override
+        //     public boolean shouldInterceptRequest(WebView webView, String merchant_return_url) {
+        //         Log.d(TAG,"inside 1st condition - A");
+        //         Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
 
-            //     if(merchant_return_url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
-            //     {  
-            //        Log.d(TAG,"inside 1st condition - B");
-            //        Toast.makeText(this.cordova.getActivity(), "inside 1st condition - B", Toast.LENGTH_LONG).show();
+        //         if(merchant_return_url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+        //         {  
+        //            Log.d(TAG,"inside 1st condition - B");
+        //            Toast.makeText(this.cordova.getActivity(), "inside 1st condition - B", Toast.LENGTH_LONG).show();
                     
-            //         //paymentpresentor.handleshouldinterceptrequest starts here
-            //         validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+        //             //paymentpresentor.handleshouldinterceptrequest starts here
+        //             validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
 
-            //         if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-            //             Uri uri = Uri.parse(merchant_return_url);
+        //             if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+        //                 Uri uri = Uri.parse(merchant_return_url);
 
-            //             if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-            //                 try{
-            //                     Log.d(TAG,"beforePageStarted: Query params exist");
-            //                     Toast.makeTextthis.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
+        //                 if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+        //                     try{
+        //                         Log.d(TAG,"beforePageStarted: Query params exist");
+        //                         Toast.makeTextthis.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
 
-            //                     int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-            //                     String message = uri.getQueryParameter("TxnMessage");
-            //                     String rawResponse = convertQueryToJSON(uri);
-            //                     Intent data = buildExtra(status, message, rawResponse);
-            //                     //listener.onFinish(status, data,triggerReturnUrl);
+        //                         int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+        //                         String message = uri.getQueryParameter("TxnMessage");
+        //                         String rawResponse = convertQueryToJSON(uri);
+        //                         Intent data = buildExtra(status, message, rawResponse);
+        //                         //listener.onFinish(status, data,triggerReturnUrl);
 
-            //                 } catch(NumberFormatException e){
-            //                     Log.d("", "TxnStatus is not numerical");
-            //                      Toast.makeText(this.cordova.getActivity(), "TxnStatus is not numerical", Toast.LENGTH_LONG).show();
-            //                     //listener.onReadJSON(view);
-            //                 }
-            //             }
+        //                     } catch(NumberFormatException e){
+        //                         Log.d("", "TxnStatus is not numerical");
+        //                          Toast.makeText(this.cordova.getActivity(), "TxnStatus is not numerical", Toast.LENGTH_LONG).show();
+        //                         //listener.onReadJSON(view);
+        //                     }
+        //                 }
 
-            //             else {
-            //                 Log.d("", "Got Return URL");
-            //                  Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
-            //                 //listener.onReadJSON(view);
-            //             }
-            //         }
-            //         //paymentpresentor.handleshouldinterceptrequest ends here
+        //                 else {
+        //                     Log.d("", "Got Return URL");
+        //                      Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
+        //                     //listener.onReadJSON(view);
+        //                 }
+        //             }
+        //             //paymentpresentor.handleshouldinterceptrequest ends here
 
-            //         Log.d("", "APP TO BE CLOSED HERE - 1");
-            //          Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
+        //             Log.d("", "APP TO BE CLOSED HERE - 1");
+        //              Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
 
-            //         return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
-            //     }
-            //     return super.shouldInterceptRequest(webView, url);
-            // }
+        //             return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+        //         }
+        //         return super.shouldInterceptRequest(webView, url);
+        //     }
 
             //@TargetApi(Build.VERSION_CODES.N)
             @Override
-            public boolean shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+            public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
 
                 Log.d(TAG,"inside 2nd condition - A");
                 Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - A", Toast.LENGTH_LONG).show();
