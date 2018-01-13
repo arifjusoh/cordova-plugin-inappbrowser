@@ -172,7 +172,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            final merchant_return_url = "https://www.google.com/search?q=MerchantReturnURL&oq=MerchantReturnURL&TxnStatus=1&TxnMessage=returning&aqs=chrome..69i57.824j0j8&sourceid=chrome&ie=UTF-8"
+            //final merchant_return_url = "https://www.google.com/search?q=MerchantReturnURL&oq=MerchantReturnURL&TxnStatus=1&TxnMessage=returning&aqs=chrome..69i57.824j0j8&sourceid=chrome&ie=UTF-8"
 
             LOG.d(LOG_TAG, "target = " + target);
 
