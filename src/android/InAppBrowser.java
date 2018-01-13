@@ -1133,27 +1133,27 @@ public class InAppBrowser extends CordovaPlugin {
 
                    // if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
                         
-                        Uri uri = Uri.parse(request.getUrl().toString());
+                        // Uri uri = Uri.parse(request.getUrl().toString());
 
-                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                        // if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
 
-                            try{
-                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                        //     try{
+                        //         int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
                                
-                                String message = uri.getQueryParameter("TxnMessage");
+                        //         String message = uri.getQueryParameter("TxnMessage");
                                
-                                String rawResponse = convertQueryToJSON(uri);
+                        //         String rawResponse = convertQueryToJSON(uri);
                                
-                                Intent data = buildExtra(status, message, rawResponse);
+                        //         Intent data = buildExtra(status, message, rawResponse);
                                
-                            } catch(NumberFormatException e){
+                        //     } catch(NumberFormatException e){
                                 
-                            }
-                        }
+                        //     }
+                        // }
 
-                        else {
+                        // else {
                            
-                        }
+                        // }
                   //  }
                     //paymentpresentor.handleshouldinterceptrequest ends here
 
