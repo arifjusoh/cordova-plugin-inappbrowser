@@ -141,15 +141,15 @@ public class InAppBrowser extends CordovaPlugin {
 
     ///// for intercepturl /////////
 
-    public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
-    public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
-    String validated_merchant_return_url;
+    // public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
+    // public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
+    // String validated_merchant_return_url;
 
-    public static final String TXN_STATUS = "TxnStatus";
-    public static final String TXN_MESSAGE = "TxnMessage";
-    public static final String RAW_RESPONSE = "RawResponse";
+    // public static final String TXN_STATUS = "TxnStatus";
+    // public static final String TXN_MESSAGE = "TxnMessage";
+    // public static final String RAW_RESPONSE = "RawResponse";
 
-    public static final String TAG = "Logs: ";
+    // public static final String TAG = "Logs: ";
     
     ///// for intercepturl /////////
 
@@ -172,7 +172,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            final merchant_return_url = "https://www.google.com/search?q=MerchantReturnURL&oq=MerchantReturnURL&TxnStatus=1&TxnMessage=returning&aqs=chrome..69i57.824j0j8&sourceid=chrome&ie=UTF-8"
+            //final merchant_return_url = "https://www.google.com/search?q=MerchantReturnURL&oq=MerchantReturnURL&TxnStatus=1&TxnMessage=returning&aqs=chrome..69i57.824j0j8&sourceid=chrome&ie=UTF-8"
 
             LOG.d(LOG_TAG, "target = " + target);
 
