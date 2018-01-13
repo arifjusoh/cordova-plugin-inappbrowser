@@ -1171,44 +1171,44 @@ public class InAppBrowser extends CordovaPlugin {
                 super.shouldInterceptRequest(webView, request);
             }
 
-            private String convertQueryToJSON(Uri uri){
-                 try{
-                     Set<String> names = uri.getQueryParameterNames();
-                     JSONObject json = new JSONObject();
+            // private String convertQueryToJSON(Uri uri){
+            //      try{
+            //          Set<String> names = uri.getQueryParameterNames();
+            //          JSONObject json = new JSONObject();
 
-                     for(String name: names){
-                         String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
-                         json.put(name,value);
-                     }
-                     return json.toString();
+            //          for(String name: names){
+            //              String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
+            //              json.put(name,value);
+            //          }
+            //          return json.toString();
 
-                 }catch(Exception e){
-                     //ELogger.e(TAG,"Error converting to json",e);
-                     Log.d("", "Error Converting to JSON");
-                     Toast.makeText(this.cordova.getActivity(), "Error Converting to JSON", Toast.LENGTH_LONG).show();
-                     return "";
-                 }
-             }
+            //      }catch(Exception e){
+            //          //ELogger.e(TAG,"Error converting to json",e);
+            //          Log.d("", "Error Converting to JSON");
+            //          Toast.makeText(this.cordova.getActivity(), "Error Converting to JSON", Toast.LENGTH_LONG).show();
+            //          return "";
+            //      }
+            //  }
 
-            private Intent buildExtra(int status, String message, String rawResponse) {
-                     Intent data = new Intent();
-                     data.putExtra(TXN_STATUS, status);
-                     data.putExtra(TXN_MESSAGE, message);
-                     data.putExtra(RAW_RESPONSE, rawResponse);
-                     return data;
-                 }
+            // private Intent buildExtra(int status, String message, String rawResponse) {
+            //          Intent data = new Intent();
+            //          data.putExtra(TXN_STATUS, status);
+            //          data.putExtra(TXN_MESSAGE, message);
+            //          data.putExtra(RAW_RESPONSE, rawResponse);
+            //          return data;
+            //      }
 
-            private WebResourceResponse getCssWebResourceResponseFromAsset() {
-                try {
-                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-                } catch (IOException e) {
-                    return null;
-                }
-            }
+            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
+            //     try {
+            //         return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+            //     } catch (IOException e) {
+            //         return null;
+            //     }
+            // }
 
-            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/css", "UTF-8", data);
-            }
+            // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+            //     return new WebResourceResponse("text/css", "UTF-8", data);
+            // }
 
     /////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
 
