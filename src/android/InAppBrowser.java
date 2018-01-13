@@ -1071,13 +1071,9 @@ public class InAppBrowser extends CordovaPlugin {
             return false;
         }
 
-    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
-
-        //merchant_return_url
-    
         @SuppressWarnings("deprecation")
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String merchant_return_url) {
+            public WebResourceResponse shouldInterceptRequest(WebView webView, String merchant_return_url) {
                 Log.d(TAG,"inside 1st condition - A");
                 Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
 
@@ -1128,7 +1124,7 @@ public class InAppBrowser extends CordovaPlugin {
 
             @TargetApi(Build.VERSION_CODES.N)
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
 
                 Log.d(TAG,"inside 2nd condition - A");
                 Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - A", Toast.LENGTH_LONG).show();
@@ -1205,7 +1201,7 @@ public class InAppBrowser extends CordovaPlugin {
                     return getCssWebResourceResponseFromAsset();
                 }
 
-                return super.shouldInterceptRequest(view, request);
+                return super.shouldInterceptRequest(webView, request);
             }
 
             private String convertQueryToJSON(Uri uri){
@@ -1246,6 +1242,12 @@ public class InAppBrowser extends CordovaPlugin {
             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
                 return new WebResourceResponse("text/css", "UTF-8", data);
             }
+
+    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
+
+        //merchant_return_url
+    
+        
       
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
