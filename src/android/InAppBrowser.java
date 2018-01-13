@@ -1124,7 +1124,7 @@ public class InAppBrowser extends CordovaPlugin {
 
             //@TargetApi(Build.VERSION_CODES.N)
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
+            public boolean WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
 
                 Log.d(TAG,"inside 2nd condition - A");
                 Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - A", Toast.LENGTH_LONG).show();
