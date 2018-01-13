@@ -143,7 +143,7 @@ public class InAppBrowser extends CordovaPlugin {
 
     public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
     public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
-    public String validated_merchant_return_url = "";
+    String validated_merchant_return_url;
 
     public static final String TXN_STATUS = "TxnStatus";
     public static final String TXN_MESSAGE = "TxnMessage";
@@ -172,7 +172,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            final String merchant_return_url = args.getString(3);
+            final String merchant_return_url =  args.optString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
@@ -1016,162 +1016,236 @@ public class InAppBrowser extends CordovaPlugin {
          * @param webView
          * @param url
          */
-        // @Override
-        // public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-        //     if (url.startsWith(WebView.SCHEME_TEL)) {
-        //         try {
-        //             Intent intent = new Intent(Intent.ACTION_DIAL);
-        //             intent.setData(Uri.parse(url));
-        //             cordova.getActivity().startActivity(intent);
-        //             return true;
-        //         } catch (android.content.ActivityNotFoundException e) {
-        //             LOG.e(LOG_TAG, "Error dialing " + url + ": " + e.toString());
-        //         }
-        //     } else if (url.startsWith("geo:") || url.startsWith(WebView.SCHEME_MAILTO) || url.startsWith("market:") || url.startsWith("intent:")) {
-        //         try {
-        //             Intent intent = new Intent(Intent.ACTION_VIEW);
-        //             intent.setData(Uri.parse(url));
-        //             cordova.getActivity().startActivity(intent);
-        //             return true;
-        //         } catch (android.content.ActivityNotFoundException e) {
-        //             LOG.e(LOG_TAG, "Error with " + url + ": " + e.toString());
-        //         }
-        //     }
-        //     // If sms:5551212?body=This is the message
-        //     else if (url.startsWith("sms:")) {
-        //         try {
-        //             Intent intent = new Intent(Intent.ACTION_VIEW);
-
-        //             // Get address
-        //             String address = null;
-        //             int parmIndex = url.indexOf('?');
-        //             if (parmIndex == -1) {
-        //                 address = url.substring(4);
-        //             } else {
-        //                 address = url.substring(4, parmIndex);
-
-        //                 // If body, then set sms body
-        //                 Uri uri = Uri.parse(url);
-        //                 String query = uri.getQuery();
-        //                 if (query != null) {
-        //                     if (query.startsWith("body=")) {
-        //                         intent.putExtra("sms_body", query.substring(5));
-        //                     }
-        //                 }
-        //             }
-        //             intent.setData(Uri.parse("sms:" + address));
-        //             intent.putExtra("address", address);
-        //             intent.setType("vnd.android-dir/mms-sms");
-        //             cordova.getActivity().startActivity(intent);
-        //             return true;
-        //         } catch (android.content.ActivityNotFoundException e) {
-        //             LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
-        //         }
-        //     }
-        //     return false;
-        // }
-
-        // //@SuppressWarnings("deprecation");
-        //     @Override
-        //     public boolean shouldInterceptRequest(WebView webView, String merchant_return_url) {
-        //         Log.d(TAG,"inside 1st condition - A");
-        //         Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
-
-        //         if(merchant_return_url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
-        //         {  
-        //            Log.d(TAG,"inside 1st condition - B");
-        //            Toast.makeText(this.cordova.getActivity(), "inside 1st condition - B", Toast.LENGTH_LONG).show();
-                    
-        //             //paymentpresentor.handleshouldinterceptrequest starts here
-        //             validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
-
-        //             if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-        //                 Uri uri = Uri.parse(merchant_return_url);
-
-        //                 if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-        //                     try{
-        //                         Log.d(TAG,"beforePageStarted: Query params exist");
-        //                         Toast.makeTextthis.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
-
-        //                         int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-        //                         String message = uri.getQueryParameter("TxnMessage");
-        //                         String rawResponse = convertQueryToJSON(uri);
-        //                         Intent data = buildExtra(status, message, rawResponse);
-        //                         //listener.onFinish(status, data,triggerReturnUrl);
-
-        //                     } catch(NumberFormatException e){
-        //                         Log.d("", "TxnStatus is not numerical");
-        //                          Toast.makeText(this.cordova.getActivity(), "TxnStatus is not numerical", Toast.LENGTH_LONG).show();
-        //                         //listener.onReadJSON(view);
-        //                     }
-        //                 }
-
-        //                 else {
-        //                     Log.d("", "Got Return URL");
-        //                      Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
-        //                     //listener.onReadJSON(view);
-        //                 }
-        //             }
-        //             //paymentpresentor.handleshouldinterceptrequest ends here
-
-        //             Log.d("", "APP TO BE CLOSED HERE - 1");
-        //              Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
-
-        //             return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
-        //         }
-        //         return super.shouldInterceptRequest(webView, url);
-        //     }
-
-            //@TargetApi(Build.VERSION_CODES.N)
-            @Override
-            public void WebResourceResponse shouldInterceptRequest(WebView webView, String merchant_return_url) {
-                super.shouldInterceptRequest(webView, merchant_return_url);
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView webView, String url) {
+            if (url.startsWith(WebView.SCHEME_TEL)) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse(url));
+                    cordova.getActivity().startActivity(intent);
+                    return true;
+                } catch (android.content.ActivityNotFoundException e) {
+                    LOG.e(LOG_TAG, "Error dialing " + url + ": " + e.toString());
+                }
+            } else if (url.startsWith("geo:") || url.startsWith(WebView.SCHEME_MAILTO) || url.startsWith("market:") || url.startsWith("intent:")) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    cordova.getActivity().startActivity(intent);
+                    return true;
+                } catch (android.content.ActivityNotFoundException e) {
+                    LOG.e(LOG_TAG, "Error with " + url + ": " + e.toString());
+                }
             }
+            // If sms:5551212?body=This is the message
+            else if (url.startsWith("sms:")) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
 
-            // private String convertQueryToJSON(Uri uri){
-            //      try{
-            //          Set<String> names = uri.getQueryParameterNames();
-            //          JSONObject json = new JSONObject();
+                    // Get address
+                    String address = null;
+                    int parmIndex = url.indexOf('?');
+                    if (parmIndex == -1) {
+                        address = url.substring(4);
+                    } else {
+                        address = url.substring(4, parmIndex);
 
-            //          for(String name: names){
-            //              String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
-            //              json.put(name,value);
-            //          }
-            //          return json.toString();
+                        // If body, then set sms body
+                        Uri uri = Uri.parse(url);
+                        String query = uri.getQuery();
+                        if (query != null) {
+                            if (query.startsWith("body=")) {
+                                intent.putExtra("sms_body", query.substring(5));
+                            }
+                        }
+                    }
+                    intent.setData(Uri.parse("sms:" + address));
+                    intent.putExtra("address", address);
+                    intent.setType("vnd.android-dir/mms-sms");
+                    cordova.getActivity().startActivity(intent);
+                    return true;
+                } catch (android.content.ActivityNotFoundException e) {
+                    LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
+                }
+            }
+            return false;
+        }
 
-            //      }catch(Exception e){
-            //          //ELogger.e(TAG,"Error converting to json",e);
-            //          Log.d("", "Error Converting to JSON");
-            //          Toast.makeText(this.cordova.getActivity(), "Error Converting to JSON", Toast.LENGTH_LONG).show();
-            //          return "";
-            //      }
-            //  }
-
-            // private Intent buildExtra(int status, String message, String rawResponse) {
-            //          Intent data = new Intent();
-            //          data.putExtra(TXN_STATUS, status);
-            //          data.putExtra(TXN_MESSAGE, message);
-            //          data.putExtra(RAW_RESPONSE, rawResponse);
-            //          return data;
-            //      }
-
-            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            //     try {
-            //         return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            //     } catch (IOException e) {
-            //         return null;
-            //     }
-            // }
-
-            // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            //     return new WebResourceResponse("text/css", "UTF-8", data);
-            // }
-
-    /////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
+    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
 
         //merchant_return_url
     
-        
+        @SuppressWarnings("deprecation")
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String merchant_return_url) {
+                Log.d(TAG,"inside 1st condition - A");
+                Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
+
+                if(merchant_return_url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
+                {  
+                   Log.d(TAG,"inside 1st condition - B");
+                   Toast.makeText(this.cordova.getActivity(), "inside 1st condition - B", Toast.LENGTH_LONG).show();
+                    
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+
+                    if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                        Uri uri = Uri.parse(merchant_return_url);
+
+                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                            try{
+                                Log.d(TAG,"beforePageStarted: Query params exist");
+                                Toast.makeTextthis.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
+
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                String message = uri.getQueryParameter("TxnMessage");
+                                String rawResponse = convertQueryToJSON(uri);
+                                Intent data = buildExtra(status, message, rawResponse);
+                                //listener.onFinish(status, data,triggerReturnUrl);
+
+                            } catch(NumberFormatException e){
+                                Log.d("", "TxnStatus is not numerical");
+                                 Toast.makeText(this.cordova.getActivity(), "TxnStatus is not numerical", Toast.LENGTH_LONG).show();
+                                //listener.onReadJSON(view);
+                            }
+                        }
+
+                        else {
+                            Log.d("", "Got Return URL");
+                             Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
+                            //listener.onReadJSON(view);
+                        }
+                    }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
+
+                    Log.d("", "APP TO BE CLOSED HERE - 1");
+                     Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
+
+                    return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+                }
+                return super.shouldInterceptRequest(view, url);
+            }
+
+            @TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+
+                Log.d(TAG,"inside 2nd condition - A");
+                Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - A", Toast.LENGTH_LONG).show();
+
+                if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                {
+                    Log.d(TAG,"inside 2nd condition - B");
+                    Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - B", Toast.LENGTH_LONG).show();
+                    
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+
+                    if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                        
+                        Log.d(TAG,"inside 2nd condition - C");
+                        Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - C", Toast.LENGTH_LONG).show();
+
+                        Uri uri = Uri.parse(request.getUrl().toString());
+
+                        Log.d(TAG,"uri: "+uri);
+                        Toast.makeText(this.cordova.getActivity(), "uri: "+uri, Toast.LENGTH_LONG).show();
+                        
+                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+
+                            Log.d(TAG,"inside 2nd condition - D");
+                            Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - D", Toast.LENGTH_LONG).show();
+                            try{
+                                Log.d(TAG,"beforePageStarted: Query params exist");
+                                Toast.makeText(this.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
+
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                Log.d(TAG,"TxnStatus: "+status);
+                                Toast.makeText(this.cordova.getActivity(), "TxnStatus: "+status, Toast.LENGTH_LONG).show();
+
+                                String message = uri.getQueryParameter("TxnMessage");
+                                Log.d(TAG,"TxnMessage: "+message);
+                                Toast.makeText(this.cordova.getActivity(), "TxnMessage: "+message, Toast.LENGTH_LONG).show();
+
+                                String rawResponse = convertQueryToJSON(uri);
+                                Log.d(TAG,"rawResponse: "+rawResponse);
+                                Toast.makeText(this.cordova.getActivity(), "rawResponse: "+rawResponse, Toast.LENGTH_LONG).show();
+
+                                Intent data = buildExtra(status, message, rawResponse);
+                                Log.d(TAG,"data: "+data);
+                                Toast.makeText(this.cordova.getActivity(), "data: "+data, Toast.LENGTH_LONG).show();
+                                //listener.onFinish(status, data,triggerReturnUrl);
+
+                            } catch(NumberFormatException e){
+                                Log.d("", "TxnStatus is not numerical");
+                                Toast.makeText(this.cordova.getActivity(), "TxnStatus is not numerical", Toast.LENGTH_LONG).show();
+                                //listener.onReadJSON(view);
+                            }
+                        }
+
+                        else {
+                            Log.d("","Got Return URL");
+                            Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
+                            //listener.onReadJSON(view);
+                        }
+                    }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
+
+                    Log.d("","APP TO BE CLOSED HERE - 2");
+                    Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+
+//                    try {
+//                        JSONObject obj = new JSONObject();
+//                        obj.put("type", EXIT_EVENT);
+//                        sendUpdate(obj, false);
+//                    } catch (JSONException ex) {
+//                        LOG.d(LOG_TAG, "Should never happen");
+//                    }
+
+                    return getCssWebResourceResponseFromAsset();
+                }
+
+                return super.shouldInterceptRequest(view, request);
+            }
+
+            private String convertQueryToJSON(Uri uri){
+                 try{
+                     Set<String> names = uri.getQueryParameterNames();
+                     JSONObject json = new JSONObject();
+
+                     for(String name: names){
+                         String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
+                         json.put(name,value);
+                     }
+                     return json.toString();
+
+                 }catch(Exception e){
+                     //ELogger.e(TAG,"Error converting to json",e);
+                     Log.d("", "Error Converting to JSON");
+                     Toast.makeText(this.cordova.getActivity(), "Error Converting to JSON", Toast.LENGTH_LONG).show();
+                     return "";
+                 }
+             }
+
+            private Intent buildExtra(int status, String message, String rawResponse) {
+                     Intent data = new Intent();
+                     data.putExtra(TXN_STATUS, status);
+                     data.putExtra(TXN_MESSAGE, message);
+                     data.putExtra(RAW_RESPONSE, rawResponse);
+                     return data;
+                 }
+
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
       
     ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
 
