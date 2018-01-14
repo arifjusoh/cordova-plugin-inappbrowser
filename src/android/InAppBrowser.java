@@ -1086,6 +1086,9 @@ public class InAppBrowser extends CordovaPlugin {
 
                         if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
                             try{
+                                Log.d(TAG,"beforePageStarted: Query params exist");
+                                Toast.makeTextthis.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
+
                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
                                 String message = uri.getQueryParameter("TxnMessage");
                                 String rawResponse = convertQueryToJSON(uri);
@@ -1100,10 +1103,15 @@ public class InAppBrowser extends CordovaPlugin {
                         }
 
                         else {
+                            Log.d("", "Got Return URL");
+                             Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
                             //listener.onReadJSON(view);
                         }
                     }
                     //paymentpresentor.handleshouldinterceptrequest ends here
+
+                    Log.d("", "APP TO BE CLOSED HERE - 1");
+                     Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
 
                     return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
                 }
