@@ -1090,10 +1090,10 @@ public class InAppBrowser extends CordovaPlugin {
                                 Log.d(TAG,"beforePageStarted: Query params exist");
                                 Toast.makeText(this.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
 
-                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                                String message = uri.getQueryParameter("TxnMessage");
-                                String rawResponse = convertQueryToJSON(uri);
-                                Intent data = buildExtra(status, message, rawResponse);
+                                // int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                // String message = uri.getQueryParameter("TxnMessage");
+                                // String rawResponse = convertQueryToJSON(uri);
+                                // Intent data = buildExtra(status, message, rawResponse);
                                 //listener.onFinish(status, data,triggerReturnUrl);
 
                             } catch(NumberFormatException e){
