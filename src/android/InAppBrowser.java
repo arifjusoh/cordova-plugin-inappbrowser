@@ -1075,8 +1075,6 @@ public class InAppBrowser extends CordovaPlugin {
         @SuppressWarnings("deprecation")
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String merchant_return_url) {
-                Log.d(TAG,"inside 1st condition - A");
-                Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
 
                 if(merchant_return_url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
                 {  
