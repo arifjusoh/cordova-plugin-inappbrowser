@@ -1078,9 +1078,6 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if(merchant_return_url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
                 {  
-                   Log.d(TAG,"inside 1st condition - B");
-                   Toast.makeText(this.cordova.getActivity(), "inside 1st condition - B", Toast.LENGTH_LONG).show();
-                    
                     //paymentpresentor.handleshouldinterceptrequest starts here
                     validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
 
