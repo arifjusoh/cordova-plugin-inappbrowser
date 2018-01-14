@@ -1084,22 +1084,22 @@ public class InAppBrowser extends CordovaPlugin {
                     if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
                         Uri uri = Uri.parse(merchant_return_url);
 
-                        // if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-                        //     try{
-                        //         int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                        //         String message = uri.getQueryParameter("TxnMessage");
-                        //         String rawResponse = convertQueryToJSON(uri);
-                        //         Intent data = buildExtra(status, message, rawResponse);
-                        //         //listener.onFinish(status, data,triggerReturnUrl);
+                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                            try{
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                String message = uri.getQueryParameter("TxnMessage");
+                                String rawResponse = convertQueryToJSON(uri);
+                                Intent data = buildExtra(status, message, rawResponse);
+                                //listener.onFinish(status, data,triggerReturnUrl);
 
-                        //     } catch(NumberFormatException e){
-                        //         //listener.onReadJSON(view);
-                        //     }
-                        // }
+                            } catch(NumberFormatException e){
+                                //listener.onReadJSON(view);
+                            }
+                        }
 
-                        // else {
-                        //     //listener.onReadJSON(view);
-                        // }
+                        else {
+                            //listener.onReadJSON(view);
+                        }
                     }
                     //paymentpresentor.handleshouldinterceptrequest ends here
 
