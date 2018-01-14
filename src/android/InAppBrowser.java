@@ -139,8 +139,7 @@ public class InAppBrowser extends CordovaPlugin {
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
 
-    ///// for intercepturl /////////
-
+   ////////////////////  for shouldInterceptRequest //////////////////////
     public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
     public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
     String validated_merchant_return_url;
@@ -150,9 +149,7 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String RAW_RESPONSE = "RawResponse";
 
     public static final String TAG = "Logs: ";
-    
-    ///// for intercepturl /////////
-
+   ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
      * Executes the request and returns PluginResult.
@@ -1071,7 +1068,7 @@ public class InAppBrowser extends CordovaPlugin {
             return false;
         }
 
-    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION STARTS HERE /////////////////////////////////////////////
+    ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION STARTS HERE /////////////////////////////////////////////
 
         //merchant_return_url
     
@@ -1208,6 +1205,18 @@ public class InAppBrowser extends CordovaPlugin {
                 return super.shouldInterceptRequest(view, request);
             }
 
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
+
             private String convertQueryToJSON(Uri uri){
                  try{
                      Set<String> names = uri.getQueryParameterNames();
@@ -1234,20 +1243,8 @@ public class InAppBrowser extends CordovaPlugin {
                      data.putExtra(RAW_RESPONSE, rawResponse);
                      return data;
                  }
-
-            private WebResourceResponse getCssWebResourceResponseFromAsset() {
-                try {
-                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-                } catch (IOException e) {
-                    return null;
-                }
-            }
-
-            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/css", "UTF-8", data);
-            }
       
-    ///////////////////////////////////////////////// SHOULD INTERCEPT FUNCTION ENDS HERE //////////////////////////////////////////////
+    ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
         /*
          * onPageStarted fires the LOAD_START_EVENT
