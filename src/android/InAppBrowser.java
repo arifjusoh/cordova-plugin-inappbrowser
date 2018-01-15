@@ -1143,7 +1143,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
 
             @TargetApi(Build.VERSION_CODES.N)
-            @Override
+            //@Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
                 Log.d(TAG, "inside 2nd condition - A " + request.getUrl().toString());
