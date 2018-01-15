@@ -1098,11 +1098,11 @@ public class InAppBrowser extends CordovaPlugin {
 
                              LOG.e(LOG_TAG, "inside 1st condition - D");
 
-//                             try {
-//                                 LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
+                             try {
+                                 LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
 
-//                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-//                                 LOG.e(LOG_TAG, "TxnStatus: " + status);
+                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                 LOG.e(LOG_TAG, "TxnStatus: " + status);
 
 //                                 String message = uri.getQueryParameter("TxnMessage");
 //                                 LOG.e(LOG_TAG, "TxnMessage: " + message);
@@ -1114,10 +1114,10 @@ public class InAppBrowser extends CordovaPlugin {
 //                                 LOG.e(LOG_TAG, "data: " + data);
 //                                 //listener.onFinish(status, data,triggerReturnUrl);
 
-//                             } catch (NumberFormatException e) {
-//                                 LOG.e(LOG_TAG, "TxnStatus is not numerical");
+                             } catch (NumberFormatException e) {
+                                 LOG.e(LOG_TAG, "TxnStatus is not numerical");
 //                                 //listener.onReadJSON(view);
-//                             }
+                             }
                          } else {
                              LOG.e(LOG_TAG, "Got Return URL");
 //                             //listener.onReadJSON(view);
