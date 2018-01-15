@@ -1103,28 +1103,28 @@ public class InAppBrowser extends CordovaPlugin {
                           //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
                           if (uri.getEncodedQuery() != null) {
 
-//                              LOG.e(LOG_TAG, "inside 1st condition - D");
+                              LOG.e(LOG_TAG, "inside 1st condition - D");
 
-//                              try {
-//                                  LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
+                              try {
+                                  LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
 
-//                                  int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-//                                  LOG.e(LOG_TAG, "TxnStatus: " + status);
+                                  int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                  LOG.e(LOG_TAG, "TxnStatus: " + status);
 
-//                                  String message = uri.getQueryParameter("TxnMessage");
-//                                  LOG.e(LOG_TAG, "TxnMessage: " + message);
+                                  String message = uri.getQueryParameter("TxnMessage");
+                                  LOG.e(LOG_TAG, "TxnMessage: " + message);
 
-//                                  String rawResponse = convertQueryToJSON(uri);
-//                                  LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
+                                  String rawResponse = convertQueryToJSON(uri);
+                                  LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
 
-//                                  Intent data = buildExtra(status, message, rawResponse);
-//                                  LOG.e(LOG_TAG, "data: " + data);
-// //                                 //listener.onFinish(status, data,triggerReturnUrl);
+                                  Intent data = buildExtra(status, message, rawResponse);
+                                  LOG.e(LOG_TAG, "data: " + data);
+                                 //listener.onFinish(status, data,triggerReturnUrl);
 
-//                              } catch (NumberFormatException e) {
-//                                  LOG.e(LOG_TAG, "TxnStatus is not numerical");
-// //                                 //listener.onReadJSON(view);
-//                              }
+                              } catch (NumberFormatException e) {
+                                  LOG.e(LOG_TAG, "TxnStatus is not numerical");
+                                 //listener.onReadJSON(view);
+                              }
                           } else {
                               LOG.e(LOG_TAG, "Got Return URL");
                              //listener.onReadJSON(view);
@@ -1221,47 +1221,47 @@ public class InAppBrowser extends CordovaPlugin {
 //                 return super.shouldInterceptRequest(view, request);
 //             }
 
-//              private WebResourceResponse getCssWebResourceResponseFromAsset() {
-//               try {
-//                     File initialFile = new File("sdk.html");
-//                     InputStream targetStream = new FileInputStream(initialFile);
+             private WebResourceResponse getCssWebResourceResponseFromAsset() {
+              try {
+                    File initialFile = new File("sdk.html");
+                    InputStream targetStream = new FileInputStream(initialFile);
 
-//                     return getUtf8EncodedCssWebResourceResponse(targetStream);
-//                 } catch (IOException e) {
-//                     return null;
-//                 }
-//             }
+                    return getUtf8EncodedCssWebResourceResponse(targetStream);
+                } catch (IOException e) {
+                    return null;
+                }
+            }
 
-//              private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-//                   return new WebResourceResponse("text/css", "UTF-8", data);
-//               }
+             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                  return new WebResourceResponse("text/css", "UTF-8", data);
+              }
 
-//             private String convertQueryToJSON(Uri uri) {
-//                 try {
-//                     Set<String> names = uri.getQueryParameterNames();
-//                     JSONObject json = new JSONObject();
+            private String convertQueryToJSON(Uri uri) {
+                try {
+                    Set<String> names = uri.getQueryParameterNames();
+                    JSONObject json = new JSONObject();
 
-//                     for (String name : names) {
-//                         String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
-//                         json.put(name, value);
-//                     }
-//                     return json.toString();
+                    for (String name : names) {
+                        String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
+                        json.put(name, value);
+                    }
+                    return json.toString();
 
-//                 } catch (Exception e) {
-//                     //ELogger.e(TAG,"Error converting to json",e);
-//                     LOG.e(LOG_TAG, "Error Converting to JSON");
+                } catch (Exception e) {
+                    //ELogger.e(TAG,"Error converting to json",e);
+                    LOG.e(LOG_TAG, "Error Converting to JSON");
 
-//                        return "";
-//                 }
-//             }
+                       return "";
+                }
+            }
 
-//             private Intent buildExtra(int status, String message, String rawResponse) {
-//                 Intent data = new Intent();
-//                 data.putExtra(TXN_STATUS, status);
-//                 data.putExtra(TXN_MESSAGE, message);
-//                 data.putExtra(RAW_RESPONSE, rawResponse);
-//                 return data;
-//             }
+            private Intent buildExtra(int status, String message, String rawResponse) {
+                Intent data = new Intent();
+                data.putExtra(TXN_STATUS, status);
+                data.putExtra(TXN_MESSAGE, message);
+                data.putExtra(RAW_RESPONSE, rawResponse);
+                return data;
+            }
       
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
