@@ -1081,7 +1081,7 @@ public class InAppBrowser extends CordovaPlugin {
     
       @SuppressWarnings("deprecation")
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url, String compare_url) {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
