@@ -1072,124 +1072,130 @@ public class InAppBrowser extends CordovaPlugin {
 
         //merchant_return_url
     
-        @SuppressWarnings("deprecation")
+         @SuppressWarnings("deprecation")
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String merchant_return_url) {
-                Log.d(TAG,"inside 1st condition - A");
-                Toast.makeText(this.cordova.getActivity(), "inside 1st condition - A", Toast.LENGTH_LONG).show();
 
-                if(merchant_return_url.contains("MerchantReturnURL")) // if (!triggerReturnUrl && Utils.getURLWithoutParameters(url).contains(merchantReturnURL)) {
-                {  
-                   Log.d(TAG,"inside 1st condition - B");
-                   Toast.makeText(this.cordova.getActivity(), "inside 1st condition - B", Toast.LENGTH_LONG).show();
-                    
+                Log.d(TAG, "inside 1st condition - A " + merchant_return_url);
+
+                if (merchant_return_url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                {
+                    Log.d(TAG, "inside 1st condition - B");
+
                     //paymentpresentor.handleshouldinterceptrequest starts here
-                    validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+                    validated_merchant_return_url = merchant_return_url.replace(";", "&");
 
                     if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+
+                        Log.d(TAG, "inside 1st condition - C");
+
                         Uri uri = Uri.parse(merchant_return_url);
 
-                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-                            try{
-                                Log.d(TAG,"beforePageStarted: Query params exist");
-                                Toast.makeText(this.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "uri: " + uri);
+
+                        //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                        if (uri.getEncodedQuery() != null) {
+
+                            Log.d(TAG, "inside 1st condition - D");
+
+                            try {
+                                Log.d(TAG, "beforePageStarted: Query params exist");
 
                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                Log.d(TAG, "TxnStatus: " + status);
+
                                 String message = uri.getQueryParameter("TxnMessage");
+                                Log.d(TAG, "TxnMessage: " + message);
+
                                 String rawResponse = convertQueryToJSON(uri);
+                                Log.d(TAG, "rawResponse: " + rawResponse);
+
                                 Intent data = buildExtra(status, message, rawResponse);
+                                Log.d(TAG, "data: " + data);
                                 //listener.onFinish(status, data,triggerReturnUrl);
 
-                            } catch(NumberFormatException e){
+                            } catch (NumberFormatException e) {
                                 Log.d("", "TxnStatus is not numerical");
-                                 Toast.makeText(this.cordova.getActivity(), "TxnStatus is not numerical", Toast.LENGTH_LONG).show();
                                 //listener.onReadJSON(view);
                             }
-                        }
-
-                        else {
+                        } else {
                             Log.d("", "Got Return URL");
-                             Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
                             //listener.onReadJSON(view);
                         }
                     }
                     //paymentpresentor.handleshouldinterceptrequest ends here
 
                     Log.d("", "APP TO BE CLOSED HERE - 1");
-                     Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 1", Toast.LENGTH_LONG).show();
 
-                    return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
+//                    try {
+//                        JSONObject obj = new JSONObject();
+//                        obj.put("type", EXIT_EVENT);
+//                        sendUpdate(obj, false);
+//                    } catch (JSONException ex) {
+//                        LOG.d(LOG_TAG, "Should never happen");
+//                    }
+
+                    return getCssWebResourceResponseFromAsset();
                 }
-                return super.shouldInterceptRequest(view, url);
+
+                return super.shouldInterceptRequest(view, merchant_return_url);
             }
 
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
-                Log.d(TAG,"inside 2nd condition - A");
-                Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - A", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-                if(request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                if (request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                 {
-                    Log.d(TAG,"inside 2nd condition - B");
-                    Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - B", Toast.LENGTH_LONG).show();
-                    
-                    //paymentpresentor.handleshouldinterceptrequest starts here
-                    validated_merchant_return_url = MERCHANT_RETURN_URL.replace(";", "&");
+                    Log.d(TAG, "inside 2nd condition - B");
 
-                    if(request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-                        
-                        Log.d(TAG,"inside 2nd condition - C");
-                        Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - C", Toast.LENGTH_LONG).show();
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    validated_merchant_return_url = request.getUrl().toString().replace(";", "&");
+
+                    if (request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+
+                        Log.d(TAG, "inside 2nd condition - C");
 
                         Uri uri = Uri.parse(request.getUrl().toString());
 
-                        Log.d(TAG,"uri: "+uri);
-                        Toast.makeText(this.cordova.getActivity(), "uri: "+uri, Toast.LENGTH_LONG).show();
-                        
-                        if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                        Log.d(TAG, "uri: " + uri);
 
-                            Log.d(TAG,"inside 2nd condition - D");
-                            Toast.makeText(this.cordova.getActivity(), "inside 2nd condition - D", Toast.LENGTH_LONG).show();
-                            try{
-                                Log.d(TAG,"beforePageStarted: Query params exist");
-                                Toast.makeText(this.cordova.getActivity(), "beforePageStarted: Query params exist", Toast.LENGTH_LONG).show();
+                        //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                        if (uri.getEncodedQuery() != null) {
+
+                            Log.d(TAG, "inside 2nd condition - D");
+
+                            try {
+                                Log.d(TAG, "beforePageStarted: Query params exist");
 
                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                                Log.d(TAG,"TxnStatus: "+status);
-                                Toast.makeText(this.cordova.getActivity(), "TxnStatus: "+status, Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "TxnStatus: " + status);
 
                                 String message = uri.getQueryParameter("TxnMessage");
-                                Log.d(TAG,"TxnMessage: "+message);
-                                Toast.makeText(this.cordova.getActivity(), "TxnMessage: "+message, Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "TxnMessage: " + message);
 
                                 String rawResponse = convertQueryToJSON(uri);
-                                Log.d(TAG,"rawResponse: "+rawResponse);
-                                Toast.makeText(this.cordova.getActivity(), "rawResponse: "+rawResponse, Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "rawResponse: " + rawResponse);
 
                                 Intent data = buildExtra(status, message, rawResponse);
-                                Log.d(TAG,"data: "+data);
-                                Toast.makeText(this.cordova.getActivity(), "data: "+data, Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "data: " + data);
                                 //listener.onFinish(status, data,triggerReturnUrl);
 
-                            } catch(NumberFormatException e){
+                            } catch (NumberFormatException e) {
                                 Log.d("", "TxnStatus is not numerical");
-                                Toast.makeText(this.cordova.getActivity(), "TxnStatus is not numerical", Toast.LENGTH_LONG).show();
                                 //listener.onReadJSON(view);
                             }
-                        }
-
-                        else {
-                            Log.d("","Got Return URL");
-                            Toast.makeText(this.cordova.getActivity(), "Got Return URL", Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.d("", "Got Return URL");
                             //listener.onReadJSON(view);
                         }
                     }
                     //paymentpresentor.handleshouldinterceptrequest ends here
 
-                    Log.d("","APP TO BE CLOSED HERE - 2");
-                    Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+                    Log.d("", "APP TO BE CLOSED HERE - 2");
+                    //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
 //                    try {
 //                        JSONObject obj = new JSONObject();
@@ -1217,32 +1223,32 @@ public class InAppBrowser extends CordovaPlugin {
                 return new WebResourceResponse("text/css", "UTF-8", data);
             }
 
-            private String convertQueryToJSON(Uri uri){
-                 try{
-                     Set<String> names = uri.getQueryParameterNames();
-                     JSONObject json = new JSONObject();
+            private String convertQueryToJSON(Uri uri) {
+                try {
+                    Set<String> names = uri.getQueryParameterNames();
+                    JSONObject json = new JSONObject();
 
-                     for(String name: names){
-                         String value = uri.getQueryParameter(name) != null? uri.getQueryParameter(name): "";
-                         json.put(name,value);
-                     }
-                     return json.toString();
+                    for (String name : names) {
+                        String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
+                        json.put(name, value);
+                    }
+                    return json.toString();
 
-                 }catch(Exception e){
-                     //ELogger.e(TAG,"Error converting to json",e);
-                     Log.d("", "Error Converting to JSON");
-                     Toast.makeText(this.cordova.getActivity(), "Error Converting to JSON", Toast.LENGTH_LONG).show();
-                     return "";
-                 }
-             }
+                } catch (Exception e) {
+                    //ELogger.e(TAG,"Error converting to json",e);
+                    Log.d("", "Error Converting to JSON");
+
+                       return "";
+                }
+            }
 
             private Intent buildExtra(int status, String message, String rawResponse) {
-                     Intent data = new Intent();
-                     data.putExtra(TXN_STATUS, status);
-                     data.putExtra(TXN_MESSAGE, message);
-                     data.putExtra(RAW_RESPONSE, rawResponse);
-                     return data;
-                 }
+                Intent data = new Intent();
+                data.putExtra(TXN_STATUS, status);
+                data.putExtra(TXN_MESSAGE, message);
+                data.putExtra(RAW_RESPONSE, rawResponse);
+                return data;
+            }
       
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
