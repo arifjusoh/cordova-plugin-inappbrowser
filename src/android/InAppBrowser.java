@@ -1110,8 +1110,8 @@ public class InAppBrowser extends CordovaPlugin {
                                  String rawResponse = convertQueryToJSON(uri);
                                  LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
 
-//                                 Intent data = buildExtra(status, message, rawResponse);
-//                                 LOG.e(LOG_TAG, "data: " + data);
+                                 Intent data = buildExtra(status, message, rawResponse);
+                                 LOG.e(LOG_TAG, "data: " + data);
 //                                 //listener.onFinish(status, data,triggerReturnUrl);
 
                              } catch (NumberFormatException e) {
@@ -1243,13 +1243,13 @@ public class InAppBrowser extends CordovaPlugin {
                 }
             }
 
-            // private Intent buildExtra(int status, String message, String rawResponse) {
-            //     Intent data = new Intent();
-            //     data.putExtra(TXN_STATUS, status);
-            //     data.putExtra(TXN_MESSAGE, message);
-            //     data.putExtra(RAW_RESPONSE, rawResponse);
-            //     return data;
-            // }
+            private Intent buildExtra(int status, String message, String rawResponse) {
+                Intent data = new Intent();
+                data.putExtra(TXN_STATUS, status);
+                data.putExtra(TXN_MESSAGE, message);
+                data.putExtra(RAW_RESPONSE, rawResponse);
+                return data;
+            }
       
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
