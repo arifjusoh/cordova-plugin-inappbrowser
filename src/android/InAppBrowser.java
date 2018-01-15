@@ -1087,21 +1087,21 @@ public class InAppBrowser extends CordovaPlugin {
 
                  if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
-//                      LOG.e(LOG_TAG, "inside 1st condition - B");
+                      LOG.e(LOG_TAG, "inside 1st condition - B");
 
-//                      //paymentpresentor.handleshouldinterceptrequest starts here
-//                      validated_merchant_return_url = merchant_return_url.replace(";", "&");
+                      //paymentpresentor.handleshouldinterceptrequest starts here
+                      validated_merchant_return_url = url.replace(";", "&");
 
-//                     if (url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                     if (url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
-//                          LOG.e(LOG_TAG, "inside 1st condition - C");
+                          LOG.e(LOG_TAG, "inside 1st condition - C");
 
-//                          Uri uri = Uri.parse(merchant_return_url);
+                          Uri uri = Uri.parse(url);
 
-//                          LOG.e(LOG_TAG, "uri: " + uri);
+                          LOG.e(LOG_TAG, "uri: " + uri);
 
-//                          //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-//                          if (uri.getEncodedQuery() != null) {
+                          //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                          if (uri.getEncodedQuery() != null) {
 
 //                              LOG.e(LOG_TAG, "inside 1st condition - D");
 
@@ -1125,11 +1125,11 @@ public class InAppBrowser extends CordovaPlugin {
 //                                  LOG.e(LOG_TAG, "TxnStatus is not numerical");
 // //                                 //listener.onReadJSON(view);
 //                              }
-//                          } else {
-//                              LOG.e(LOG_TAG, "Got Return URL");
-// //                             //listener.onReadJSON(view);
-//                          }
-//                      }
+                          } else {
+                              LOG.e(LOG_TAG, "Got Return URL");
+                             //listener.onReadJSON(view);
+                          }
+                     }
 // //                     //paymentpresentor.handleshouldinterceptrequest ends here
 
 //                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
