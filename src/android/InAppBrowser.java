@@ -1085,7 +1085,7 @@ public class InAppBrowser extends CordovaPlugin {
                      //paymentpresentor.handleshouldinterceptrequest starts here
                      validated_merchant_return_url = merchant_return_url.replace(";", "&");
 
-//                     if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                    if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
 //                         LOG.e(LOG_TAG, "inside 1st condition - C");
 
@@ -1122,7 +1122,7 @@ public class InAppBrowser extends CordovaPlugin {
 //                             LOG.e(LOG_TAG, "Got Return URL");
 //                             //listener.onReadJSON(view);
 //                         }
-//                     }
+                     }
 //                     //paymentpresentor.handleshouldinterceptrequest ends here
 
 //                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
