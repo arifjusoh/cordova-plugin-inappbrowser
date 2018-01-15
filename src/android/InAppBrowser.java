@@ -1125,7 +1125,7 @@ public class InAppBrowser extends CordovaPlugin {
                      }
 //                     //paymentpresentor.handleshouldinterceptrequest ends here
 
-//                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
 //                     //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
 // //                    try {
