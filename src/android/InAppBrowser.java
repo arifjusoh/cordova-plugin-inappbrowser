@@ -149,7 +149,6 @@ public class InAppBrowser extends CordovaPlugin {
    ////////////////////  for shouldInterceptRequest //////////////////////
     public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
     public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
-    String validated_merchant_return_url;
 
     public static final String TXN_STATUS = "TxnStatus";
     public static final String TXN_MESSAGE = "TxnMessage";
@@ -176,7 +175,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            public final String compare_url =  args.optString(3);
+            public static final String compare_url =  args.optString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
