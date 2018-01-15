@@ -1224,7 +1224,7 @@ public class InAppBrowser extends CordovaPlugin {
                     File initialFile = new File("src/main/res/sdk.html");
                     InputStream targetStream = new FileInputStream(initialFile);
 
-                    //return getUtf8EncodedCssWebResourceResponse(targetStream);
+                    return getUtf8EncodedCssWebResourceResponse(targetStream);
                   return null;
                 } catch (IOException e) {
                     return null;
@@ -1239,9 +1239,9 @@ public class InAppBrowser extends CordovaPlugin {
             //     }
             // }
 
-              // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-              //     return new WebResourceResponse("text/css", "UTF-8", data);
-              // }
+              private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                  return new WebResourceResponse("text/css", "UTF-8", data);
+              }
 
             private String convertQueryToJSON(Uri uri) {
                 try {
