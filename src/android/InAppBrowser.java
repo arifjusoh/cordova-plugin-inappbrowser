@@ -1078,8 +1078,8 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + merchant_return_url);
 
-//                 if (merchant_return_url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-//                 {
+                 if (merchant_return_url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 {
 //                     LOG.e(LOG_TAG, "inside 1st condition - B");
 
 //                     //paymentpresentor.handleshouldinterceptrequest starts here
@@ -1137,7 +1137,7 @@ public class InAppBrowser extends CordovaPlugin {
 // //                    }
 
 //                     return getCssWebResourceResponseFromAsset();
-//                 }
+                 }
 
                 return super.shouldInterceptRequest(view, merchant_return_url);
             }
