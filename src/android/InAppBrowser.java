@@ -1219,47 +1219,47 @@ public class InAppBrowser extends CordovaPlugin {
 //                 return super.shouldInterceptRequest(view, request);
 //             }
 
-            private WebResourceResponse getCssWebResourceResponseFromAsset() {
-              try {
-                    File initialFile = new File("sdk.html");
-                    InputStream targetStream = new FileInputStream(initialFile);
+            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
+            //   try {
+            //         File initialFile = new File("sdk.html");
+            //         InputStream targetStream = new FileInputStream(initialFile);
 
-                    return getUtf8EncodedCssWebResourceResponse(targetStream);
-                } catch (IOException e) {
-                    return null;
-                }
-            }
+            //         return getUtf8EncodedCssWebResourceResponse(targetStream);
+            //     } catch (IOException e) {
+            //         return null;
+            //     }
+            // }
 
-            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                return new WebResourceResponse("text/css", "UTF-8", data);
-            }
+            // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+            //     return new WebResourceResponse("text/css", "UTF-8", data);
+            // }
 
-            private String convertQueryToJSON(Uri uri) {
-                try {
-                    Set<String> names = uri.getQueryParameterNames();
-                    JSONObject json = new JSONObject();
+            // private String convertQueryToJSON(Uri uri) {
+            //     try {
+            //         Set<String> names = uri.getQueryParameterNames();
+            //         JSONObject json = new JSONObject();
 
-                    for (String name : names) {
-                        String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
-                        json.put(name, value);
-                    }
-                    return json.toString();
+            //         for (String name : names) {
+            //             String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
+            //             json.put(name, value);
+            //         }
+            //         return json.toString();
 
-                } catch (Exception e) {
-                    //ELogger.e(TAG,"Error converting to json",e);
-                    Log.d("", "Error Converting to JSON");
+            //     } catch (Exception e) {
+            //         //ELogger.e(TAG,"Error converting to json",e);
+            //         Log.d("", "Error Converting to JSON");
 
-                       return "";
-                }
-            }
+            //            return "";
+            //     }
+            // }
 
-            private Intent buildExtra(int status, String message, String rawResponse) {
-                Intent data = new Intent();
-                data.putExtra(TXN_STATUS, status);
-                data.putExtra(TXN_MESSAGE, message);
-                data.putExtra(RAW_RESPONSE, rawResponse);
-                return data;
-            }
+            // private Intent buildExtra(int status, String message, String rawResponse) {
+            //     Intent data = new Intent();
+            //     data.putExtra(TXN_STATUS, status);
+            //     data.putExtra(TXN_MESSAGE, message);
+            //     data.putExtra(RAW_RESPONSE, rawResponse);
+            //     return data;
+            // }
 
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
