@@ -1080,10 +1080,10 @@ public class InAppBrowser extends CordovaPlugin {
 
                  if (merchant_return_url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
-//                     LOG.e(LOG_TAG, "inside 1st condition - B");
+                     LOG.e(LOG_TAG, "inside 1st condition - B");
 
-//                     //paymentpresentor.handleshouldinterceptrequest starts here
-//                     validated_merchant_return_url = merchant_return_url.replace(";", "&");
+                     //paymentpresentor.handleshouldinterceptrequest starts here
+                     validated_merchant_return_url = merchant_return_url.replace(";", "&");
 
 //                     if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
