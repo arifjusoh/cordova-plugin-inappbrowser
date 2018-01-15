@@ -1136,7 +1136,7 @@ public class InAppBrowser extends CordovaPlugin {
 // //                        LOG.d(LOG_TAG, "Should never happen");
 // //                    }
 
-//                     return getCssWebResourceResponseFromAsset();
+                     return getCssWebResourceResponseFromAsset();
                  }
 
                 return super.shouldInterceptRequest(view, merchant_return_url);
@@ -1212,17 +1212,17 @@ public class InAppBrowser extends CordovaPlugin {
                 return super.shouldInterceptRequest(view, request);
             }
 
-            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            //     try {
-            //         return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            //     } catch (IOException e) {
-            //         return null;
-            //     }
-            // }
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+                } catch (IOException e) {
+                    return null;
+                }
+            }
 
-            // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            //     return new WebResourceResponse("text/css", "UTF-8", data);
-            // }
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
 
             private String convertQueryToJSON(Uri uri) {
                 try {
