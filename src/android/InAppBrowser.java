@@ -1145,7 +1145,7 @@ public class InAppBrowser extends CordovaPlugin {
 //                      return getCssWebResourceResponseFromAsset();
                  }
 
-                return super.shouldInterceptRequest(view, merchant_return_url);
+                return super.shouldInterceptRequest(view, url);
             }
 
 //             @TargetApi(Build.VERSION_CODES.N)
