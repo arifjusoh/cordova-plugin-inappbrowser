@@ -1083,10 +1083,10 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-                 Log.d(TAG, "inside 1st condition - A " + url);
+                LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-                // if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-               //  {
+                 if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 {
 //                     Log.d(TAG, "inside 1st condition - B");
 
 //                     //paymentpresentor.handleshouldinterceptrequest starts here
@@ -1143,8 +1143,8 @@ public class InAppBrowser extends CordovaPlugin {
 // //                        LOG.d(LOG_TAG, "Should never happen");
 // //                    }
 
-//                  //   return getCssWebResourceResponseFromAsset();
-               //  }
+                     return getCssWebResourceResponseFromAsset();
+                 }
 
                 return super.shouldInterceptRequest(view, url);
             }
@@ -1219,20 +1219,20 @@ public class InAppBrowser extends CordovaPlugin {
 //                 return super.shouldInterceptRequest(view, request);
 //             }
 
-            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            //   try {
-            //         File initialFile = new File("sdk.html");
-            //         InputStream targetStream = new FileInputStream(initialFile);
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+              try {
+                    File initialFile = new File("sdk.html");
+                    InputStream targetStream = new FileInputStream(initialFile);
 
-            //         return getUtf8EncodedCssWebResourceResponse(targetStream);
-            //     } catch (IOException e) {
-            //         return null;
-            //     }
-            // }
+                    return getUtf8EncodedCssWebResourceResponse(targetStream);
+                } catch (IOException e) {
+                    return null;
+                }
+            }
 
-            // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            //     return new WebResourceResponse("text/css", "UTF-8", data);
-            // }
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
 
             // private String convertQueryToJSON(Uri uri) {
             //     try {
