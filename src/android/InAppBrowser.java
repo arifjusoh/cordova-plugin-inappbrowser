@@ -1142,8 +1142,8 @@ public class InAppBrowser extends CordovaPlugin {
                 return super.shouldInterceptRequest(view, merchant_return_url);
             }
 
-            @TargetApi(Build.VERSION_CODES.N)
-            @Override
+            //@TargetApi(Build.VERSION_CODES.N)
+            //@Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
                 Log.d(TAG, "inside 2nd condition - A " + request.getUrl().toString());
