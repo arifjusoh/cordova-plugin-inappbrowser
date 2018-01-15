@@ -176,7 +176,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            final String merchant_return_url =  args.optString(3);
+            final String compare_url =  args.optString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
@@ -1079,162 +1079,157 @@ public class InAppBrowser extends CordovaPlugin {
 
         //merchant_return_url
     
-      @SuppressWarnings("deprecation")
+     @SuppressWarnings("deprecation")
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String merchant_return_url) {
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-                LOG.e(LOG_TAG, "inside 1st condition - A " + merchant_return_url);
+                Log.d(TAG, "inside 1st condition - A " + url);
 
-                 if (merchant_return_url.contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 {
-                     LOG.e(LOG_TAG, "inside 1st condition - B");
+                if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                {
+                    Log.d(TAG, "inside 1st condition - B");
 
-                     //paymentpresentor.handleshouldinterceptrequest starts here
-                     validated_merchant_return_url = merchant_return_url.replace(";", "&");
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    validated_url = url.replace(";", "&");
 
-                    if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                    if (url.contains(validated_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
-                         LOG.e(LOG_TAG, "inside 1st condition - C");
+                        Log.d(TAG, "inside 1st condition - C");
 
-                         Uri uri = Uri.parse(merchant_return_url);
+                        Uri uri = Uri.parse(url);
 
-                         LOG.e(LOG_TAG, "uri: " + uri);
+                        Log.d(TAG, "uri: " + uri);
 
-                         //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-                         if (uri.getEncodedQuery() != null) {
+                        //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                        if (uri.getEncodedQuery() != null) {
 
-                             LOG.e(LOG_TAG, "inside 1st condition - D");
+                            Log.d(TAG, "inside 1st condition - D");
 
-                             try {
-                                 LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
+                            try {
+                                Log.d(TAG, "beforePageStarted: Query params exist");
 
-                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                                 LOG.e(LOG_TAG, "TxnStatus: " + status);
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                Log.d(TAG, "TxnStatus: " + status);
 
-                                 String message = uri.getQueryParameter("TxnMessage");
-                                 LOG.e(LOG_TAG, "TxnMessage: " + message);
+                                String message = uri.getQueryParameter("TxnMessage");
+                                Log.d(TAG, "TxnMessage: " + message);
 
-                                 String rawResponse = convertQueryToJSON(uri);
-                                 LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
+                                String rawResponse = convertQueryToJSON(uri);
+                                Log.d(TAG, "rawResponse: " + rawResponse);
 
-                                 Intent data = buildExtra(status, message, rawResponse);
-                                 LOG.e(LOG_TAG, "data: " + data);
-//                                 //listener.onFinish(status, data,triggerReturnUrl);
+                                Intent data = buildExtra(status, message, rawResponse);
+                                Log.d(TAG, "data: " + data);
+                                //listener.onFinish(status, data,triggerReturnUrl);
 
-                             } catch (NumberFormatException e) {
-                                 LOG.e(LOG_TAG, "TxnStatus is not numerical");
-//                                 //listener.onReadJSON(view);
-                             }
-                         } else {
-                             LOG.e(LOG_TAG, "Got Return URL");
-//                             //listener.onReadJSON(view);
-                         }
-                     }
-//                     //paymentpresentor.handleshouldinterceptrequest ends here
-
-                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-//                     //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
-
- try {
-                        JSONObject obj = new JSONObject();
-                        obj.put("type", EXIT_EVENT);
-                        sendUpdate(obj, false);
-                    } catch (JSONException ex) {
-                        LOG.d(LOG_TAG, "Should never happen");
+                            } catch (NumberFormatException e) {
+                                Log.d("", "TxnStatus is not numerical");
+                                //listener.onReadJSON(view);
+                            }
+                        } else {
+                            Log.d("", "Got Return URL");
+                            //listener.onReadJSON(view);
+                        }
                     }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
 
-                     return getCssWebResourceResponseFromAsset();
-                 }
+                    Log.d("", "APP TO BE CLOSED HERE - 1");
+                    //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-                return super.shouldInterceptRequest(view, merchant_return_url);
+                   try {
+                       JSONObject obj = new JSONObject();
+                       obj.put("type", EXIT_EVENT);
+                       sendUpdate(obj, false);
+                   } catch (JSONException ex) {
+                       LOG.d(LOG_TAG, "Should never happen");
+                   }
+
+                    return getCssWebResourceResponseFromAsset();
+                }
+
+                return super.shouldInterceptRequest(view, url);
             }
 
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
-                // LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
+                Log.d(TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-                LOG.e(LOG_TAG, "inside 1st condition - A " + request.getUrl().toString());
+                if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                {
+                    Log.d(TAG, "inside 2nd condition - B");
 
-                 if (request.getUrl().toString().contains("MerchantReturnURL")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 {
-                     LOG.e(LOG_TAG, "inside 1st condition - B");
+                    //paymentpresentor.handleshouldinterceptrequest starts here
+                    validated_url = request.getUrl().toString().replace(";", "&");
 
-                     //paymentpresentor.handleshouldinterceptrequest starts here
-                     validated_merchant_return_url = request.getUrl().toString().replace(";", "&");
+                    if (request.getUrl().toString().contains(validated_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
-                    if (request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                        Log.d(TAG, "inside 2nd condition - C");
 
-                         LOG.e(LOG_TAG, "inside 1st condition - C");
+                        Uri uri = Uri.parse(request.getUrl().toString());
 
-                         Uri uri = Uri.parse(request.getUrl().toString());
+                        Log.d(TAG, "uri: " + uri);
 
-                         LOG.e(LOG_TAG, "uri: " + uri);
+                        //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                        if (uri.getEncodedQuery() != null) {
 
-                         //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-                         if (uri.getEncodedQuery() != null) {
+                            Log.d(TAG, "inside 2nd condition - D");
 
-                             LOG.e(LOG_TAG, "inside 1st condition - D");
+                            try {
+                                Log.d(TAG, "beforePageStarted: Query params exist");
 
-                             try {
-                                 LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
+                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+                                Log.d(TAG, "TxnStatus: " + status);
 
-                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                                 LOG.e(LOG_TAG, "TxnStatus: " + status);
+                                String message = uri.getQueryParameter("TxnMessage");
+                                Log.d(TAG, "TxnMessage: " + message);
 
-                                 String message = uri.getQueryParameter("TxnMessage");
-                                 LOG.e(LOG_TAG, "TxnMessage: " + message);
+                                String rawResponse = convertQueryToJSON(uri);
+                                Log.d(TAG, "rawResponse: " + rawResponse);
 
-                                 String rawResponse = convertQueryToJSON(uri);
-                                 LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
+                                Intent data = buildExtra(status, message, rawResponse);
+                                Log.d(TAG, "data: " + data);
+                                //listener.onFinish(status, data,triggerReturnUrl);
 
-                                 Intent data = buildExtra(status, message, rawResponse);
-                                 LOG.e(LOG_TAG, "data: " + data);
-//                                 //listener.onFinish(status, data,triggerReturnUrl);
-
-                             } catch (NumberFormatException e) {
-                                 LOG.e(LOG_TAG, "TxnStatus is not numerical");
-//                                 //listener.onReadJSON(view);
-                             }
-                         } else {
-                             LOG.e(LOG_TAG, "Got Return URL");
-//                             //listener.onReadJSON(view);
-                         }
-                     }
-//                     //paymentpresentor.handleshouldinterceptrequest ends here
-
-                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-//                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
-
- try {
-                        JSONObject obj = new JSONObject();
-                        obj.put("type", EXIT_EVENT);
-                        sendUpdate(obj, false);
-                    } catch (JSONException ex) {
-                        LOG.d(LOG_TAG, "Should never happen");
+                            } catch (NumberFormatException e) {
+                                Log.d("", "TxnStatus is not numerical");
+                                //listener.onReadJSON(view);
+                            }
+                        } else {
+                            Log.d("", "Got Return URL");
+                            //listener.onReadJSON(view);
+                        }
                     }
+                    //paymentpresentor.handleshouldinterceptrequest ends here
 
-                     return getCssWebResourceResponseFromAsset();
-                 }
+                    Log.d("", "APP TO BE CLOSED HERE - 2");
+                    //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+
+                   try {
+                       JSONObject obj = new JSONObject();
+                       obj.put("type", EXIT_EVENT);
+                       sendUpdate(obj, false);
+                   } catch (JSONException ex) {
+                       LOG.d(LOG_TAG, "Should never happen");
+                   }
+
+                    return getCssWebResourceResponseFromAsset();
+                }
 
                 return super.shouldInterceptRequest(view, request);
             }
 
-             private WebResourceResponse getCssWebResourceResponseFromAsset() {
-              try {
-                    File initialFile = new File("sdk.html");
-                    InputStream targetStream = new FileInputStream(initialFile);
-
-                    return getUtf8EncodedCssWebResourceResponse(targetStream);
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+                try {
+                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
                 } catch (IOException e) {
                     return null;
                 }
             }
 
-             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                  return new WebResourceResponse("text/css", "UTF-8", data);
-              }
+            private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                return new WebResourceResponse("text/css", "UTF-8", data);
+            }
 
             private String convertQueryToJSON(Uri uri) {
                 try {
@@ -1249,7 +1244,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 } catch (Exception e) {
                     //ELogger.e(TAG,"Error converting to json",e);
-                    LOG.e(LOG_TAG, "Error Converting to JSON");
+                    Log.d("", "Error Converting to JSON");
 
                        return "";
                 }
@@ -1262,7 +1257,7 @@ public class InAppBrowser extends CordovaPlugin {
                 data.putExtra(RAW_RESPONSE, rawResponse);
                 return data;
             }
-      
+
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
         /*
