@@ -1083,68 +1083,68 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-                Log.d(TAG, "inside 1st condition - A " + url);
+//                 Log.d(TAG, "inside 1st condition - A " + url);
 
-                if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                {
-                    Log.d(TAG, "inside 1st condition - B");
+//                 if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+//                 {
+//                     Log.d(TAG, "inside 1st condition - B");
 
-                    //paymentpresentor.handleshouldinterceptrequest starts here
-                    validated_url = url.replace(";", "&");
+//                     //paymentpresentor.handleshouldinterceptrequest starts here
+//                     validated_url = url.replace(";", "&");
 
-                    if (url.contains(validated_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+//                     if (url.contains(validated_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
-                        Log.d(TAG, "inside 1st condition - C");
+//                         Log.d(TAG, "inside 1st condition - C");
 
-                        Uri uri = Uri.parse(url);
+//                         Uri uri = Uri.parse(url);
 
-                        Log.d(TAG, "uri: " + uri);
+//                         Log.d(TAG, "uri: " + uri);
 
-                        //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-                        if (uri.getEncodedQuery() != null) {
+//                         //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+//                         if (uri.getEncodedQuery() != null) {
 
-                            Log.d(TAG, "inside 1st condition - D");
+//                             Log.d(TAG, "inside 1st condition - D");
 
-                            try {
-                                Log.d(TAG, "beforePageStarted: Query params exist");
+//                             try {
+//                                 Log.d(TAG, "beforePageStarted: Query params exist");
 
-                                int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                                Log.d(TAG, "TxnStatus: " + status);
+//                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
+//                                 Log.d(TAG, "TxnStatus: " + status);
 
-                                String message = uri.getQueryParameter("TxnMessage");
-                                Log.d(TAG, "TxnMessage: " + message);
+//                                 String message = uri.getQueryParameter("TxnMessage");
+//                                 Log.d(TAG, "TxnMessage: " + message);
 
-                                String rawResponse = convertQueryToJSON(uri);
-                                Log.d(TAG, "rawResponse: " + rawResponse);
+//                                 String rawResponse = convertQueryToJSON(uri);
+//                                 Log.d(TAG, "rawResponse: " + rawResponse);
 
-                                Intent data = buildExtra(status, message, rawResponse);
-                                Log.d(TAG, "data: " + data);
-                                //listener.onFinish(status, data,triggerReturnUrl);
+//                                 Intent data = buildExtra(status, message, rawResponse);
+//                                 Log.d(TAG, "data: " + data);
+//                                 //listener.onFinish(status, data,triggerReturnUrl);
 
-                            } catch (NumberFormatException e) {
-                                Log.d("", "TxnStatus is not numerical");
-                                //listener.onReadJSON(view);
-                            }
-                        } else {
-                            Log.d("", "Got Return URL");
-                            //listener.onReadJSON(view);
-                        }
-                    }
-                    //paymentpresentor.handleshouldinterceptrequest ends here
+//                             } catch (NumberFormatException e) {
+//                                 Log.d("", "TxnStatus is not numerical");
+//                                 //listener.onReadJSON(view);
+//                             }
+//                         } else {
+//                             Log.d("", "Got Return URL");
+//                             //listener.onReadJSON(view);
+//                         }
+//                     }
+//                     //paymentpresentor.handleshouldinterceptrequest ends here
 
-                    Log.d("", "APP TO BE CLOSED HERE - 1");
-                    //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+//                     Log.d("", "APP TO BE CLOSED HERE - 1");
+//                     //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-//                    try {
-//                        JSONObject obj = new JSONObject();
-//                        obj.put("type", EXIT_EVENT);
-//                        sendUpdate(obj, false);
-//                    } catch (JSONException ex) {
-//                        LOG.d(LOG_TAG, "Should never happen");
-//                    }
+// //                    try {
+// //                        JSONObject obj = new JSONObject();
+// //                        obj.put("type", EXIT_EVENT);
+// //                        sendUpdate(obj, false);
+// //                    } catch (JSONException ex) {
+// //                        LOG.d(LOG_TAG, "Should never happen");
+// //                    }
 
-                    return getCssWebResourceResponseFromAsset();
-                }
+//                  //   return getCssWebResourceResponseFromAsset();
+//                 }
 
                 return super.shouldInterceptRequest(view, url);
             }
