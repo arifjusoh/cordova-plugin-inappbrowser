@@ -1085,7 +1085,8 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-                 if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 if (url.contains("http"))
                  {
                       LOG.e(LOG_TAG, "inside 1st condition - B");
 
