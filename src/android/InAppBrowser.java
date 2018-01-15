@@ -1093,10 +1093,10 @@ public class InAppBrowser extends CordovaPlugin {
 
                          LOG.e(LOG_TAG, "uri: " + uri);
 
-//                         //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-//                         if (uri.getEncodedQuery() != null) {
+                         //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
+                         if (uri.getEncodedQuery() != null) {
 
-//                             LOG.e(LOG_TAG, "inside 1st condition - D");
+                             LOG.e(LOG_TAG, "inside 1st condition - D");
 
 //                             try {
 //                                 LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
@@ -1118,10 +1118,10 @@ public class InAppBrowser extends CordovaPlugin {
 //                                 LOG.e(LOG_TAG, "TxnStatus is not numerical");
 //                                 //listener.onReadJSON(view);
 //                             }
-//                         } else {
-//                             LOG.e(LOG_TAG, "Got Return URL");
+                         } else {
+                             LOG.e(LOG_TAG, "Got Return URL");
 //                             //listener.onReadJSON(view);
-//                         }
+                         }
                      }
 //                     //paymentpresentor.handleshouldinterceptrequest ends here
 
