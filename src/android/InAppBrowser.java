@@ -1085,7 +1085,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-                 Toast.makeText(this.cordova.getActivity(),url + " VS " + compare_url,Toast.LENGTH_SHORT).show();
+                 //Toast.makeText(this.cordova.getActivity(),url + " VS " + compare_url,Toast.LENGTH_SHORT).show();
 
                 // if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                 // {
