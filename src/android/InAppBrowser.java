@@ -1087,11 +1087,11 @@ public class InAppBrowser extends CordovaPlugin {
 
                     if (merchant_return_url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
-//                         LOG.e(LOG_TAG, "inside 1st condition - C");
+                         LOG.e(LOG_TAG, "inside 1st condition - C");
 
-//                         Uri uri = Uri.parse(merchant_return_url);
+                         Uri uri = Uri.parse(merchant_return_url);
 
-//                         LOG.e(LOG_TAG, "uri: " + uri);
+                         LOG.e(LOG_TAG, "uri: " + uri);
 
 //                         //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
 //                         if (uri.getEncodedQuery() != null) {
