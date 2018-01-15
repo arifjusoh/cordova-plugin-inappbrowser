@@ -1225,7 +1225,6 @@ public class InAppBrowser extends CordovaPlugin {
                     InputStream targetStream = new FileInputStream(initialFile);
 
                     return getUtf8EncodedCssWebResourceResponse(targetStream);
-                  return null;
                 } catch (IOException e) {
                     return null;
                 }
