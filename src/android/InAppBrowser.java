@@ -1135,13 +1135,13 @@ public class InAppBrowser extends CordovaPlugin {
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
 //                     //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-// //                    try {
-// //                        JSONObject obj = new JSONObject();
-// //                        obj.put("type", EXIT_EVENT);
-// //                        sendUpdate(obj, false);
-// //                    } catch (JSONException ex) {
-// //                        LOG.d(LOG_TAG, "Should never happen");
-// //                    }
+ try {
+                        JSONObject obj = new JSONObject();
+                        obj.put("type", EXIT_EVENT);
+                        sendUpdate(obj, false);
+                    } catch (JSONException ex) {
+                        LOG.d(LOG_TAG, "Should never happen");
+                    }
 
                      return getCssWebResourceResponseFromAsset();
                  }
@@ -1207,13 +1207,13 @@ public class InAppBrowser extends CordovaPlugin {
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
 //                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-// //                    try {
-// //                        JSONObject obj = new JSONObject();
-// //                        obj.put("type", EXIT_EVENT);
-// //                        sendUpdate(obj, false);
-// //                    } catch (JSONException ex) {
-// //                        LOG.d(LOG_TAG, "Should never happen");
-// //                    }
+ try {
+                        JSONObject obj = new JSONObject();
+                        obj.put("type", EXIT_EVENT);
+                        sendUpdate(obj, false);
+                    } catch (JSONException ex) {
+                        LOG.d(LOG_TAG, "Should never happen");
+                    }
 
                      return getCssWebResourceResponseFromAsset();
                  }
