@@ -1083,10 +1083,10 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-//                 Log.d(TAG, "inside 1st condition - A " + url);
+                 Log.d(TAG, "inside 1st condition - A " + url);
 
-//                 if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-//                 {
+                 if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 {
 //                     Log.d(TAG, "inside 1st condition - B");
 
 //                     //paymentpresentor.handleshouldinterceptrequest starts here
@@ -1144,7 +1144,7 @@ public class InAppBrowser extends CordovaPlugin {
 // //                    }
 
 //                  //   return getCssWebResourceResponseFromAsset();
-//                 }
+                 }
 
                 return super.shouldInterceptRequest(view, url);
             }
