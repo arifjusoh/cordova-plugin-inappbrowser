@@ -1107,8 +1107,8 @@ public class InAppBrowser extends CordovaPlugin {
                                  String message = uri.getQueryParameter("TxnMessage");
                                  LOG.e(LOG_TAG, "TxnMessage: " + message);
 
-//                                 String rawResponse = convertQueryToJSON(uri);
-//                                 LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
+                                 String rawResponse = convertQueryToJSON(uri);
+                                 LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
 
 //                                 Intent data = buildExtra(status, message, rawResponse);
 //                                 LOG.e(LOG_TAG, "data: " + data);
@@ -1224,24 +1224,24 @@ public class InAppBrowser extends CordovaPlugin {
             //     return new WebResourceResponse("text/css", "UTF-8", data);
             // }
 
-            // private String convertQueryToJSON(Uri uri) {
-            //     try {
-            //         Set<String> names = uri.getQueryParameterNames();
-            //         JSONObject json = new JSONObject();
+            private String convertQueryToJSON(Uri uri) {
+                try {
+                    Set<String> names = uri.getQueryParameterNames();
+                    JSONObject json = new JSONObject();
 
-            //         for (String name : names) {
-            //             String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
-            //             json.put(name, value);
-            //         }
-            //         return json.toString();
+                    for (String name : names) {
+                        String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
+                        json.put(name, value);
+                    }
+                    return json.toString();
 
-            //     } catch (Exception e) {
-            //         //ELogger.e(TAG,"Error converting to json",e);
-            //         LOG.e(LOG_TAG, "Error Converting to JSON");
+                } catch (Exception e) {
+                    //ELogger.e(TAG,"Error converting to json",e);
+                    LOG.e(LOG_TAG, "Error Converting to JSON");
 
-            //            return "";
-            //     }
-            // }
+                       return "";
+                }
+            }
 
             // private Intent buildExtra(int status, String message, String rawResponse) {
             //     Intent data = new Intent();
