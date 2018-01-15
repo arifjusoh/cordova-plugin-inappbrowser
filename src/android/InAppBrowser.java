@@ -1138,7 +1138,7 @@ public class InAppBrowser extends CordovaPlugin {
                     return getCssWebResourceResponseFromAsset();
                 }
 
-                return super.shouldInterceptRequest(view, merchant_return_url);
+                super.shouldInterceptRequest(view, merchant_return_url);
             }
 
             @TargetApi(Build.VERSION_CODES.N)
@@ -1208,7 +1208,7 @@ public class InAppBrowser extends CordovaPlugin {
                     return getCssWebResourceResponseFromAsset();
                 }
 
-                return super.shouldInterceptRequest(view, request);
+                super.shouldInterceptRequest(view, request);
             }
 
             private WebResourceResponse getCssWebResourceResponseFromAsset() {
