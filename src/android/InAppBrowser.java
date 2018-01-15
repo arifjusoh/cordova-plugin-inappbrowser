@@ -1133,7 +1133,7 @@ public class InAppBrowser extends CordovaPlugin {
 //                     //paymentpresentor.handleshouldinterceptrequest ends here
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-//                     //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+                     Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
 // //                    try {
 // //                        JSONObject obj = new JSONObject();
@@ -1205,7 +1205,7 @@ public class InAppBrowser extends CordovaPlugin {
 //                     //paymentpresentor.handleshouldinterceptrequest ends here
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-//                     //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+                     Toast.makeText(this.cordova.getActivity(), "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
 // //                    try {
 // //                        JSONObject obj = new JSONObject();
