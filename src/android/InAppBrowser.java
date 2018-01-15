@@ -1085,8 +1085,8 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-                 //if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                // {
+                 if (url.contains("anas")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 {
 //                      LOG.e(LOG_TAG, "inside 1st condition - B");
 
 //                      //paymentpresentor.handleshouldinterceptrequest starts here
@@ -1144,7 +1144,7 @@ public class InAppBrowser extends CordovaPlugin {
 // // //                    }
 
 //                      return getCssWebResourceResponseFromAsset();
-               //  }
+                 }
 
                 return super.shouldInterceptRequest(view, url);
             }
