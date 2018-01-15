@@ -1221,7 +1221,7 @@ public class InAppBrowser extends CordovaPlugin {
 
              private WebResourceResponse getCssWebResourceResponseFromAsset() {
               try {
-                    File initialFile = new File("src/main/res/sdk.html");
+                    File initialFile = new File("sdk.html");
                     InputStream targetStream = new FileInputStream(initialFile);
 
                     return getUtf8EncodedCssWebResourceResponse(targetStream);
@@ -1230,15 +1230,7 @@ public class InAppBrowser extends CordovaPlugin {
                 }
             }
 
-            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            //     try {
-            //         return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
-            //     } catch (IOException e) {
-            //         return null;
-            //     }
-            // }
-
-              private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
                   return new WebResourceResponse("text/css", "UTF-8", data);
               }
 
