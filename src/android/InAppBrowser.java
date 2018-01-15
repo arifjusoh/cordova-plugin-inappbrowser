@@ -1219,29 +1219,29 @@ public class InAppBrowser extends CordovaPlugin {
                 return super.shouldInterceptRequest(view, request);
             }
 
-            //  private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            //   try {
-            //         File initialFile = new File("src/main/res/sdk.html");
-            //         InputStream targetStream = new FileInputStream(initialFile);
+             private WebResourceResponse getCssWebResourceResponseFromAsset() {
+              try {
+                    File initialFile = new File("src/main/res/sdk.html");
+                    InputStream targetStream = new FileInputStream(initialFile);
 
-            //         return getUtf8EncodedCssWebResourceResponse(targetStream);
-            //       return null;
-            //     } catch (IOException e) {
-            //         return null;
-            //     }
-            // }
-
-            private WebResourceResponse getCssWebResourceResponseFromAsset() {
-                try {
-                    return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+                    //return getUtf8EncodedCssWebResourceResponse(targetStream);
+                  return null;
                 } catch (IOException e) {
                     return null;
                 }
             }
 
-              private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                  return new WebResourceResponse("text/css", "UTF-8", data);
-              }
+            // private WebResourceResponse getCssWebResourceResponseFromAsset() {
+            //     try {
+            //         return getUtf8EncodedCssWebResourceResponse(getAssets().open("sdk.html"));
+            //     } catch (IOException e) {
+            //         return null;
+            //     }
+            // }
+
+              // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+              //     return new WebResourceResponse("text/css", "UTF-8", data);
+              // }
 
             private String convertQueryToJSON(Uri uri) {
                 try {
