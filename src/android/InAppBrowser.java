@@ -77,6 +77,13 @@ import java.io.StringBufferInputStream;
 import java.util.Set;
 
 import static android.text.TextUtils.isDigitsOnly;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
+import java.util.Set;
 ////////////////////  for shouldInterceptRequest //////////////////////
 
 import org.apache.cordova.CallbackContext;
