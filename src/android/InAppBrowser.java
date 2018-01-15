@@ -1214,18 +1214,19 @@ public class InAppBrowser extends CordovaPlugin {
 
              private WebResourceResponse getCssWebResourceResponseFromAsset() {
               try {
-                    File initialFile = new File("sdk.html");
+                    File initialFile = new File("src/main/res/sdk.html");
                     InputStream targetStream = new FileInputStream(initialFile);
-                    
-                    return getUtf8EncodedCssWebResourceResponse(targetStream);
+
+                    //return getUtf8EncodedCssWebResourceResponse(targetStream);
+                  return null;
                 } catch (IOException e) {
                     return null;
                 }
             }
 
-             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                 return new WebResourceResponse("text/css", "UTF-8", data);
-             }
+             // private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+             //     return new WebResourceResponse("text/css", "UTF-8", data);
+             // }
 
             private String convertQueryToJSON(Uri uri) {
                 try {
