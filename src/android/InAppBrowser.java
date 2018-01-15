@@ -1107,8 +1107,8 @@ public class InAppBrowser extends CordovaPlugin {
                                  String message = uri.getQueryParameter("TxnMessage");
                                  LOG.e(LOG_TAG, "TxnMessage: " + message);
 
-                                 String rawResponse = convertQueryToJSON(uri);
-                                 LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
+//                                 String rawResponse = convertQueryToJSON(uri);
+//                                 LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
 
 //                                 Intent data = buildExtra(status, message, rawResponse);
 //                                 LOG.e(LOG_TAG, "data: " + data);
