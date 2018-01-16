@@ -173,9 +173,8 @@ public class InAppBrowser extends CordovaPlugin {
 
 			//Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
 
-            this.callbackContext = callbackContext;
-            String url_united = args.getString(0);
-
+            //this.callbackContext = callbackContext;
+           
             //String url_json = args.getJSONObject(1).toString();
             
             //Toast.makeText(this.cordova.getActivity(),args.getJSONArray(0).toString(),Toast.LENGTH_SHORT).show();
@@ -184,14 +183,14 @@ public class InAppBrowser extends CordovaPlugin {
 			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
 			Toast.makeText(this.cordova.getActivity(),args.optString(1),Toast.LENGTH_SHORT).show();
 			Toast.makeText(this.cordova.getActivity(),args.optString(2),Toast.LENGTH_SHORT).show();
-			Toast.makeText(this.cordova.getActivity(),args.optString(3),Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this.cordova.getActivity(),args.optString(3),Toast.LENGTH_SHORT).show();
 
 
-            final String url = url_united.split("MercURL:")[0];
-            compare_url = url_united.split("MercURL:")[1];
+            final String url = args.getString(0);
+            compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
 
-            //Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
 
             String t = args.optString(1);
             if (t == null || t.equals("") || t.equals(NULL)) {
