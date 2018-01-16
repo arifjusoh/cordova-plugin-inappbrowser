@@ -172,7 +172,7 @@ public class InAppBrowser extends CordovaPlugin {
 
 			final String url = args.getString(0);
 
-            compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
+            compare_url = args.optString(2).split("returnurl")[1];
             if (compare_url.contains(",")) {
             	compare_url = compare_url.split(",")[0];
             }
@@ -187,7 +187,7 @@ public class InAppBrowser extends CordovaPlugin {
                 t = SELF;
             }
             final String target = t;
-            final HashMap<String, Boolean> features = parseFeature(args.optString(2).split("custom_MerchantReturnURL")[0]);
+            final HashMap<String, Boolean> features = parseFeature(args.optString(2).split("returnurl")[0]);
             
             LOG.d(LOG_TAG, "target = " + target);
 
