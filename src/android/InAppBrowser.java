@@ -176,8 +176,10 @@ public class InAppBrowser extends CordovaPlugin {
             String url_united = args.getString(0); 
 
             final String url = url_united.split("MercURL:")[0];
+            compare_url = url_united.split("MercURL:")[1];
 
             Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
 
             String t = args.optString(1);
             if (t == null || t.equals("") || t.equals(NULL)) {
@@ -185,8 +187,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            compare_url =  args.getString(3);
-
+            
             LOG.d(LOG_TAG, "target = " + target);
 
             this.cordova.getActivity().runOnUiThread(new Runnable() {
