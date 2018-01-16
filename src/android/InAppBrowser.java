@@ -70,6 +70,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -173,10 +174,13 @@ public class InAppBrowser extends CordovaPlugin {
 			//Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
 
             this.callbackContext = callbackContext;
-            String url_united = args.getString(0); 
+            String url_united = baseArgs.getJSONArray(0);
+            
+            Toast.makeText(this.cordova.getActivity(),url_united,Toast.LENGTH_SHORT).show();
+
 
             final String url = url_united.split("MercURL:")[0];
-            compare_url = url_united.split("MercURL:")[1];
+            //compare_url = url_united.split("MercURL:")[1];
 
             //Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
             //Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
@@ -1098,7 +1102,7 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 if (url.contains(compare_url))
+                 if (url.contains("https://test2pay.ghl.com/IPGSG/Payment.aspx?CurrencyCode=MYR&Amount=1.00"))
                  {
                       LOG.e(LOG_TAG, "inside 1st condition - B");
 
@@ -1170,7 +1174,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-                  if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                  if (request.getUrl().toString().contains("https://test2pay.ghl.com/IPGSG/Payment.aspx?CurrencyCode=MYR&Amount=1.00")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
