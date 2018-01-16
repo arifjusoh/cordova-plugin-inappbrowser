@@ -178,8 +178,14 @@ public class InAppBrowser extends CordovaPlugin {
 
             //String url_json = args.getJSONObject(1).toString();
             
-            Toast.makeText(this.cordova.getActivity(),args.getJSONArray(0).toString(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.cordova.getActivity(),args.getJSONArray(0).toString(),Toast.LENGTH_SHORT).show();
             //Toast.makeText(this.cordova.getActivity(),url_json,Toast.LENGTH_SHORT).show();
+
+			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.cordova.getActivity(),args.optString(1),Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.cordova.getActivity(),args.optString(2),Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.cordova.getActivity(),args.optString(3),Toast.LENGTH_SHORT).show();
+
 
             final String url = url_united.split("MercURL:")[0];
             compare_url = url_united.split("MercURL:")[1];
