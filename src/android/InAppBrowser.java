@@ -173,6 +173,11 @@ public class InAppBrowser extends CordovaPlugin {
 			final String url = args.getString(0);
 
             compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
+            if (compare_url.contains(",")) {
+            	compare_url = compare_url.split(",")[0];
+            }
+
+            Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
             
             this.callbackContext = callbackContext;
             
@@ -181,7 +186,7 @@ public class InAppBrowser extends CordovaPlugin {
                 t = SELF;
             }
             final String target = t;
-            final HashMap<String, Boolean> features = parseFeature(args.optString(2).split("custom_MerchantReturnURL")[0]);
+            final HashMap<String, Boolean> features = parseFeature(args.optString(2));
             
             LOG.d(LOG_TAG, "target = " + target);
 
@@ -431,8 +436,13 @@ public class InAppBrowser extends CordovaPlugin {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
-                    Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                    map.put(key, value);
+
+                    if(key == "returnurl"){
+                        map.put(key, Boolean.FALSE);	
+                    } else {
+	                    Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                        map.put(key, value);	
+                    }
                 }
             }
             return map;
