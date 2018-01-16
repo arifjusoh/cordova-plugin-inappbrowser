@@ -70,7 +70,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -171,17 +170,16 @@ public class InAppBrowser extends CordovaPlugin {
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("open")) {
 
-			//Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
 
-            //this.callbackContext = callbackContext;
-           
-            //String url_json = args.getJSONObject(1).toString();
-            
-            //Toast.makeText(this.cordova.getActivity(),args.getJSONArray(0).toString(),Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this.cordova.getActivity(),url_json,Toast.LENGTH_SHORT).show();
+			//final String url = args.getString(0);
+            //compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
 
-            final String url = args.getString(0);
-            compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
+            this.callbackContext = callbackContext;
+            String url_united = args.getString(0); 
+
+            final String url = url_united.split("MercURL:")[0];
+            compare_url = url_united.split("MercURL:")[1];
 
             Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
             Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
@@ -1103,7 +1101,7 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 if (url.contains(compare_url))
+                 if (url.contains("http://localhost/returnURL.html"))
                  {
                       LOG.e(LOG_TAG, "inside 1st condition - B");
 
@@ -1175,13 +1173,12 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-                  if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                  if (request.getUrl().toString().contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
                      //paymentpresentor.handleshouldinterceptrequest starts here
                      validated_merchant_return_url = request.getUrl().toString().replace(";", "&");
-                     
 
                     if (request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
