@@ -156,6 +156,7 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String RAW_RESPONSE = "RawResponse";
 
     public static final String TAG = "Logs: ";
+    public static String compare_url = "";
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
@@ -176,7 +177,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            final String compare_url =  args.optString(3);
+            compare_url =  args.optString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
