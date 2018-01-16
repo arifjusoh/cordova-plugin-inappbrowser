@@ -114,7 +114,6 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
     private static final String SHOULD_CLOSE = "shouldclose";
-    private static final String COMPARE_URL = "custom_MerchantReturnURL";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -134,7 +133,6 @@ public class InAppBrowser extends CordovaPlugin {
     private static CallbackContext callbackContext;
     private boolean showLocationBar = true;
     public static boolean shouldClose = true; //default true means can close, unless specified otherwise
-    public static String compare_url = "";
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -178,7 +176,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            //final String compare_url =  args.optString(3);
+            final String compare_url =  args.optString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
@@ -596,12 +594,6 @@ public class InAppBrowser extends CordovaPlugin {
             Boolean shouldclose = features.get(SHOULD_CLOSE);
             if (shouldclose != null) {
                 shouldClose = shouldclose.booleanValue();
-            }
-			Boolean compareurl = features.get(COMPARE_URL);
-            if (compareurl != null) {
-                compare_url = compareurl.toString();
-
-            Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
             }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
