@@ -603,7 +603,7 @@ public class InAppBrowser extends CordovaPlugin {
             if (shouldclose != null) {
                 shouldClose = shouldclose.booleanValue();
             }
-             String compareurl = features.get(COMPARE_URL);
+             Boolean compareurl = features.get(COMPARE_URL);
             if (compareurl != null) {
                 compare_url = compareurl.toString();
 
