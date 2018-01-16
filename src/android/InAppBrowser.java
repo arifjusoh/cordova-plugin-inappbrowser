@@ -177,7 +177,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            compare_url =  args.optString(3);
+            compare_url =  args.getString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
