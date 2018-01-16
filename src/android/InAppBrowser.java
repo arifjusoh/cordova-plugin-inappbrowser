@@ -172,20 +172,10 @@ public class InAppBrowser extends CordovaPlugin {
 
 			final String url = args.getString(0);
 
-			 Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
-			 Toast.makeText(this.cordova.getActivity(),args.getString(1),Toast.LENGTH_SHORT).show();
-			 Toast.makeText(this.cordova.getActivity(),args.getString(2),Toast.LENGTH_SHORT).show();
-			 Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
-			 Toast.makeText(this.cordova.getActivity(),args.optString(0),Toast.LENGTH_SHORT).show();
-			 Toast.makeText(this.cordova.getActivity(),args.optString(1),Toast.LENGTH_SHORT).show();
-			 Toast.makeText(this.cordova.getActivity(),args.optString(2),Toast.LENGTH_SHORT).show();
-			 Toast.makeText(this.cordova.getActivity(),args.optString(3),Toast.LENGTH_SHORT).show();
-
-
             compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
-            //args.optString(2) = args.optString(2).split("custom_MerchantReturnURL")[0];
+            String temp = args.optString(2).split("custom_MerchantReturnURL")[0];
 
-			//args.optString(2) = temp; 
+			args.optString(2) = temp; 
 
             this.callbackContext = callbackContext;
             //String url_united = args.getString(0); 
