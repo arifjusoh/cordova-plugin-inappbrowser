@@ -1084,7 +1084,7 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-            	 Toast.makeText(this.cordova.getActivity(),"inside shouldInterceptRequest",Toast.LENGTH_SHORT).show();
+            	 //Toast.makeText(this.cordova.getActivity(),"inside shouldInterceptRequest",Toast.LENGTH_SHORT).show();
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
