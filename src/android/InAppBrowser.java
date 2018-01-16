@@ -1181,6 +1181,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                      //paymentpresentor.handleshouldinterceptrequest starts here
                      validated_merchant_return_url = request.getUrl().toString().replace(";", "&");
+                     
 
                     if (request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
 
