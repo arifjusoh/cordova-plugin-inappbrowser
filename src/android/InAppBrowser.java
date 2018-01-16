@@ -604,8 +604,8 @@ public class InAppBrowser extends CordovaPlugin {
                 shouldClose = shouldclose.booleanValue();
             }
              String compareurl = features.get(COMPARE_URL);
-            if (compareurl != compareurl) {
-                compare_url = compareurl;
+            if (compareurl != null) {
+                compare_url = compareurl.toString();
 
                  Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
             }
