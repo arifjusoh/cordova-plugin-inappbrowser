@@ -133,7 +133,6 @@ public class InAppBrowser extends CordovaPlugin {
     private static CallbackContext callbackContext;
     private boolean showLocationBar = true;
     public static boolean shouldClose = true; //default true means can close, unless specified otherwise
-
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -171,8 +170,6 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("open")) {
-        	Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
-            Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
             this.callbackContext = callbackContext;
             final String url = args.getString(0);
             String t = args.optString(1);
@@ -182,8 +179,6 @@ public class InAppBrowser extends CordovaPlugin {
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
             compare_url =  args.getString(3);
-
-            Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
 
             LOG.d(LOG_TAG, "target = " + target);
 
@@ -1092,8 +1087,8 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-                 if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 //if (url.contains(compare_url))
+                 //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 if (url.contains("http://localhost/returnURL.html"))
                  {
                       LOG.e(LOG_TAG, "inside 1st condition - B");
 
