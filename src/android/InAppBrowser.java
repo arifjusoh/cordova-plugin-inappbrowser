@@ -114,7 +114,6 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
     private static final String SHOULD_CLOSE = "shouldclose";
-    private static final String COMPARE_URL = "custom_MerchantReturnURL";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -172,8 +171,8 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("open")) {
-        	//Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
+        	Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
             this.callbackContext = callbackContext;
             final String url = args.getString(0);
             String t = args.optString(1);
@@ -182,7 +181,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            //compare_url =  args.getString(3);
+            compare_url =  args.getString(3);
 
             Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
 
@@ -588,8 +587,6 @@ public class InAppBrowser extends CordovaPlugin {
      * @param features jsonObject
      */
     public String showWebPage(final String url, HashMap<String, Boolean> features) {
-    	Toast.makeText(this.cordova.getActivity(),"12345",Toast.LENGTH_SHORT).show();
-            
         // Determine if we should hide the location bar.
         showLocationBar = true;
         showZoomControls = true;
@@ -605,12 +602,6 @@ public class InAppBrowser extends CordovaPlugin {
             if (shouldclose != null) {
                 shouldClose = shouldclose.booleanValue();
             }
-            //  Boolean compareurl = features.get(COMPARE_URL);
-            // if (compareurl != null) {
-            //     compare_url = compareurl.toString();
-
-            //      Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
-            // }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
                 showZoomControls = zoom.booleanValue();
