@@ -156,6 +156,8 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String RAW_RESPONSE = "RawResponse";
 
     public static final String TAG = "Logs: ";
+ 	public static String compare_url;
+
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
@@ -176,7 +178,7 @@ public class InAppBrowser extends CordovaPlugin {
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            final String compare_url =  args.optString(3);
+            compare_url =  args.optString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
@@ -1081,7 +1083,7 @@ public class InAppBrowser extends CordovaPlugin {
     
       @SuppressWarnings("deprecation")
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url, String compare_url) {
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
@@ -1147,7 +1149,7 @@ public class InAppBrowser extends CordovaPlugin {
                       return getCssWebResourceResponseFromAsset();
                  }
 
-                return super.shouldInterceptRequest(view, url, compare_url);
+                return super.shouldInterceptRequest(view, url);
             }
 
             @TargetApi(Build.VERSION_CODES.N)
