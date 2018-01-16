@@ -1083,10 +1083,12 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
+            	 Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
+
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 if (url.contains("http"))
+                 if (url.contains("http://localhost/returnURL.html"))
                  {
                       LOG.e(LOG_TAG, "inside 1st condition - B");
 
