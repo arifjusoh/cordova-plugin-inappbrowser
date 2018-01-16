@@ -1174,7 +1174,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-                  if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                  if (request.getUrl().toString().contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
