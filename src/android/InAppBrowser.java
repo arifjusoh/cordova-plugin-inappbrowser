@@ -180,12 +180,6 @@ public class InAppBrowser extends CordovaPlugin {
             //Toast.makeText(this.cordova.getActivity(),args.getJSONArray(0).toString(),Toast.LENGTH_SHORT).show();
             //Toast.makeText(this.cordova.getActivity(),url_json,Toast.LENGTH_SHORT).show();
 
-			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
-			Toast.makeText(this.cordova.getActivity(),args.optString(1),Toast.LENGTH_SHORT).show();
-			Toast.makeText(this.cordova.getActivity(),args.optString(2),Toast.LENGTH_SHORT).show();
-			//Toast.makeText(this.cordova.getActivity(),args.optString(3),Toast.LENGTH_SHORT).show();
-
-
             final String url = args.getString(0);
             compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
 
