@@ -172,11 +172,10 @@ public class InAppBrowser extends CordovaPlugin {
 
             this.callbackContext = callbackContext;
             final String url = args.getString(0).substring(0, args.getString(0).indexOf('MercURL:'));
-            compare_url = args.getString(0).substring(args.getString(0).indexOf("MercURL:") + 1);
+
 
 
 			Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
-			Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
             
 
             String t = args.optString(1);
