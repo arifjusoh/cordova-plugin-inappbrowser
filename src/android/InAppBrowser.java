@@ -173,9 +173,9 @@ public class InAppBrowser extends CordovaPlugin {
 			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
 
             this.callbackContext = callbackContext;
-            String url = args.getString(0); 
+            String url_united = args.getString(0); 
 
-            url = url.split("MercURL:")[0];
+            final String url = url_united.split("MercURL:")[0];
 
             Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
 
