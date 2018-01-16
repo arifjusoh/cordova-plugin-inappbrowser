@@ -170,18 +170,22 @@ public class InAppBrowser extends CordovaPlugin {
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("open")) {
 
-			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
-            Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
-
             this.callbackContext = callbackContext;
-            final String url = args.getString(0);
+            final String url = args.getString(0).substring(0, args.getString(0).indexOf('MercURL:'));
+            compare_url = args.getString(0).substring(args.getString(0).indexOf("MercURL:") + 1);
+
+
+			Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
+            
+
             String t = args.optString(1);
             if (t == null || t.equals("") || t.equals(NULL)) {
                 t = SELF;
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            compare_url =  args.getString(3);
+            //compare_url =  args.getString(3);
 
             LOG.d(LOG_TAG, "target = " + target);
 
