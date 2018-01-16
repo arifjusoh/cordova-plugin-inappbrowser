@@ -179,6 +179,10 @@ public class InAppBrowser extends CordovaPlugin {
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
             compare_url =  args.getString(3);
 
+
+ 			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.cordova.getActivity(),args.getString(3),Toast.LENGTH_SHORT).show();
+
             LOG.d(LOG_TAG, "target = " + target);
 
             this.cordova.getActivity().runOnUiThread(new Runnable() {
