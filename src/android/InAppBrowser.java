@@ -156,7 +156,6 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String RAW_RESPONSE = "RawResponse";
 
     public static final String TAG = "Logs: ";
-    public static String compare_url = "";
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
@@ -169,28 +168,16 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("open")) {
-
-			Toast.makeText(this.cordova.getActivity(),args.getString(0),Toast.LENGTH_SHORT).show();
-
-			//final String url = args.getString(0);
-            //compare_url = args.optString(2).split("custom_MerchantReturnURL")[1];
-
             this.callbackContext = callbackContext;
-            String url_united = args.getString(0); 
-
-            final String url = url_united.split("MercURL:")[0];
-            compare_url = url_united.split("MercURL:")[1];
-
-            Toast.makeText(this.cordova.getActivity(),url,Toast.LENGTH_SHORT).show();
-            Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
-
+            final String url = args.getString(0);
             String t = args.optString(1);
             if (t == null || t.equals("") || t.equals(NULL)) {
                 t = SELF;
             }
             final String target = t;
             final HashMap<String, Boolean> features = parseFeature(args.optString(2));
-            
+            final String compare_url =  args.optString(3);
+
             LOG.d(LOG_TAG, "target = " + target);
 
             this.cordova.getActivity().runOnUiThread(new Runnable() {
@@ -1096,12 +1083,10 @@ public class InAppBrowser extends CordovaPlugin {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-            	 //Toast.makeText(this.cordova.getActivity(),"inside shouldInterceptRequest",Toast.LENGTH_SHORT).show();
-
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 if (url.contains(compare_url))
+                 if (url.contains("http://localhost/returnURL.html"))
                  {
                       LOG.e(LOG_TAG, "inside 1st condition - B");
 
@@ -1173,7 +1158,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-                  if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                  if (request.getUrl().toString().contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
