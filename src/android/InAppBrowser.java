@@ -1098,7 +1098,7 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 if (url.contains("http://localhost/returnURL.html"))
+                 if (url.contains(compare_url))
                  {
                       LOG.e(LOG_TAG, "inside 1st condition - B");
 
@@ -1170,7 +1170,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-                  if (request.getUrl().toString().contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                  if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
