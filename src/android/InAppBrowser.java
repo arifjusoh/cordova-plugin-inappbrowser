@@ -605,12 +605,12 @@ public class InAppBrowser extends CordovaPlugin {
             if (shouldclose != null) {
                 shouldClose = shouldclose.booleanValue();
             }
-             Boolean compareurl = features.get(COMPARE_URL);
-            if (compareurl != null) {
-                compare_url = compareurl.toString();
+            //  Boolean compareurl = features.get(COMPARE_URL);
+            // if (compareurl != null) {
+            //     compare_url = compareurl.toString();
 
-                 Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
-            }
+            //      Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
+            // }
             Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
                 showZoomControls = zoom.booleanValue();
