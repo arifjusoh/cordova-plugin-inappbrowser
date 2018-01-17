@@ -177,7 +177,7 @@ public class InAppBrowser extends CordovaPlugin {
             	compare_url = compare_url.split(",")[0];
             }
 
-            Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
             
 
             this.callbackContext = callbackContext;
