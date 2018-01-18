@@ -111,7 +111,7 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String LOG_TAG = "InAppBrowser";
     private static final String SELF = "_self";
     private static final String SYSTEM = "_system";
-    public static final String INTERCEPT_EVENT = "returnurl_intercept";
+    public static final String INTERCEPT_EVENT = "intercept";
     public static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
     private static final String SHOULD_CLOSE = "shouldclose";
