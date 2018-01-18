@@ -1180,46 +1180,7 @@ public class InAppBrowser extends CordovaPlugin {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
                      //paymentpresentor.handleshouldinterceptrequest starts here
-                     validated_merchant_return_url = request.getUrl().toString().replace(";", "&");
-
-                    if (request.getUrl().toString().contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
-
-                         LOG.e(LOG_TAG, "inside 2nd condition - C");
-
-                         Uri uri = Uri.parse(request.getUrl().toString());
-
-                         LOG.e(LOG_TAG, "uri: " + uri);
-
-                         //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-                         if (uri.getEncodedQuery() != null) {
-
-                             LOG.e(LOG_TAG, "inside 2nd condition - D");
-
-                             try {
-                                 LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
-
-                                 int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                                 LOG.e(LOG_TAG, "TxnStatus: " + status);
-
-                                 String message = uri.getQueryParameter("TxnMessage");
-                                 LOG.e(LOG_TAG, "TxnMessage: " + message);
-
-                                 String rawResponse = convertQueryToJSON(uri);
-                                 LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
-
-                                 Intent data = buildExtra(status, message, rawResponse);
-                                 LOG.e(LOG_TAG, "data: " + data);
-//                                 //listener.onFinish(status, data,triggerReturnUrl);
-
-                             } catch (NumberFormatException e) {
-                                 LOG.e(LOG_TAG, "TxnStatus is not numerical");
-//                                 //listener.onReadJSON(view);
-                             }
-                         } else {
-                             LOG.e(LOG_TAG, "Got Return URL");
-//                             //listener.onReadJSON(view);
-                         }
-                     }
+                    
 //                     //paymentpresentor.handleshouldinterceptrequest ends here
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
