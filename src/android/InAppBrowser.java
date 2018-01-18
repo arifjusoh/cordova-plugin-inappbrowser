@@ -160,7 +160,7 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String TAG = "Logs: ";
     public static String compare_url = "";
 
-    public static WebView interceptWebView = "";
+    // public static WebView interceptWebView = "";
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
@@ -1117,7 +1117,7 @@ public class InAppBrowser extends CordovaPlugin {
                  {
                      LOG.e(LOG_TAG, "inside 1st condition - B");
 
-                     interceptWebView = view;
+                     // interceptWebView = view;
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 1");
 //                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
@@ -1149,7 +1149,7 @@ public class InAppBrowser extends CordovaPlugin {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
-                     interceptWebView = view;
+                     // interceptWebView = view;
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
 //                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
