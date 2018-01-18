@@ -112,6 +112,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SELF = "_self";
     private static final String SYSTEM = "_system";
     public static final String INTERCEPT_EVENT = "intercept";
+    public static final String BACKBUTTON_EVENT = "backbutton";
     public static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
     private static final String SHOULD_CLOSE = "shouldclose";
@@ -507,7 +508,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 try {
                     JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
+                    obj.put("type", BACKBUTTON_EVENT);
                     sendUpdate(obj, false);
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
@@ -802,7 +803,7 @@ public class InAppBrowser extends CordovaPlugin {
                      	{
                      		 try {
                      JSONObject obj = new JSONObject();
-                     obj.put("type", EXIT_EVENT);
+                     obj.put("type", BACKBUTTON_EVENT);
                      sendUpdate(obj, true);
                  } catch (JSONException ex) {
                      LOG.d(LOG_TAG, "Should never happen");
