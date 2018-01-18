@@ -160,7 +160,7 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String TAG = "Logs: ";
     public static String compare_url = "";
 
-    public static String interceptWebView = "";
+    public static WebView interceptWebView = "";
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
