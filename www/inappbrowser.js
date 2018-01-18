@@ -36,7 +36,7 @@
             'loadstart': channel.create('loadstart'),
             'loadstop': channel.create('loadstop'),
             'loaderror': channel.create('loaderror'),
-            'exit': channel.create('exit'),
+            //'exit': channel.create('exit'),
             'intercept': channel.create('intercept'),
             'backbutton': channel.create('backbutton'),
         };

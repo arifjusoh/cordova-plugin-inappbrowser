@@ -65,7 +65,7 @@ public class InAppBrowserDialog extends Dialog {
       {
          try {
                      JSONObject obj = new JSONObject();
-                     obj.put("type", InAppBrowser.EXIT_EVENT);
+                     obj.put("type", InAppBrowser.BACKBUTTON_EVENT);
                      this.inAppBrowser.sendUpdate(obj, true);
                  } catch (JSONException ex) {
                      LOG.d(InAppBrowser.LOG_TAG, "Should never happen");
