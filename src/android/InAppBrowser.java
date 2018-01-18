@@ -159,6 +159,8 @@ public class InAppBrowser extends CordovaPlugin {
 
     public static final String TAG = "Logs: ";
     public static String compare_url = "";
+
+    public static String interceptWebView = "";
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
@@ -279,7 +281,7 @@ public class InAppBrowser extends CordovaPlugin {
         else if (action.equals("close")) {
             closeDialog();
         }
-        else if (action.equals("injectScriptCode")) {
+        else if (action.equals("`")) {
             String jsWrapper = null;
             if (args.getBoolean(1)) {
                 jsWrapper = String.format("(function(){prompt(JSON.stringify([eval(%%s)]), 'gap-iab://%s')})()", callbackContext.getCallbackId());
@@ -394,7 +396,16 @@ public class InAppBrowser extends CordovaPlugin {
      *                    which should be executed directly.
      */
     private void injectDeferredObject(String source, String jsWrapper) {
-        if (inAppWebView!=null) {
+    	WebView webView;
+
+    	if (interceptWebView != null){
+    		webView = interceptWebView;
+    	} else if (inAppWebView!=null) {
+    		webView = inAppWebView;
+    	}
+
+
+        if (webView!=null) {
             String scriptToInject;
             if (jsWrapper != null) {
                 org.json.JSONArray jsonEsc = new org.json.JSONArray();
@@ -412,9 +423,9 @@ public class InAppBrowser extends CordovaPlugin {
                 public void run() {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                         // This action will have the side-effect of blurring the currently focused element
-                        inAppWebView.loadUrl("javascript:" + finalScriptToInject);
+                        webView.loadUrl("javascript:" + finalScriptToInject);
                     } else {
-                        inAppWebView.evaluateJavascript(finalScriptToInject, null);
+                        webView.evaluateJavascript(finalScriptToInject, null);
                     }
                 }
             });
@@ -1102,66 +1113,25 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 if (url.contains(compare_url))
+                if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
-                      LOG.e(LOG_TAG, "inside 1st condition - B");
+                     LOG.e(LOG_TAG, "inside 1st condition - B");
 
-                      //paymentpresentor.handleshouldinterceptrequest starts here
-                      validated_merchant_return_url = url.replace(";", "&");
+                     interceptWebView = view;
 
-                     if (url.contains(validated_merchant_return_url)) { // if (url.contains(Utils.validateMerchantReturnURL(params.getString(PaymentParams.MERCHANT_RETURN_URL)))) {
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 1");
+//                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-                          LOG.e(LOG_TAG, "inside 1st condition - C");
+	                   try {
+	                       JSONObject obj = new JSONObject();
+	                       obj.put("type", INTERCEPT_EVENT);
+	                        obj.put("url", url);
+	                       sendUpdate(obj, false);
+	                   } catch (JSONException ex) {
+	                       LOG.d(LOG_TAG, "Should never happen");
+	                   }
 
-                          Uri uri = Uri.parse(url);
-
-                          LOG.e(LOG_TAG, "uri: " + uri);
-
-                          //if (uri.getEncodedQuery() != null && isDigitsOnly(uri.getQueryParameter("TxnStatus"))) {
-                          if (uri.getEncodedQuery() != null) {
-
-                              LOG.e(LOG_TAG, "inside 1st condition - D");
-
-                              try {
-                                  LOG.e(LOG_TAG, "beforePageStarted: Query params exist");
-
-                                  int status = Integer.parseInt(uri.getQueryParameter("TxnStatus"));
-                                  LOG.e(LOG_TAG, "TxnStatus: " + status);
-
-                                  String message = uri.getQueryParameter("TxnMessage");
-                                  LOG.e(LOG_TAG, "TxnMessage: " + message);
-
-                                  String rawResponse = convertQueryToJSON(uri);
-                                  LOG.e(LOG_TAG, "rawResponse: " + rawResponse);
-
-                                  Intent data = buildExtra(status, message, rawResponse);
-                                  LOG.e(LOG_TAG, "data: " + data);
-                                 //listener.onFinish(status, data,triggerReturnUrl);
-
-                              } catch (NumberFormatException e) {
-                                  LOG.e(LOG_TAG, "TxnStatus is not numerical");
-                                 //listener.onReadJSON(view);
-                              }
-                          } else {
-                              LOG.e(LOG_TAG, "Got Return URL");
-                             //listener.onReadJSON(view);
-                          }
-                     }
-// //                     //paymentpresentor.handleshouldinterceptrequest ends here
-
-//                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-// //                     //Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
-
-		                   try {
-		                       JSONObject obj = new JSONObject();
-		                       obj.put("type", INTERCEPT_EVENT);
-		                       obj.put("url", url);
-		                       sendUpdate(obj, false);
-		                   } catch (JSONException ex) {
-		                       LOG.d(LOG_TAG, "Should never happen");
-		                   }
-
-                      return getCssWebResourceResponseFromAsset();
+                     return getCssWebResourceResponseFromAsset();
                  }
 
                 return super.shouldInterceptRequest(view, url);
@@ -1179,9 +1149,7 @@ public class InAppBrowser extends CordovaPlugin {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
-                     //paymentpresentor.handleshouldinterceptrequest starts here
-                    
-//                     //paymentpresentor.handleshouldinterceptrequest ends here
+                     interceptWebView = view;
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
 //                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
