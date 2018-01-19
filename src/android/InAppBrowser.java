@@ -397,6 +397,10 @@ public class InAppBrowser extends CordovaPlugin {
      *                    which should be executed directly.
      */
     private void injectDeferredObject(String source, String jsWrapper) {
+ 		
+ 		LOG.d(LOG_TAG, "inside injectDeferredObject");
+ 		Toast.makeText(this.cordova.getActivity(),"inside injectDeferredObject",Toast.LENGTH_SHORT).show();
+
 
     	if (interceptWebView != null){
     		temp_webView = interceptWebView;
