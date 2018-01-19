@@ -399,7 +399,7 @@ public class InAppBrowser extends CordovaPlugin {
     private void injectDeferredObject(String source, String jsWrapper) {
 
     	if (interceptWebView != null){
-    		temp_webView = interceptWebView;
+    		temp_webView = inAppWebView;
     	} else if (inAppWebView!=null) {
     		temp_webView = inAppWebView;
     	}
