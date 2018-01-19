@@ -175,6 +175,9 @@ public class InAppBrowser extends CordovaPlugin {
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("open")) {
 
+        	LOG.d(LOG_TAG, "inside execute");
+ 			Toast.makeText(this.cordova.getActivity(),"inside execute",Toast.LENGTH_SHORT).show();
+
 			final String url = args.getString(0);
 
             compare_url = args.optString(2).split("returnurl=")[1];
