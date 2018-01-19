@@ -69,6 +69,7 @@
         },
 
         executeScript: function (injectDetails, cb) {
+            
             if (injectDetails.code) {
                 exec(cb, null, 'InAppBrowser', 'injectScriptCode', [injectDetails.code, !!cb]);
             } else if (injectDetails.file) {
