@@ -161,6 +161,7 @@ public class InAppBrowser extends CordovaPlugin {
     public static String compare_url = "";
 
     public static WebView interceptWebView;
+    public static WebView temp_webView;
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
@@ -396,7 +397,6 @@ public class InAppBrowser extends CordovaPlugin {
      *                    which should be executed directly.
      */
     private void injectDeferredObject(String source, String jsWrapper) {
-    	WebView temp_webView;
 
     	if (interceptWebView != null){
     		temp_webView = interceptWebView;
