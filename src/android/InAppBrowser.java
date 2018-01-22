@@ -400,15 +400,6 @@ public class InAppBrowser extends CordovaPlugin {
      *                    which should be executed directly.
      */
     private void injectDeferredObject(String source, String jsWrapper) {
- 		
- 		LOG.d(LOG_TAG, "inside injectDeferredObject");
-
-    	// if (interceptWebView != null){
-    	// 	temp_webView = interceptWebView;
-    	// } else if (inAppWebView!=null) {
-    	// 	temp_webView = inAppWebView;
-    	// }
-
         if (inAppWebView!=null) {
             String scriptToInject;
             if (jsWrapper != null) {
