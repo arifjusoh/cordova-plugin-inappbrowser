@@ -84,6 +84,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SYSTEM = "_system";
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
+     private static final String SHOULD_CLOSE = "shouldclose";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -110,6 +111,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
+    public static boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -547,7 +549,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    public String showWebPage(final String url, HashMap<String, String> features) {
+    public String showWebPage(final String url, HashMap<String, Boolean> features) {
         // Determine if we should hide the location bar.
         showLocationBar = true;
         showZoomControls = true;
@@ -555,66 +557,48 @@ public class InAppBrowser extends CordovaPlugin {
         mediaPlaybackRequiresUserGesture = false;
 
         if (features != null) {
-            String show = features.get(LOCATION);
+        	 Boolean show = features.get(LOCATION);
             if (show != null) {
-                showLocationBar = show.equals("yes") ? true : false;
+                showLocationBar = show.booleanValue();
             }
-            if(showLocationBar) {
-              String hideNavigation = features.get(HIDE_NAVIGATION);
-              String hideUrl = features.get(HIDE_URL);
-              if(hideNavigation != null) hideNavigationButtons = hideNavigation.equals("yes") ? true : false;
-              if(hideUrl != null) hideUrlBar = hideUrl.equals("yes") ? true : false;
+            Boolean shouldclose = features.get(SHOULD_CLOSE);
+            if (shouldclose != null) {
+                shouldClose = shouldclose.booleanValue();
             }
-            String zoom = features.get(ZOOM);
+            Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
-                showZoomControls = zoom.equals("yes") ? true : false;
+                showZoomControls = zoom.booleanValue();
             }
-            String hidden = features.get(HIDDEN);
+            Boolean hidden = features.get(HIDDEN);
             if (hidden != null) {
-                openWindowHidden = hidden.equals("yes") ? true : false;
+                openWindowHidden = hidden.booleanValue();
             }
-            String hardwareBack = features.get(HARDWARE_BACK_BUTTON);
+            Boolean hardwareBack = features.get(HARDWARE_BACK_BUTTON);
             if (hardwareBack != null) {
-                hadwareBackButton = hardwareBack.equals("yes") ? true : false;
+                hadwareBackButton = hardwareBack.booleanValue();
             } else {
                 hadwareBackButton = DEFAULT_HARDWARE_BACK;
             }
-            String mediaPlayback = features.get(MEDIA_PLAYBACK_REQUIRES_USER_ACTION);
+            Boolean mediaPlayback = features.get(MEDIA_PLAYBACK_REQUIRES_USER_ACTION);
             if (mediaPlayback != null) {
-                mediaPlaybackRequiresUserGesture = mediaPlayback.equals("yes") ? true : false;
+                mediaPlaybackRequiresUserGesture = mediaPlayback.booleanValue();
             }
-            String cache = features.get(CLEAR_ALL_CACHE);
+            Boolean cache = features.get(CLEAR_ALL_CACHE);
             if (cache != null) {
-                clearAllCache = cache.equals("yes") ? true : false;
+                clearAllCache = cache.booleanValue();
             } else {
                 cache = features.get(CLEAR_SESSION_CACHE);
                 if (cache != null) {
-                    clearSessionCache = cache.equals("yes") ? true : false;
+                    clearSessionCache = cache.booleanValue();
                 }
             }
-            String shouldPause = features.get(SHOULD_PAUSE);
+            Boolean shouldPause = features.get(SHOULD_PAUSE);
             if (shouldPause != null) {
-                shouldPauseInAppBrowser = shouldPause.equals("yes") ? true : false;
+                shouldPauseInAppBrowser = shouldPause.booleanValue();
             }
-            String wideViewPort = features.get(USER_WIDE_VIEW_PORT);
+            Boolean wideViewPort = features.get(USER_WIDE_VIEW_PORT);
             if (wideViewPort != null ) {
-		            useWideViewPort = wideViewPort.equals("yes") ? true : false;
-            }
-            String closeButtonCaptionSet = features.get(CLOSE_BUTTON_CAPTION);
-            if (closeButtonCaptionSet != null) {
-                closeButtonCaption = closeButtonCaptionSet;
-            }
-            String closeButtonColorSet = features.get(CLOSE_BUTTON_COLOR);
-            if (closeButtonColorSet != null) {
-              closeButtonColor = closeButtonColorSet;
-            }
-            String toolbarColorSet = features.get(TOOLBAR_COLOR);
-            if (toolbarColorSet != null) {
-                toolbarColor = android.graphics.Color.parseColor(toolbarColorSet);
-            }
-            String navigationButtonColorSet = features.get(NAVIGATION_COLOR);
-            if (navigationButtonColorSet != null) {
-                navigationButtonColor = navigationButtonColorSet;
+		            useWideViewPort = wideViewPort.booleanValue();
             }
         }
 
