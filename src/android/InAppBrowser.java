@@ -429,7 +429,11 @@ public class InAppBrowser extends CordovaPlugin {
                 org.json.JSONArray jsonEsc = new org.json.JSONArray();
                 jsonEsc.put(source);
                 String jsonRepr = jsonEsc.toString();
+                LOG.e(LOG_TAG, "jsonRepr is "+jsonRepr);
+
                 String jsonSourceString = jsonRepr.substring(1, jsonRepr.length()-1);
+                LOG.e(LOG_TAG, "jsonSourceString is "+jsonSourceString);
+
                 scriptToInject = String.format(jsWrapper, jsonSourceString);
             } else {
                 scriptToInject = source;
