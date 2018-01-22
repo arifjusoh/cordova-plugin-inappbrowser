@@ -402,16 +402,14 @@ public class InAppBrowser extends CordovaPlugin {
     private void injectDeferredObject(String source, String jsWrapper) {
  		
  		LOG.d(LOG_TAG, "inside injectDeferredObject");
- 		Toast.makeText(this.cordova.getActivity(),"inside injectDeferredObject",Toast.LENGTH_SHORT).show();
 
+    	// if (interceptWebView != null){
+    	// 	temp_webView = interceptWebView;
+    	// } else if (inAppWebView!=null) {
+    	// 	temp_webView = inAppWebView;
+    	// }
 
-    	if (interceptWebView != null){
-    		temp_webView = interceptWebView;
-    	} else if (inAppWebView!=null) {
-    		temp_webView = inAppWebView;
-    	}
-
-        if (temp_webView!=null) {
+        if (inAppWebView!=null) {
             String scriptToInject;
             if (jsWrapper != null) {
                 org.json.JSONArray jsonEsc = new org.json.JSONArray();
@@ -429,9 +427,9 @@ public class InAppBrowser extends CordovaPlugin {
                 public void run() {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                         // This action will have the side-effect of blurring the currently focused element
-                        temp_webView.loadUrl("javascript:" + finalScriptToInject);
+                        inAppWebView.loadUrl("javascript:" + finalScriptToInject);
                     } else {
-                        temp_webView.evaluateJavascript(finalScriptToInject, null);
+                        inAppWebView.evaluateJavascript(finalScriptToInject, null);
                     }
                 }
             });
