@@ -69,7 +69,6 @@
         },
 
         executeScript: function (injectDetails, cb) {
-             LOG.d(LOG_TAG, "inside injectDetails function");
             if (injectDetails.code) {
                 exec(cb, null, 'InAppBrowser', 'injectScriptCode', [injectDetails.code, !!cb]);
             } else if (injectDetails.file) {
