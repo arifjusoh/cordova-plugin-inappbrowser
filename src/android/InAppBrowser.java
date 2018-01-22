@@ -284,7 +284,7 @@ public class InAppBrowser extends CordovaPlugin {
             closeDialog();
         }
         else if (action.equals("injectScriptCode")) {
-              LOG.d(LOG_TAG, "inside injectScriptCode");
+              LOG.e(LOG_TAG, "inside injectScriptCode");
             String jsWrapper = null;
             if (args.getBoolean(1)) {
                 jsWrapper = String.format("(function(){prompt(JSON.stringify([eval(%%s)]), 'gap-iab://%s')})()", callbackContext.getCallbackId());
