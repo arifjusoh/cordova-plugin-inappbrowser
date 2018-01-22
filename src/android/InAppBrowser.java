@@ -296,7 +296,7 @@ public class InAppBrowser extends CordovaPlugin {
             LOG.e(LOG_TAG, "jsWrapper "+jsWrapper);
             
             //injectDeferredObject(args.getString(0), jsWrapper);
-            injectDeferredObject(url, jsWrapper);
+            injectDeferredObject(args.getString(0), jsWrapper);
         }
         else if (action.equals("injectScriptFile")) {
             String jsWrapper;
