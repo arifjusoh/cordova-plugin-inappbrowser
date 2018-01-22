@@ -284,11 +284,17 @@ public class InAppBrowser extends CordovaPlugin {
             closeDialog();
         }
         else if (action.equals("injectScriptCode")) {
-              LOG.e(LOG_TAG, "inside injectScriptCode");
+              LOG.e(LOG_TAG, "inside injectScriptCode - 1");
+            
             String jsWrapper = null;
             if (args.getBoolean(1)) {
+                  LOG.e(LOG_TAG, "inside injectScriptCode - 2");
                 jsWrapper = String.format("(function(){prompt(JSON.stringify([eval(%%s)]), 'gap-iab://%s')})()", callbackContext.getCallbackId());
             }
+            
+            LOG.e(LOG_TAG, "args.getString(0) "+args.getString(0));
+            LOG.e(LOG_TAG, "jsWrapper "+jsWrapper);
+            
             injectDeferredObject(args.getString(0), jsWrapper);
         }
         else if (action.equals("injectScriptFile")) {
