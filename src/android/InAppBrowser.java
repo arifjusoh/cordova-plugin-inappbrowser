@@ -445,8 +445,10 @@ public class InAppBrowser extends CordovaPlugin {
                 public void run() {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                         // This action will have the side-effect of blurring the currently focused element
+                        LOG.e(LOG_TAG, "condition # 1");
                         temp_webView.loadUrl("javascript:" + finalScriptToInject);
                     } else {
+                        LOG.e(LOG_TAG, "condition # 2");
                         temp_webView.evaluateJavascript(finalScriptToInject, null);
                     }
                 }
