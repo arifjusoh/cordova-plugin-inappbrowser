@@ -400,7 +400,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     private void injectDeferredObject(String source, String jsWrapper) {
 
-     LOG.d(LOG_TAG, "... injectDeferredObject ...");
+     LOG.e(LOG_TAG, "... injectDeferredObject ...");
 
         if (inAppWebView!=null) {
 
