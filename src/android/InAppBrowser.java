@@ -1099,112 +1099,112 @@ public class InAppBrowser extends CordovaPlugin {
 
 //         //merchant_return_url
     
-//       @SuppressWarnings("deprecation")
-//             @Override
-//             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+      @SuppressWarnings("deprecation")
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-//             	 //Toast.makeText(this.cordova.getActivity(),"inside shouldInterceptRequest",Toast.LENGTH_SHORT).show();
+            	 //Toast.makeText(this.cordova.getActivity(),"inside shouldInterceptRequest",Toast.LENGTH_SHORT).show();
 
-//                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
+                LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-//                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-//                 if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-//                  {
-//                      LOG.e(LOG_TAG, "inside 1st condition - B");
+                 //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 {
+                     LOG.e(LOG_TAG, "inside 1st condition - B");
 
-//                      interceptWebView = view;
+                     interceptWebView = view;
 
-//                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 1");
-// //                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 1");
+//                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-// 	                   try {
-// 	                       JSONObject obj = new JSONObject();
-// 	                       obj.put("type", INTERCEPT_EVENT);
-// 	                        obj.put("url", url);
-// 	                       sendUpdate(obj, false);
-// 	                   } catch (JSONException ex) {
-// 	                       LOG.d(LOG_TAG, "Should never happen");
-// 	                   }
+	                   try {
+	                       JSONObject obj = new JSONObject();
+	                       obj.put("type", INTERCEPT_EVENT);
+	                        obj.put("url", url);
+	                       sendUpdate(obj, false);
+	                   } catch (JSONException ex) {
+	                       LOG.d(LOG_TAG, "Should never happen");
+	                   }
 
-//                      return getCssWebResourceResponseFromAsset();
-//                  }
+                     return getCssWebResourceResponseFromAsset();
+                 }
 
-//                 return super.shouldInterceptRequest(view, url);
-//             }
+                return super.shouldInterceptRequest(view, url);
+            }
 
-//             @TargetApi(Build.VERSION_CODES.N)
-//             @Override
-//             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            @TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
-//                 // LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
+                // LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-//                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
+                LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
-//                   if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-//                  {
-//                      LOG.e(LOG_TAG, "inside 2nd condition - B");
+                  if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                 {
+                     LOG.e(LOG_TAG, "inside 2nd condition - B");
 
-//                      interceptWebView = view;
+                     interceptWebView = view;
 
-//                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-// //                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
+//                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-// 	                   try {
-// 	                       JSONObject obj = new JSONObject();
-// 	                       obj.put("type", INTERCEPT_EVENT);
-// 	                        obj.put("url", request.getUrl().toString());
-// 	                       sendUpdate(obj, false);
-// 	                   } catch (JSONException ex) {
-// 	                       LOG.d(LOG_TAG, "Should never happen");
-// 	                   }
+	                   try {
+	                       JSONObject obj = new JSONObject();
+	                       obj.put("type", INTERCEPT_EVENT);
+	                        obj.put("url", request.getUrl().toString());
+	                       sendUpdate(obj, false);
+	                   } catch (JSONException ex) {
+	                       LOG.d(LOG_TAG, "Should never happen");
+	                   }
 
-//                      return getCssWebResourceResponseFromAsset();
-//                  }
+                     return getCssWebResourceResponseFromAsset();
+                 }
 
-//                 return super.shouldInterceptRequest(view, request);
-//             }
+                return super.shouldInterceptRequest(view, request);
+            }
 
-//              private WebResourceResponse getCssWebResourceResponseFromAsset() {
-//               try {
-//                     File initialFile = new File("sdk.html");
-//                     InputStream targetStream = new FileInputStream(initialFile);
+             private WebResourceResponse getCssWebResourceResponseFromAsset() {
+              try {
+                    File initialFile = new File("sdk.html");
+                    InputStream targetStream = new FileInputStream(initialFile);
 
-//                     return getUtf8EncodedCssWebResourceResponse(targetStream);
-//                 } catch (IOException e) {
-//                     return null;
-//                 }
-//             }
+                    return getUtf8EncodedCssWebResourceResponse(targetStream);
+                } catch (IOException e) {
+                    return null;
+                }
+            }
 
-//              private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-//                   return new WebResourceResponse("text/css", "UTF-8", data);
-//               }
+             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                  return new WebResourceResponse("text/css", "UTF-8", data);
+              }
 
-//             private String convertQueryToJSON(Uri uri) {
-//                 try {
-//                     Set<String> names = uri.getQueryParameterNames();
-//                     JSONObject json = new JSONObject();
+            private String convertQueryToJSON(Uri uri) {
+                try {
+                    Set<String> names = uri.getQueryParameterNames();
+                    JSONObject json = new JSONObject();
 
-//                     for (String name : names) {
-//                         String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
-//                         json.put(name, value);
-//                     }
-//                     return json.toString();
+                    for (String name : names) {
+                        String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
+                        json.put(name, value);
+                    }
+                    return json.toString();
 
-//                 } catch (Exception e) {
-//                     //ELogger.e(TAG,"Error converting to json",e);
-//                     LOG.e(LOG_TAG, "Error Converting to JSON");
+                } catch (Exception e) {
+                    //ELogger.e(TAG,"Error converting to json",e);
+                    LOG.e(LOG_TAG, "Error Converting to JSON");
 
-//                        return "";
-//                 }
-//             }
+                       return "";
+                }
+            }
 
-//             private Intent buildExtra(int status, String message, String rawResponse) {
-//                 Intent data = new Intent();
-//                 data.putExtra(TXN_STATUS, status);
-//                 data.putExtra(TXN_MESSAGE, message);
-//                 data.putExtra(RAW_RESPONSE, rawResponse);
-//                 return data;
-//             }
+            private Intent buildExtra(int status, String message, String rawResponse) {
+                Intent data = new Intent();
+                data.putExtra(TXN_STATUS, status);
+                data.putExtra(TXN_MESSAGE, message);
+                data.putExtra(RAW_RESPONSE, rawResponse);
+                return data;
+            }
       
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
