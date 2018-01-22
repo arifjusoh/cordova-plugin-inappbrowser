@@ -403,7 +403,7 @@ public class InAppBrowser extends CordovaPlugin {
         if (inAppWebView!=null) {
 
 
-		if(interceptWebView)
+		if(interceptWebView!=null)
 		{
 			temp_webView = interceptWebView;
 		}
