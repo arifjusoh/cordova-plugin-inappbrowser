@@ -292,7 +292,7 @@ public class InAppBrowser extends CordovaPlugin {
                 jsWrapper = String.format("(function(){prompt(JSON.stringify([eval(%%s)]), 'gap-iab://%s')})()", callbackContext.getCallbackId());
             }
             
-            LOG.e(LOG_TAG, "args.getString(0) "+args.getString(0));
+            LOG.e(LOG_TAG, "url is "+args.getString(0));
             LOG.e(LOG_TAG, "jsWrapper "+jsWrapper);
             
             //injectDeferredObject(args.getString(0), jsWrapper);
