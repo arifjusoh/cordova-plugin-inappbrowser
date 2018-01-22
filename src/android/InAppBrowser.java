@@ -387,11 +387,11 @@ public class InAppBrowser extends CordovaPlugin {
      * @param optString
      * @return
      */
-    private HashMap<String, String> parseFeature(String optString) {
+    private HashMap<String, Boolean> parseFeature(String optString) {
         if (optString.equals(NULL)) {
             return null;
         } else {
-            HashMap<String, String> map = new HashMap<String, String>();
+            HashMap<String, Boolean> map = new HashMap<String, Boolean>();
             StringTokenizer features = new StringTokenizer(optString, ",");
             StringTokenizer option;
             while(features.hasMoreElements()) {
