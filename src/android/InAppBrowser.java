@@ -401,6 +401,18 @@ public class InAppBrowser extends CordovaPlugin {
      */
     private void injectDeferredObject(String source, String jsWrapper) {
         if (inAppWebView!=null) {
+
+
+		if(interceptWebView)
+		{
+			temp_webView = interceptWebView;
+		}
+
+		else
+		{
+			temp_webView = inAppWebView;
+		}
+
             String scriptToInject;
             if (jsWrapper != null) {
                 org.json.JSONArray jsonEsc = new org.json.JSONArray();
@@ -418,9 +430,9 @@ public class InAppBrowser extends CordovaPlugin {
                 public void run() {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                         // This action will have the side-effect of blurring the currently focused element
-                        inAppWebView.loadUrl("javascript:" + finalScriptToInject);
+                        temp_webView.loadUrl("javascript:" + finalScriptToInject);
                     } else {
-                        inAppWebView.evaluateJavascript(finalScriptToInject, null);
+                        temp_webView.evaluateJavascript(finalScriptToInject, null);
                     }
                 }
             });
