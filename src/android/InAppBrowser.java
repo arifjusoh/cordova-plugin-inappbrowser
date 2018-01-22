@@ -1157,6 +1157,7 @@ public class InAppBrowser extends CordovaPlugin {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
                      interceptWebView = view;
+                     
                      LOG.e(LOG_TAG, "interceptWebView starts here: "+interceptWebView+" interceptWebView ends here");
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
