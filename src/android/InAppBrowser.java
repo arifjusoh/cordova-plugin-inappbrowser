@@ -1160,14 +1160,14 @@ public class InAppBrowser extends CordovaPlugin {
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 1");
 //                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
-	                   try {
-	                       JSONObject obj = new JSONObject();
-	                       obj.put("type", INTERCEPT_EVENT);
-	                        obj.put("url", view.getUrl().toString());
-	                       sendUpdate(obj, false);
-	                   } catch (JSONException ex) {
-	                       LOG.d(LOG_TAG, "Should never happen");
-	                   }
+	                     try {
+                           JSONObject obj = new JSONObject();
+                           obj.put("type", INTERCEPT_EVENT);
+                            obj.put("url", url);
+                           sendUpdate(obj, false);
+                       } catch (JSONException ex) {
+                           LOG.d(LOG_TAG, "Should never happen");
+                       }
 
                      return getCssWebResourceResponseFromAsset();
                  }
@@ -1182,13 +1182,19 @@ public class InAppBrowser extends CordovaPlugin {
                 // LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
+                string url = request.getUrl().toString();
+                int index = url.indexOf('?');
+                String baseURL = url;
+                if (index>0){
+                    baseURL = url.substring(0, index);
+                }
 
-                  if (request.getUrl().toString().contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                if (baseURL.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
+                      view.stopLoading();
                      interceptWebView = view;
-
                      LOG.e(LOG_TAG, "interceptWebView starts here: "+interceptWebView+" interceptWebView ends here");
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
@@ -1197,7 +1203,7 @@ public class InAppBrowser extends CordovaPlugin {
 	                   try {
 	                       JSONObject obj = new JSONObject();
 	                       obj.put("type", INTERCEPT_EVENT);
-	                        obj.put("url", view.getUrl().toString());
+	                        obj.put("url", url);
 	                       sendUpdate(obj, false);
 	                   } catch (JSONException ex) {
 	                       LOG.d(LOG_TAG, "Should never happen");
