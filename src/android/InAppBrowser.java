@@ -1151,15 +1151,17 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (baseURL.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
-                    LOG.e(LOG_TAG, "inside 1st condition - A");
+                     LOG.e(LOG_TAG, "inside 1st condition - A");
+
+                     view.stopLoading();
 
                     if (Looper.myLooper() == Looper.getMainLooper()) {
-                        view.stopLoading();
+                        getWebView().stopLoading();
                     } else {
-                        view.post(new Runnable() {
+                        getWebView().post(new Runnable() {
                             @Override
                             public void run() {
-                                view.stopLoading();
+                                getWebView().stopLoading();
                             }
                         });
                     }
@@ -1201,16 +1203,7 @@ public class InAppBrowser extends CordovaPlugin {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
-                     if (Looper.myLooper() == Looper.getMainLooper()) {
-                        view.stopLoading();
-                    } else {
-                        view.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                view.stopLoading();
-                            }
-                        });
-                    }
+                     view.stopLoading();
                      
                      interceptWebView = view;
                      
