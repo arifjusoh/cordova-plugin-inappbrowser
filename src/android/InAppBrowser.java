@@ -1175,7 +1175,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 handleinterceptrequest(view, url);
 
-                return getCssWebResourceResponseFromAsset();
+                //return getCssWebResourceResponseFromAsset();
 
                 return super.shouldInterceptRequest(view, request);
             }
