@@ -1173,7 +1173,35 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
                 String url = request.getUrl().toString();
 
-                handleinterceptrequest(url);
+                //handleinterceptrequest(url);
+
+                int index = url.indexOf('?');
+                String baseURL = url;
+                if (index>0){
+                    baseURL = url.substring(0, index);
+                }
+
+                if (baseURL.contains(compare_url))
+                 {
+                     LOG.e(LOG_TAG, "inside 2nd condition - B");
+
+                     view.stopLoading();
+                     
+                     interceptWebView = view;
+                     
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
+
+                       try {
+                           JSONObject obj = new JSONObject();
+                           obj.put("type", INTERCEPT_EVENT);
+                           obj.put("url", url);
+                           sendUpdate(obj, false);
+                       } catch (JSONException ex) {
+                           LOG.d(LOG_TAG, "Should never happen");
+                       }
+
+                     return getCssWebResourceResponseFromAsset();
+                 }
 
                 return super.shouldInterceptRequest(view, request);
             }
