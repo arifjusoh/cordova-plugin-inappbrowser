@@ -1135,9 +1135,18 @@ public class InAppBrowser extends CordovaPlugin {
 
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-                handleinterceptrequest(view, url);
+                String baseURL = url;
+                int index = url.indexOf('?');
+                
+                if (index>0){
+                    baseURL = url.substring(0, index);
+                }
 
-                //return getCssWebResourceResponseFromAsset();
+                if (baseURL.contains(compare_url))
+                {
+                  handleinterceptrequest(view, url);
+                  return getCssWebResourceResponseFromAsset();
+                }
 
                 return super.shouldInterceptRequest(view, url);
             }
@@ -1148,11 +1157,20 @@ public class InAppBrowser extends CordovaPlugin {
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
+
                 String url = request.getUrl().toString();
+                String baseURL = url;
+                int index = url.indexOf('?');
+                
+                if (index>0){
+                    baseURL = url.substring(0, index);
+                }
 
-                handleinterceptrequest(view, url);
-
-                //return getCssWebResourceResponseFromAsset();
+                if (baseURL.contains(compare_url))
+                {
+                  handleinterceptrequest(view, url);
+                  return getCssWebResourceResponseFromAsset();
+                }
 
                 return super.shouldInterceptRequest(view, request);
             }
@@ -1172,23 +1190,9 @@ public class InAppBrowser extends CordovaPlugin {
                   return new WebResourceResponse("text/css", "UTF-8", data);
               }
             
-             public void handleinterceptrequest(final WebView view, String url)
+             public void handleinterceptrequest(final WebView view)
              {
-                String baseURL = url;
-
-                int index = url.indexOf('?');
-                
-                if (index>0){
-                    baseURL = url.substring(0, index);
-                }
-
-                if (baseURL.contains(compare_url))
-                 {
-                     LOG.e(LOG_TAG, "compare_url found inside baseURL");
-
-                     //view.stopLoading();
-
-                     if (Looper.myLooper() == Looper.getMainLooper()) {
+                    if (Looper.myLooper() == Looper.getMainLooper()) {
                         LOG.e(LOG_TAG, "stopLoading on same thread");
                         view.stopLoading();
                     } else {
@@ -1213,7 +1217,6 @@ public class InAppBrowser extends CordovaPlugin {
                        } catch (JSONException ex) {
                            LOG.d(LOG_TAG, "Should never happen");
                        }
-                 }
              }      
               
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
