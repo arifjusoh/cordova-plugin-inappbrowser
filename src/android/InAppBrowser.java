@@ -158,8 +158,7 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String TAG = "Logs: ";
     public static String compare_url = "";
 
-    public static WebView interceptWebView;
-    public WebView temp_webView;
+    public WebView interceptWebView;
    ////////////////////  for shouldInterceptRequest //////////////////////
 
     /**
@@ -407,21 +406,19 @@ public class InAppBrowser extends CordovaPlugin {
      */
     private void injectDeferredObject(String source, String jsWrapper) {
 
-     LOG.e(LOG_TAG, "... injectDeferredObject ...");
+       LOG.e(LOG_TAG, "... injectDeferredObject ...");
 
-        if (inAppWebView!=null) {
+       WebView temp_webView;
 
+        if(interceptWebView!=null) {
+            temp_webView = interceptWebView;
+        } else {
+            temp_webView = inAppWebView;
+        }
 
-		if(interceptWebView!=null)
-		{
-			temp_webView = interceptWebView;
-		}
+       LOG.e(LOG_TAG, "temp_webView:" + temp_webView);
 
-		else
-		{
-			temp_webView = inAppWebView;
-		}
-
+        if (temp_webView!=null) {
             String scriptToInject;
             if (jsWrapper != null) {
                   LOG.e(LOG_TAG, "jsWrapper is not null");
