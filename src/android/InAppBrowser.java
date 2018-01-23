@@ -1172,7 +1172,7 @@ public class InAppBrowser extends CordovaPlugin {
                   return new WebResourceResponse("text/css", "UTF-8", data);
               }
             
-             public void handleinterceptrequest(WebView view, String url)
+             public void handleinterceptrequest(final WebView view, String url)
              {
                 String baseURL = url;
 
