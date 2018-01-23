@@ -410,13 +410,14 @@ public class InAppBrowser extends CordovaPlugin {
 
        final WebView temp_webView;
 
-        if(interceptWebView!=null) {
+        if(interceptWebView != null) {
             temp_webView = interceptWebView;
         } else {
             temp_webView = inAppWebView;
         }
 
         Log.e(LOG_TAG, "interceptWebView:" + interceptWebView);
+        Log.e(LOG_TAG, "inAppWebView:" + inAppWebView);
         LOG.e(LOG_TAG, "temp_webView:" + temp_webView);
 
         if (temp_webView!=null) {
