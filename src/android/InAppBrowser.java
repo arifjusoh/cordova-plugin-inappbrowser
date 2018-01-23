@@ -408,7 +408,7 @@ public class InAppBrowser extends CordovaPlugin {
 
        LOG.e(LOG_TAG, "... injectDeferredObject ...");
 
-       WebView temp_webView;
+       final WebView temp_webView;
 
         if(interceptWebView!=null) {
             temp_webView = interceptWebView;
