@@ -477,7 +477,8 @@ public class InAppBrowser extends CordovaPlugin {
     private HashMap<String, Boolean> parseFeature(String optString) {
         if (optString.equals(NULL)) {
             return null;
-        } else {
+        } 
+        else {
             HashMap<String, Boolean> map = new HashMap<String, Boolean>();
             StringTokenizer features = new StringTokenizer(optString, ",");
             StringTokenizer option;
@@ -485,33 +486,12 @@ public class InAppBrowser extends CordovaPlugin {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
-                    if(key.equalsIgnoreCase(IGNORE_SSL_ERROR)) {
-                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                        map.put(key, value);
-                    }
-                    else {
-                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                        map.put(key, value);
-                    }
-
+                    Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                    map.put(key, value);
                 }
             }
             return map;
         }
-        // else {
-        //     HashMap<String, Boolean> map = new HashMap<String, Boolean>();
-        //     StringTokenizer features = new StringTokenizer(optString, ",");
-        //     StringTokenizer option;
-        //     while(features.hasMoreElements()) {
-        //         option = new StringTokenizer(features.nextToken(), "=");
-        //         if (option.hasMoreElements()) {
-        //             String key = option.nextToken();
-        //             Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-        //             map.put(key, value);
-        //         }
-        //     }
-        //     return map;
-        // }
     }
 
     /**
