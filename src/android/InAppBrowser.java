@@ -1145,7 +1145,7 @@ public class InAppBrowser extends CordovaPlugin {
                 if (baseURL.contains(compare_url))
                 {
                   handleinterceptrequest(view, url);
-                  return getCssWebResourceResponseFromAsset();
+                  return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
                 }
 
                 return super.shouldInterceptRequest(view, url);
