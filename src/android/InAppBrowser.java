@@ -1155,17 +1155,6 @@ public class InAppBrowser extends CordovaPlugin {
 
                      view.stopLoading();
 
-                    if (Looper.myLooper() == Looper.getMainLooper()) {
-                        getWebView().stopLoading();
-                    } else {
-                        getWebView().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                getWebView().stopLoading();
-                            }
-                        });
-                    }
-
                      interceptWebView = view;
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 1");
