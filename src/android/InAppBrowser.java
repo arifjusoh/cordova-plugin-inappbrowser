@@ -1175,38 +1175,12 @@ public class InAppBrowser extends CordovaPlugin {
 
                 handleinterceptrequest(view, url);
 
-                int index = url.indexOf('?');
-                String baseURL = url;
-                if (index>0){
-                    baseURL = url.substring(0, index);
-                }
-
-                if (baseURL.contains(compare_url))
-                 {
-                     LOG.e(LOG_TAG, "inside 2nd condition - B");
-
-                     view.stopLoading();
-                     
-                     interceptWebView = view;
-                     
-                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-
-                       try {
-                           JSONObject obj = new JSONObject();
-                           obj.put("type", INTERCEPT_EVENT);
-                           obj.put("url", url);
-                           sendUpdate(obj, false);
-                       } catch (JSONException ex) {
-                           LOG.d(LOG_TAG, "Should never happen");
-                       }
-
-                     return getCssWebResourceResponseFromAsset();
-                 }
+                return getCssWebResourceResponseFromAsset();
 
                 return super.shouldInterceptRequest(view, request);
             }
             
-             public WebResourceResponse handleinterceptrequest(WebView view, String url)
+             public String handleinterceptrequest(WebView view, String url)
              {
                 int index = url.indexOf('?');
                 String baseURL = url;
@@ -1233,8 +1207,6 @@ public class InAppBrowser extends CordovaPlugin {
                        } catch (JSONException ex) {
                            LOG.d(LOG_TAG, "Should never happen");
                        }
-
-                     return getCssWebResourceResponseFromAsset();
                  }
              }      
 
