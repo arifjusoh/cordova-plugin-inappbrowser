@@ -1222,7 +1222,7 @@ public class InAppBrowser extends CordovaPlugin {
               }
 
             
-             public void handleinterceptrequest(String url)
+             private String handleinterceptrequest(String url)
              {
                 int index = url.indexOf('?');
                 String baseURL = url;
@@ -1249,7 +1249,7 @@ public class InAppBrowser extends CordovaPlugin {
                            LOG.d(LOG_TAG, "Should never happen");
                        }
 
-                     //return getCssWebResourceResponseFromAsset();
+                     return getCssWebResourceResponseFromAsset();
                  }
              }      
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
