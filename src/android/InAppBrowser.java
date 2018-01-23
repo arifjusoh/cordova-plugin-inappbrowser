@@ -1206,7 +1206,7 @@ public class InAppBrowser extends CordovaPlugin {
                 return super.shouldInterceptRequest(view, request);
             }
             
-             public String handleinterceptrequest((WebView view, String url)
+             public String handleinterceptrequest(WebView view, String url)
              {
                 int index = url.indexOf('?');
                 String baseURL = url;
@@ -1216,22 +1216,22 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (baseURL.contains(compare_url))
                  {
-                     // LOG.e(LOG_TAG, "inside 2nd condition - B");
+                     LOG.e(LOG_TAG, "inside 2nd condition - B");
 
-                     // view.stopLoading();
+                     view.stopLoading();
                      
-                     // interceptWebView = view;
+                     interceptWebView = view;
                      
-                     // LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
 
-                     //   try {
-                     //       JSONObject obj = new JSONObject();
-                     //       obj.put("type", INTERCEPT_EVENT);
-                     //       obj.put("url", url);
-                     //       sendUpdate(obj, false);
-                     //   } catch (JSONException ex) {
-                     //       LOG.d(LOG_TAG, "Should never happen");
-                     //   }
+                       try {
+                           JSONObject obj = new JSONObject();
+                           obj.put("type", INTERCEPT_EVENT);
+                           obj.put("url", url);
+                           sendUpdate(obj, false);
+                       } catch (JSONException ex) {
+                           LOG.d(LOG_TAG, "Should never happen");
+                       }
 
                      return getCssWebResourceResponseFromAsset();
                  }
