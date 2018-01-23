@@ -58,6 +58,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Looper;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -1185,7 +1186,18 @@ public class InAppBrowser extends CordovaPlugin {
                  {
                      LOG.e(LOG_TAG, "compare_url found inside baseURL");
 
-                     view.stopLoading();
+                     //view.stopLoading();
+
+                     if (Looper.myLooper() == Looper.getMainLooper()) {
+                        view.stopLoading();
+                    } else {
+                        view.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                view.stopLoading();
+                            }
+                        });
+                    }
                      
                      interceptWebView = view;
                      
