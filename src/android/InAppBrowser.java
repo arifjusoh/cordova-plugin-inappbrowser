@@ -1193,6 +1193,7 @@ public class InAppBrowser extends CordovaPlugin {
                         view.stopLoading();
                     } else {
                         view.post(new Runnable() {
+                            LOG.e(LOG_TAG, "stopLoading in else");
                             @Override
                             public void run() {
                                 view.stopLoading();
