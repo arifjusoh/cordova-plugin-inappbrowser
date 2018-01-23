@@ -1189,6 +1189,7 @@ public class InAppBrowser extends CordovaPlugin {
                      //view.stopLoading();
 
                      if (Looper.myLooper() == Looper.getMainLooper()) {
+                        LOG.e(LOG_TAG, "stopLoading on same thread");
                         view.stopLoading();
                     } else {
                         view.post(new Runnable() {
