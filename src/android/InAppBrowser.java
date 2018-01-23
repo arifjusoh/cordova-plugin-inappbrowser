@@ -1144,7 +1144,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (baseURL.contains(compare_url))
                 {
-                  handleinterceptrequest(view, url);
+                  handleinterceptrequest(view);
                   return getCssWebResourceResponseFromAsset();
                 }
 
@@ -1168,7 +1168,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (baseURL.contains(compare_url))
                 {
-                  handleinterceptrequest(view, url);
+                  handleinterceptrequest(view);
                   return getCssWebResourceResponseFromAsset();
                 }
 
