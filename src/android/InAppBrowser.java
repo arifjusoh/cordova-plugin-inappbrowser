@@ -1182,7 +1182,7 @@ public class InAppBrowser extends CordovaPlugin {
                 // LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
-                string url = request.getUrl().toString();
+                String url = request.getUrl().toString();
                 int index = url.indexOf('?');
                 String baseURL = url;
                 if (index>0){
