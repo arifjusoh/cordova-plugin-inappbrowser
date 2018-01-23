@@ -1139,9 +1139,21 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
                  //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                if (url.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                
+                //public static String getURLWithoutParameters(String url) {
+                int index = url.indexOf('?');
+                String baseURL = url;
+                if (index>0){
+                    baseURL = url.substring(0, index);
+                }
+                //return url;
+                //}
+
+                if (baseURL.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
                      LOG.e(LOG_TAG, "inside 1st condition - A");
+
+                     view.stopLoading();
 
                      interceptWebView = view;
 
