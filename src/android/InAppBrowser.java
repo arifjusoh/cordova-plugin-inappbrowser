@@ -438,6 +438,9 @@ public class InAppBrowser extends CordovaPlugin {
             } else {
                 scriptToInject = source;
             }
+
+            LOG.e(LOG_TAG, "temp_webView is "+temp_webView);
+            
             final String finalScriptToInject = scriptToInject;
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @SuppressLint("NewApi")
