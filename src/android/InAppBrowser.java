@@ -1180,7 +1180,7 @@ public class InAppBrowser extends CordovaPlugin {
                 return super.shouldInterceptRequest(view, request);
             }
             
-             public String handleinterceptrequest(WebView view, String url)
+             public void handleinterceptrequest(WebView view, String url)
              {
                 int index = url.indexOf('?');
                 String baseURL = url;
