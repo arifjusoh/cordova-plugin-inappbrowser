@@ -416,7 +416,8 @@ public class InAppBrowser extends CordovaPlugin {
             temp_webView = inAppWebView;
         }
 
-       LOG.e(LOG_TAG, "temp_webView:" + temp_webView);
+        Log.e(LOG_TAG, "interceptWebView:" + interceptWebView);
+        LOG.e(LOG_TAG, "temp_webView:" + temp_webView);
 
         if (temp_webView!=null) {
             String scriptToInject;
@@ -435,8 +436,6 @@ public class InAppBrowser extends CordovaPlugin {
             } else {
                 scriptToInject = source;
             }
-
-            LOG.e(LOG_TAG, "temp_webView is "+temp_webView);
             
             final String finalScriptToInject = scriptToInject;
             this.cordova.getActivity().runOnUiThread(new Runnable() {
