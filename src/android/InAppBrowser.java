@@ -1233,7 +1233,7 @@ public class InAppBrowser extends CordovaPlugin {
                            LOG.d(LOG_TAG, "Should never happen");
                        }
 
-                     return getCssWebResourceResponseFromAsset();
+                     //return getCssWebResourceResponseFromAsset();
                  }
              }      
 
