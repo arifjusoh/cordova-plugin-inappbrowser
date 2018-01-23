@@ -1144,7 +1144,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (baseURL.contains(compare_url))
                 {
-                  handleinterceptrequest(view);
+                  handleinterceptrequest(view, url);
                   return getCssWebResourceResponseFromAsset();
                 }
 
@@ -1168,7 +1168,7 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (baseURL.contains(compare_url))
                 {
-                  handleinterceptrequest(view);
+                  handleinterceptrequest(view, url);
                   return getCssWebResourceResponseFromAsset();
                 }
 
@@ -1190,7 +1190,7 @@ public class InAppBrowser extends CordovaPlugin {
                   return new WebResourceResponse("text/css", "UTF-8", data);
               }
             
-             public void handleinterceptrequest(final WebView view)
+             public void handleinterceptrequest(final WebView view, String url)
              {
                     if (Looper.myLooper() == Looper.getMainLooper()) {
                         LOG.e(LOG_TAG, "stopLoading on same thread");
