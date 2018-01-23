@@ -1173,22 +1173,23 @@ public class InAppBrowser extends CordovaPlugin {
             
              public void handleinterceptrequest(WebView view, String url)
              {
-                int index = url.indexOf('?');
                 String baseURL = url;
 
+                int index = url.indexOf('?');
+                
                 if (index>0){
                     baseURL = url.substring(0, index);
                 }
 
                 if (baseURL.contains(compare_url))
                  {
-                     LOG.e(LOG_TAG, "inside 2nd condition - B");
+                     LOG.e(LOG_TAG, "compare_url found inside baseURL");
 
                      view.stopLoading();
                      
                      interceptWebView = view;
                      
-                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE");
 
                        try {
                            JSONObject obj = new JSONObject();
@@ -1200,7 +1201,6 @@ public class InAppBrowser extends CordovaPlugin {
                        }
                  }
              }      
-
               
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
