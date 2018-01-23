@@ -1128,30 +1128,21 @@ public class InAppBrowser extends CordovaPlugin {
 
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION STARTS HERE /////////////////////////////////////////////
 
-//         //merchant_return_url
-    
-      @SuppressWarnings("deprecation")
+            @SuppressWarnings("deprecation")
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
 
-            	 //Toast.makeText(this.cordova.getActivity(),"inside shouldInterceptRequest",Toast.LENGTH_SHORT).show();
-
                 LOG.e(LOG_TAG, "inside 1st condition - A " + url);
 
-                 //if (url.contains("http://localhost/returnURL.html")) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                
-                //public static String getURLWithoutParameters(String url) {
                 int index = url.indexOf('?');
                 String baseURL = url;
                 if (index>0){
                     baseURL = url.substring(0, index);
                 }
-                //return url;
-                //}
 
-                if (baseURL.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
+                if (baseURL.contains(compare_url))
                  {
-                     LOG.e(LOG_TAG, "inside 1st condition - A");
+                     LOG.e(LOG_TAG, "inside 1st condition - B");
 
                      view.stopLoading();
 
@@ -1162,7 +1153,7 @@ public class InAppBrowser extends CordovaPlugin {
 	                     try {
                            JSONObject obj = new JSONObject();
                            obj.put("type", INTERCEPT_EVENT);
-                            obj.put("url", url);
+                           obj.put("url", url);
                            sendUpdate(obj, false);
                        } catch (JSONException ex) {
                            LOG.d(LOG_TAG, "Should never happen");
@@ -1176,39 +1167,13 @@ public class InAppBrowser extends CordovaPlugin {
 
             @TargetApi(Build.VERSION_CODES.N)
             @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
-                // LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
 
                 LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
                 String url = request.getUrl().toString();
-                int index = url.indexOf('?');
-                String baseURL = url;
-                if (index>0){
-                    baseURL = url.substring(0, index);
-                }
 
-                if (baseURL.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
-                 {
-                     LOG.e(LOG_TAG, "inside 2nd condition - B");
-
-                     view.stopLoading();
-                     
-                     interceptWebView = view;
-                     
-                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-
-	                   try {
-	                       JSONObject obj = new JSONObject();
-	                       obj.put("type", INTERCEPT_EVENT);
-	                        obj.put("url", url);
-	                       sendUpdate(obj, false);
-	                   } catch (JSONException ex) {
-	                       LOG.d(LOG_TAG, "Should never happen");
-	                   }
-
-                     return getCssWebResourceResponseFromAsset();
-                 }
+                handleinterceptrequest(url);
 
                 return super.shouldInterceptRequest(view, request);
             }
@@ -1228,33 +1193,37 @@ public class InAppBrowser extends CordovaPlugin {
                   return new WebResourceResponse("text/css", "UTF-8", data);
               }
 
-            private String convertQueryToJSON(Uri uri) {
-                try {
-                    Set<String> names = uri.getQueryParameterNames();
-                    JSONObject json = new JSONObject();
-
-                    for (String name : names) {
-                        String value = uri.getQueryParameter(name) != null ? uri.getQueryParameter(name) : "";
-                        json.put(name, value);
-                    }
-                    return json.toString();
-
-                } catch (Exception e) {
-                    //ELogger.e(TAG,"Error converting to json",e);
-                    LOG.e(LOG_TAG, "Error Converting to JSON");
-
-                       return "";
+            
+             private String handleinterceptrequest(String url)
+             {
+                int index = url.indexOf('?');
+                String baseURL = url;
+                if (index>0){
+                    baseURL = url.substring(0, index);
                 }
-            }
 
-            private Intent buildExtra(int status, String message, String rawResponse) {
-                Intent data = new Intent();
-                data.putExtra(TXN_STATUS, status);
-                data.putExtra(TXN_MESSAGE, message);
-                data.putExtra(RAW_RESPONSE, rawResponse);
-                return data;
-            }
-      
+                if (baseURL.contains(compare_url))
+                 {
+                     LOG.e(LOG_TAG, "inside 2nd condition - B");
+
+                     view.stopLoading();
+                     
+                     interceptWebView = view;
+                     
+                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
+
+                       try {
+                           JSONObject obj = new JSONObject();
+                           obj.put("type", INTERCEPT_EVENT);
+                           obj.put("url", url);
+                           sendUpdate(obj, false);
+                       } catch (JSONException ex) {
+                           LOG.d(LOG_TAG, "Should never happen");
+                       }
+
+                     return getCssWebResourceResponseFromAsset();
+                 }
+             }      
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
         /*
