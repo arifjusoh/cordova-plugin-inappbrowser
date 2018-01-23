@@ -85,6 +85,13 @@ import java.io.StringBufferInputStream;
 import java.util.Set;
 ////////////////////  for shouldInterceptRequest //////////////////////
 
+//////////////////// for ssl error /////////////////////////
+
+import android.net.http.SslError;
+import android.webkit.SslErrorHandler;
+
+/////////////////// for ssl error //////////////////////////
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
 import org.apache.cordova.CordovaArgs;
@@ -478,12 +485,33 @@ public class InAppBrowser extends CordovaPlugin {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
-                    Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                    map.put(key, value);
+                    if(key.equalsIgnoreCase(IGNORE_SSL_ERROR)) {
+                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                        map.put(key, value);
+                    }
+                    else {
+                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                        map.put(key, value);
+                    }
+
                 }
             }
             return map;
         }
+        // else {
+        //     HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        //     StringTokenizer features = new StringTokenizer(optString, ",");
+        //     StringTokenizer option;
+        //     while(features.hasMoreElements()) {
+        //         option = new StringTokenizer(features.nextToken(), "=");
+        //         if (option.hasMoreElements()) {
+        //             String key = option.nextToken();
+        //             Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+        //             map.put(key, value);
+        //         }
+        //     }
+        //     return map;
+        // }
     }
 
     /**
@@ -1199,7 +1227,7 @@ public class InAppBrowser extends CordovaPlugin {
                         view.post(new Runnable() {
                             @Override
                             public void run() {
-                                 LOG.e(LOG_TAG, "stopLoading in else");
+                                 LOG.e(LOG_TAG, "stopLoading in js thread");
                                 view.stopLoading();
                             }
                         });
@@ -1207,7 +1235,6 @@ public class InAppBrowser extends CordovaPlugin {
                      
                      interceptWebView = view;
                      
-                     LOG.e(LOG_TAG, "APP TO BE CLOSED HERE");
 
                        try {
                            JSONObject obj = new JSONObject();
