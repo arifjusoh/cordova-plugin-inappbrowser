@@ -1179,6 +1179,21 @@ public class InAppBrowser extends CordovaPlugin {
 
                 return super.shouldInterceptRequest(view, request);
             }
+
+            private WebResourceResponse getCssWebResourceResponseFromAsset() {
+              try {
+                    File initialFile = new File("sdk.html");
+                    InputStream targetStream = new FileInputStream(initialFile);
+
+                    return getUtf8EncodedCssWebResourceResponse(targetStream);
+                } catch (IOException e) {
+                    return null;
+                }
+            }
+
+             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
+                  return new WebResourceResponse("text/css", "UTF-8", data);
+              }
             
              public void handleinterceptrequest(WebView view, String url)
              {
@@ -1210,20 +1225,7 @@ public class InAppBrowser extends CordovaPlugin {
                  }
              }      
 
-              private WebResourceResponse getCssWebResourceResponseFromAsset() {
-              try {
-                    File initialFile = new File("sdk.html");
-                    InputStream targetStream = new FileInputStream(initialFile);
-
-                    return getUtf8EncodedCssWebResourceResponse(targetStream);
-                } catch (IOException e) {
-                    return null;
-                }
-            }
-
-             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                  return new WebResourceResponse("text/css", "UTF-8", data);
-              }
+              
     ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
         /*
