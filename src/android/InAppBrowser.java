@@ -1151,14 +1151,22 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (baseURL.contains(compare_url)) //if (!triggerReturnUrl && Utils.getURLWithoutParameters(request.getUrl().toString()).contains(merchantReturnURL)) {
                  {
-                     LOG.e(LOG_TAG, "inside 1st condition - A");
+                    LOG.e(LOG_TAG, "inside 1st condition - A");
 
-                     view.stopLoading();
+                    if (Looper.myLooper() == Looper.getMainLooper()) {
+                        view.stopLoading();
+                    } else {
+                        view.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                view.stopLoading();
+                            }
+                        });
+                    }
 
                      interceptWebView = view;
 
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 1");
-//                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
 	                     try {
                            JSONObject obj = new JSONObject();
@@ -1193,12 +1201,20 @@ public class InAppBrowser extends CordovaPlugin {
                  {
                      LOG.e(LOG_TAG, "inside 2nd condition - B");
 
-                      view.stopLoading();
+                     if (Looper.myLooper() == Looper.getMainLooper()) {
+                        view.stopLoading();
+                    } else {
+                        view.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                view.stopLoading();
+                            }
+                        });
+                    }
+                     
                      interceptWebView = view;
-                     LOG.e(LOG_TAG, "interceptWebView starts here: "+interceptWebView+" interceptWebView ends here");
-
+                     
                      LOG.e(LOG_TAG, "APP TO BE CLOSED HERE - 2");
-//                   Toast.makeText(MainActivity.this, "APP TO BE CLOSED HERE - 2", Toast.LENGTH_LONG).show();
 
 	                   try {
 	                       JSONObject obj = new JSONObject();
