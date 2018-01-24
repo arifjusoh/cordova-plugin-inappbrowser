@@ -1088,7 +1088,6 @@ public class InAppBrowser extends CordovaPlugin {
          */
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-            Toast.makeText(this.cordova.getActivity(),"shouldOverrideUrlLoading",Toast.LENGTH_SHORT).show();
             if (url.startsWith(WebView.SCHEME_TEL)) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
