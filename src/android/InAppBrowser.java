@@ -555,7 +555,7 @@ public class InAppBrowser extends CordovaPlugin {
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("type", BACKBUTTON_EVENT);
-                    obj.put("url", url);
+                    //obj.put("url", url);
                     sendUpdate(obj, false);
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
