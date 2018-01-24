@@ -1078,6 +1078,12 @@ public class InAppBrowser extends CordovaPlugin {
             this.edittext = mEditText;
         }
 
+        public void onReceivedSslError(WebView view,
+                SslErrorHandler handler, SslError error) {
+        Log.e(LOG_TAG, "Received SSL error"+ error.toString());
+        handler.proceed();
+        }
+
         /**
          * Override the URL that should be loaded
          *
@@ -1088,7 +1094,6 @@ public class InAppBrowser extends CordovaPlugin {
          */
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-            LOG.e(LOG_TAG, "shouldOverrideUrlLoading");
             if (url.startsWith(WebView.SCHEME_TEL)) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -1139,13 +1144,6 @@ public class InAppBrowser extends CordovaPlugin {
                     LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
                 }
             }
-             else if (url.startsWith("http:")) {
-                    LOG.e(LOG_TAG, "url starts with http");
-             }
-             else if (url.startsWith("https:")) {
-                    LOG.e(LOG_TAG, "url starts with https");
-             }
-
             return false;
         }
 
