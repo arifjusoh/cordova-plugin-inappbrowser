@@ -879,8 +879,6 @@ public class InAppBrowser extends CordovaPlugin {
 
                 if (Build.VERSION.SDK_INT >= 21) {
                 LOG.e(LOG_TAG, "sdk version >= 21 detected");
-                Toast.makeText(this.cordova.getActivity(),"sdk version >= 21 detected",Toast.LENGTH_SHORT).show();
-                
                 inAppWebView.getSettings().setMixedContentMode( WebSettings.MIXED_CONTENT_ALWAYS_ALLOW );
                 }
 
