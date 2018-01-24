@@ -882,7 +882,6 @@ public class InAppBrowser extends CordovaPlugin {
                 // LOG.e(LOG_TAG, "MIXED_CONTENT_ALWAYS_ALLOW" + WebSettings.MIXED_CONTENT_ALWAYS_ALLOW +" ---- "+ WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
                 // //inAppWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
                 // inAppWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-                
                 // }
 
                 // File Chooser Implemented ChromeClient
@@ -1318,6 +1317,9 @@ public class InAppBrowser extends CordovaPlugin {
         }
 
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+
+             LOG.e(LOG_TAG, "error detected: description is "+description+", failing Url is "+failingUrl);            
+
             super.onReceivedError(view, errorCode, description, failingUrl);
 
             try {
