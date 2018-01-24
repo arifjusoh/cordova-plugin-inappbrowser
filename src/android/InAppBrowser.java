@@ -1139,6 +1139,13 @@ public class InAppBrowser extends CordovaPlugin {
                     LOG.e(LOG_TAG, "Error sending sms " + url + ":" + e.toString());
                 }
             }
+             else if (url.startsWith("http:")) {
+                    LOG.e(LOG_TAG, "url starts with http");
+             }
+             else if (url.startsWith("https:")) {
+                    LOG.e(LOG_TAG, "url starts with https");
+             }
+
             return false;
         }
 
