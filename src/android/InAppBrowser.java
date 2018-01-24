@@ -14,15 +14,21 @@
        specific language governing permissions and limitations
        under the License.
 */
-
 package org.apache.cordova.inappbrowser;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.Browser;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -39,58 +45,14 @@ import android.webkit.HttpAuthHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import android.text.TextUtils;
-import android.webkit.JavascriptInterface;
-import android.webkit.SslErrorHandler;
-
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-
-////////////////////  for shouldInterceptRequest ///////////////////////
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Looper;
-//import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
-
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringBufferInputStream;
-import java.util.Set;
-
-import static android.text.TextUtils.isDigitsOnly;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringBufferInputStream;
-import java.util.Set;
-////////////////////  for shouldInterceptRequest //////////////////////
-
-//////////////////// for ssl error /////////////////////////
-
-import android.net.http.SslError;
-import android.webkit.SslErrorHandler;
-
-/////////////////// for ssl error //////////////////////////
+import android.widget.TextView;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
@@ -102,11 +64,13 @@ import org.apache.cordova.LOG;
 import org.apache.cordova.PluginManager;
 import org.apache.cordova.PluginResult;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
+import java.util.Arrays;
+import java.util.List;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -114,14 +78,11 @@ import java.util.StringTokenizer;
 public class InAppBrowser extends CordovaPlugin {
 
     private static final String NULL = "null";
-    public static final String LOG_TAG = "InAppBrowser";
+    protected static final String LOG_TAG = "InAppBrowser";
     private static final String SELF = "_self";
     private static final String SYSTEM = "_system";
-    public static final String INTERCEPT_EVENT = "intercept";
-    public static final String BACKBUTTON_EVENT = "backbutton";
-    public static final String EXIT_EVENT = "exit";
+    private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
-    private static final String SHOULD_CLOSE = "shouldclose";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -134,13 +95,20 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String SHOULD_PAUSE = "shouldPauseOnSuspend";
     private static final Boolean DEFAULT_HARDWARE_BACK = true;
     private static final String USER_WIDE_VIEW_PORT = "useWideViewPort";
+    private static final String TOOLBAR_COLOR = "toolbarcolor";
+    private static final String CLOSE_BUTTON_CAPTION = "closebuttoncaption";
+    private static final String CLOSE_BUTTON_COLOR = "closebuttoncolor";
+    private static final String HIDE_NAVIGATION = "hidenavigationbuttons";
+    private static final String NAVIGATION_COLOR = "navigationbuttoncolor";
+    private static final String HIDE_URL = "hideurlbar";
+
+    private static final List customizableOptions = Arrays.asList(CLOSE_BUTTON_CAPTION, TOOLBAR_COLOR, NAVIGATION_COLOR, CLOSE_BUTTON_COLOR);
 
     private InAppBrowserDialog dialog;
     private WebView inAppWebView;
     private EditText edittext;
-    private static CallbackContext callbackContext;
+    private CallbackContext callbackContext;
     private boolean showLocationBar = true;
-    public static boolean shouldClose = true; //default true means can close, unless specified otherwise
     private boolean showZoomControls = true;
     private boolean openWindowHidden = false;
     private boolean clearAllCache = false;
@@ -153,23 +121,12 @@ public class InAppBrowser extends CordovaPlugin {
     private ValueCallback<Uri[]> mUploadCallbackLollipop;
     private final static int FILECHOOSER_REQUESTCODE = 1;
     private final static int FILECHOOSER_REQUESTCODE_LOLLIPOP = 2;
-
-   ////////////////////  for shouldInterceptRequest //////////////////////
-    public static final String TRIGGER_RETURN_URL = "TriggerReturnURL";
-    public static final String MERCHANT_RETURN_URL = "MerchantReturnURL";
-    String validated_merchant_return_url;
-
-    public static final String TXN_STATUS = "TxnStatus";
-    public static final String TXN_MESSAGE = "TxnMessage";
-    public static final String RAW_RESPONSE = "RawResponse";
-
-    public static final String TAG = "Logs: ";
-    public static String compare_url = "";
-
-    public WebView interceptWebView;
-   ////////////////////  for shouldInterceptRequest //////////////////////
-
-    private boolean ignoreSSLError = false;
+    private String closeButtonCaption = "";
+    private String closeButtonColor = "";
+    private int toolbarColor = android.graphics.Color.LTGRAY;
+    private boolean hideNavigationButtons = false;
+    private String navigationButtonColor = "";
+    private boolean hideUrlBar = false;
 
     /**
      * Executes the request and returns PluginResult.
@@ -181,29 +138,14 @@ public class InAppBrowser extends CordovaPlugin {
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
         if (action.equals("open")) {
-
-        	LOG.d(LOG_TAG, "inside execute");
- 			Toast.makeText(this.cordova.getActivity(),"inside execute",Toast.LENGTH_SHORT).show();
-
-			final String url = args.getString(0);
-
-            compare_url = args.optString(2).split("returnurl=")[1];
-            if (compare_url.contains(",")) {
-            	compare_url = compare_url.split(",")[0];
-            }
-
-            //Toast.makeText(this.cordova.getActivity(),compare_url,Toast.LENGTH_SHORT).show();
-            
-
             this.callbackContext = callbackContext;
-            
+            final String url = args.getString(0);
             String t = args.optString(1);
             if (t == null || t.equals("") || t.equals(NULL)) {
                 t = SELF;
             }
             final String target = t;
-            //final HashMap<String, Boolean> features = parseFeature(args.optString(2).split("returnurl=")[0]);
-            final HashMap<String, Boolean> features = parseFeature(args.optString(2));
+            final HashMap<String, String> features = parseFeature(args.optString(2));
 
             LOG.d(LOG_TAG, "target = " + target);
 
@@ -293,18 +235,10 @@ public class InAppBrowser extends CordovaPlugin {
             closeDialog();
         }
         else if (action.equals("injectScriptCode")) {
-              LOG.e(LOG_TAG, "inside injectScriptCode - 1");
-            
             String jsWrapper = null;
             if (args.getBoolean(1)) {
-                  LOG.e(LOG_TAG, "inside injectScriptCode - 2");
                 jsWrapper = String.format("(function(){prompt(JSON.stringify([eval(%%s)]), 'gap-iab://%s')})()", callbackContext.getCallbackId());
             }
-            
-            LOG.e(LOG_TAG, "url is "+args.getString(0));
-            LOG.e(LOG_TAG, "jsWrapper "+jsWrapper);
-            
-            //injectDeferredObject(args.getString(0), jsWrapper);
             injectDeferredObject(args.getString(0), jsWrapper);
         }
         else if (action.equals("injectScriptFile")) {
@@ -415,39 +349,17 @@ public class InAppBrowser extends CordovaPlugin {
      *                    which should be executed directly.
      */
     private void injectDeferredObject(String source, String jsWrapper) {
-
-       LOG.e(LOG_TAG, "... injectDeferredObject ...");
-
-       final WebView temp_webView;
-
-        if(interceptWebView != null) {
-            temp_webView = interceptWebView;
-        } else {
-            temp_webView = inAppWebView;
-        }
-
-        Log.e(LOG_TAG, "interceptWebView:" + interceptWebView);
-        Log.e(LOG_TAG, "inAppWebView:" + inAppWebView);
-        LOG.e(LOG_TAG, "temp_webView:" + temp_webView);
-
-        if (temp_webView!=null) {
+        if (inAppWebView!=null) {
             String scriptToInject;
             if (jsWrapper != null) {
-                  LOG.e(LOG_TAG, "jsWrapper is not null");
-                  LOG.e(LOG_TAG, "source is "+source);
                 org.json.JSONArray jsonEsc = new org.json.JSONArray();
                 jsonEsc.put(source);
                 String jsonRepr = jsonEsc.toString();
-                LOG.e(LOG_TAG, "jsonRepr is "+jsonRepr);
-
                 String jsonSourceString = jsonRepr.substring(1, jsonRepr.length()-1);
-                LOG.e(LOG_TAG, "jsonSourceString is "+jsonSourceString);
-
                 scriptToInject = String.format(jsWrapper, jsonSourceString);
             } else {
                 scriptToInject = source;
             }
-            
             final String finalScriptToInject = scriptToInject;
             this.cordova.getActivity().runOnUiThread(new Runnable() {
                 @SuppressLint("NewApi")
@@ -455,13 +367,9 @@ public class InAppBrowser extends CordovaPlugin {
                 public void run() {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                         // This action will have the side-effect of blurring the currently focused element
-                        LOG.e(LOG_TAG, "condition # 1");
-                        LOG.e(LOG_TAG, "finalScriptToInject is "+finalScriptToInject);
-                        temp_webView.loadUrl("javascript:" + finalScriptToInject);
+                        inAppWebView.loadUrl("javascript:" + finalScriptToInject);
                     } else {
-                        LOG.e(LOG_TAG, "condition # 2");
-                        LOG.e(LOG_TAG, "finalScriptToInject is "+finalScriptToInject);
-                        temp_webView.evaluateJavascript(finalScriptToInject, null);
+                        inAppWebView.evaluateJavascript(finalScriptToInject, null);
                     }
                 }
             });
@@ -476,45 +384,28 @@ public class InAppBrowser extends CordovaPlugin {
      * @param optString
      * @return
      */
-    private HashMap<String, Boolean> parseFeature(String optString) {
+    private HashMap<String, String> parseFeature(String optString) {
         if (optString.equals(NULL)) {
             return null;
-        } 
-        else {
-            HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        } else {
+            HashMap<String, String> map = new HashMap<String, String>();
             StringTokenizer features = new StringTokenizer(optString, ",");
             StringTokenizer option;
             while(features.hasMoreElements()) {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
-                    if(key.equalsIgnoreCase(IGNORE_SSL_ERROR)) {
-                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                        map.put(key, value);
-                    }
+                    String value = null;
+                    if (customizableOptions.contains(key)) value = option.nextToken();
                     else {
-                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                        map.put(key, value);
+                      String token = option.nextToken();
+                      value = token.equals("yes") || token.equals("no") ? token : "yes";
                     }
-
+                    map.put(key, value);
                 }
             }
             return map;
         }
-        // else {
-        //     HashMap<String, Boolean> map = new HashMap<String, Boolean>();
-        //     StringTokenizer features = new StringTokenizer(optString, ",");
-        //     StringTokenizer option;
-        //     while(features.hasMoreElements()) {
-        //         option = new StringTokenizer(features.nextToken(), "=");
-        //         if (option.hasMoreElements()) {
-        //             String key = option.nextToken();
-        //             Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-        //             map.put(key, value);
-        //         }
-        //     }
-        //     return map;
-        // }
     }
 
     /**
@@ -549,17 +440,10 @@ public class InAppBrowser extends CordovaPlugin {
      * Closes the dialog
      */
     public void closeDialog() {
-
-        //LOG.d(LOG_TAG, "in closeDialog");
-        //Toast.makeText(this.cordova.getActivity(),"in closeDialog",Toast.LENGTH_SHORT).show();
-
-
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-            	
-                    		final WebView childView = inAppWebView;
+                final WebView childView = inAppWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
@@ -582,15 +466,13 @@ public class InAppBrowser extends CordovaPlugin {
 
                 try {
                     JSONObject obj = new JSONObject();
-                    obj.put("type", BACKBUTTON_EVENT);
-                    //obj.put("url", url);
+                    obj.put("type", EXIT_EVENT);
                     sendUpdate(obj, false);
                 } catch (JSONException ex) {
                     LOG.d(LOG_TAG, "Should never happen");
                 }
-
             }
-        }); 
+        });
     }
 
     /**
@@ -607,8 +489,6 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-    	 //Toast.makeText(this.cordova.getActivity(),"can go back",Toast.LENGTH_SHORT).show();
-
         return this.inAppWebView.canGoBack();
     }
 
@@ -617,8 +497,6 @@ public class InAppBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean hardwareBack() {
-    	 //Toast.makeText(this.cordova.getActivity(),"hardware back",Toast.LENGTH_SHORT).show();
-
         return hadwareBackButton;
     }
 
@@ -648,7 +526,7 @@ public class InAppBrowser extends CordovaPlugin {
         this.inAppWebView.requestFocus();
     }
 
-    
+
     /**
      * Should we show the location bar?
      *
@@ -668,61 +546,74 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    public String showWebPage(final String url, HashMap<String, Boolean> features) {
+    public String showWebPage(final String url, HashMap<String, String> features) {
         // Determine if we should hide the location bar.
         showLocationBar = true;
         showZoomControls = true;
         openWindowHidden = false;
-        ignoreSSLError = false;
         mediaPlaybackRequiresUserGesture = false;
 
         if (features != null) {
-            Boolean show = features.get(LOCATION);
+            String show = features.get(LOCATION);
             if (show != null) {
-                showLocationBar = show.booleanValue();
+                showLocationBar = show.equals("yes") ? true : false;
             }
-            Boolean SSLError = features.get(IGNORE_SSL_ERROR);
-            if(SSLError != null){
-                ignoreSSLError = SSLError.booleanValue();
+            if(showLocationBar) {
+              String hideNavigation = features.get(HIDE_NAVIGATION);
+              String hideUrl = features.get(HIDE_URL);
+              if(hideNavigation != null) hideNavigationButtons = hideNavigation.equals("yes") ? true : false;
+              if(hideUrl != null) hideUrlBar = hideUrl.equals("yes") ? true : false;
             }
-            Boolean shouldclose = features.get(SHOULD_CLOSE);
-            if (shouldclose != null) {
-                shouldClose = shouldclose.booleanValue();
-            }
-            Boolean zoom = features.get(ZOOM);
+            String zoom = features.get(ZOOM);
             if (zoom != null) {
-                showZoomControls = zoom.booleanValue();
+                showZoomControls = zoom.equals("yes") ? true : false;
             }
-            Boolean hidden = features.get(HIDDEN);
+            String hidden = features.get(HIDDEN);
             if (hidden != null) {
-                openWindowHidden = hidden.booleanValue();
+                openWindowHidden = hidden.equals("yes") ? true : false;
             }
-            Boolean hardwareBack = features.get(HARDWARE_BACK_BUTTON);
+            String hardwareBack = features.get(HARDWARE_BACK_BUTTON);
             if (hardwareBack != null) {
-                hadwareBackButton = hardwareBack.booleanValue();
+                hadwareBackButton = hardwareBack.equals("yes") ? true : false;
             } else {
                 hadwareBackButton = DEFAULT_HARDWARE_BACK;
             }
-            Boolean mediaPlayback = features.get(MEDIA_PLAYBACK_REQUIRES_USER_ACTION);
+            String mediaPlayback = features.get(MEDIA_PLAYBACK_REQUIRES_USER_ACTION);
             if (mediaPlayback != null) {
-                mediaPlaybackRequiresUserGesture = mediaPlayback.booleanValue();
+                mediaPlaybackRequiresUserGesture = mediaPlayback.equals("yes") ? true : false;
             }
-            Boolean cache = features.get(CLEAR_ALL_CACHE);
+            String cache = features.get(CLEAR_ALL_CACHE);
             if (cache != null) {
-                clearAllCache = cache.booleanValue();
+                clearAllCache = cache.equals("yes") ? true : false;
             } else {
                 cache = features.get(CLEAR_SESSION_CACHE);
                 if (cache != null) {
-                    clearSessionCache = cache.booleanValue();
+                    clearSessionCache = cache.equals("yes") ? true : false;
                 }
             }
-            Boolean shouldPause = features.get(SHOULD_PAUSE);
+            String shouldPause = features.get(SHOULD_PAUSE);
             if (shouldPause != null) {
-                shouldPauseInAppBrowser = shouldPause.booleanValue();
+                shouldPauseInAppBrowser = shouldPause.equals("yes") ? true : false;
             }
-            Boolean wideViewPort = features.get(USER_WIDE_VIEW_PORT);
+            String wideViewPort = features.get(USER_WIDE_VIEW_PORT);
             if (wideViewPort != null ) {
-		            useWideViewPort = wideViewPort.booleanValue();
+                    useWideViewPort = wideViewPort.equals("yes") ? true : false;
+            }
+            String closeButtonCaptionSet = features.get(CLOSE_BUTTON_CAPTION);
+            if (closeButtonCaptionSet != null) {
+                closeButtonCaption = closeButtonCaptionSet;
+            }
+            String closeButtonColorSet = features.get(CLOSE_BUTTON_COLOR);
+            if (closeButtonColorSet != null) {
+              closeButtonColor = closeButtonColorSet;
+            }
+            String toolbarColorSet = features.get(TOOLBAR_COLOR);
+            if (toolbarColorSet != null) {
+                toolbarColor = android.graphics.Color.parseColor(toolbarColorSet);
+            }
+            String navigationButtonColorSet = features.get(NAVIGATION_COLOR);
+            if (navigationButtonColorSet != null) {
+                navigationButtonColor = navigationButtonColorSet;
             }
         }
 
@@ -766,7 +657,7 @@ public class InAppBrowser extends CordovaPlugin {
                 // Toolbar layout
                 RelativeLayout toolbar = new RelativeLayout(cordova.getActivity());
                 //Please, no more black!
-                toolbar.setBackgroundColor(android.graphics.Color.LTGRAY);
+                toolbar.setBackgroundColor(toolbarColor);
                 toolbar.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, this.dpToPixels(44)));
                 toolbar.setPadding(this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2));
                 toolbar.setHorizontalGravity(Gravity.LEFT);
@@ -789,6 +680,7 @@ public class InAppBrowser extends CordovaPlugin {
                 Resources activityRes = cordova.getActivity().getResources();
                 int backResId = activityRes.getIdentifier("ic_action_previous_item", "drawable", cordova.getActivity().getPackageName());
                 Drawable backIcon = activityRes.getDrawable(backResId);
+                if (navigationButtonColor != "") back.setColorFilter(android.graphics.Color.parseColor(navigationButtonColor));
                 if (Build.VERSION.SDK_INT >= 16)
                     back.setBackground(null);
                 else
@@ -814,6 +706,7 @@ public class InAppBrowser extends CordovaPlugin {
                 forward.setId(Integer.valueOf(3));
                 int fwdResId = activityRes.getIdentifier("ic_action_next_item", "drawable", cordova.getActivity().getPackageName());
                 Drawable fwdIcon = activityRes.getDrawable(fwdResId);
+                if (navigationButtonColor != "") forward.setColorFilter(android.graphics.Color.parseColor(navigationButtonColor));
                 if (Build.VERSION.SDK_INT >= 16)
                     forward.setBackground(null);
                 else
@@ -854,43 +747,59 @@ public class InAppBrowser extends CordovaPlugin {
                 });
 
                 // Close/Done button
-                ImageButton close = new ImageButton(cordova.getActivity());
-                RelativeLayout.LayoutParams closeLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-                closeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                close.setLayoutParams(closeLayoutParams);
-                close.setContentDescription("Close Button");
-                close.setId(Integer.valueOf(5));
-                int closeResId = activityRes.getIdentifier("ic_action_remove", "drawable", cordova.getActivity().getPackageName());
-                Drawable closeIcon = activityRes.getDrawable(closeResId);
-                if (Build.VERSION.SDK_INT >= 16)
-                    close.setBackground(null);
-                else
-                    close.setBackgroundDrawable(null);
-                close.setImageDrawable(closeIcon);
-                close.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                back.setPadding(0, this.dpToPixels(10), 0, this.dpToPixels(10));
-                if (Build.VERSION.SDK_INT >= 16)
-                    close.getAdjustViewBounds();
+                if (closeButtonCaption != "") {
+                  // Use TextView for text
+                  TextView close = new TextView(cordova.getActivity());
+                  close.setText(closeButtonCaption);
+                  close.setTextSize(20);
+                  if (closeButtonColor != "") close.setTextColor(android.graphics.Color.parseColor(closeButtonColor));
+                  close.setGravity(android.view.Gravity.CENTER_VERTICAL);
+                  RelativeLayout.LayoutParams closeLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+                  closeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                  close.setLayoutParams(closeLayoutParams);
 
-                close.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                    	if(shouldClose) //if browser should close normally
-                    	{
-                           closeDialog();
-                    	}
-
-                     	else
-                     	{
-                     		 try {
-                     JSONObject obj = new JSONObject();
-                     obj.put("type", BACKBUTTON_EVENT);
-                     sendUpdate(obj, true);
-                 } catch (JSONException ex) {
-                     LOG.d(LOG_TAG, "Should never happen");
-                 }
-                     	}
+                  close.setContentDescription("Close Button");
+                  close.setId(Integer.valueOf(5));
+                  if (Build.VERSION.SDK_INT >= 16)
+                      close.setBackground(null);
+                  else
+                      close.setBackgroundDrawable(null);
+                  back.setPadding(0, this.dpToPixels(10), 0, this.dpToPixels(10));
+                  close.setPadding(this.dpToPixels(10), 0, this.dpToPixels(10), 0);
+                  close.setOnClickListener(new View.OnClickListener() {
+                      public void onClick(View v) {
+                          closeDialog();
+                      }
+                  });
+                  toolbar.addView(close);
                 }
-                });
+                else {
+                  ImageButton close = new ImageButton(cordova.getActivity());
+                  RelativeLayout.LayoutParams closeLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+                  closeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                  close.setLayoutParams(closeLayoutParams);
+                  close.setContentDescription("Close Button");
+                  close.setId(Integer.valueOf(5));
+                  int closeResId = activityRes.getIdentifier("ic_action_remove", "drawable", cordova.getActivity().getPackageName());
+                  Drawable closeIcon = activityRes.getDrawable(closeResId);
+                  if (closeButtonColor != "") close.setColorFilter(android.graphics.Color.parseColor(closeButtonColor));
+                  if (Build.VERSION.SDK_INT >= 16)
+                      close.setBackground(null);
+                  else
+                      close.setBackgroundDrawable(null);
+                  close.setImageDrawable(closeIcon);
+                  close.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                  back.setPadding(0, this.dpToPixels(10), 0, this.dpToPixels(10));
+                  if (Build.VERSION.SDK_INT >= 16)
+                      close.getAdjustViewBounds();
+
+                  close.setOnClickListener(new View.OnClickListener() {
+                      public void onClick(View v) {
+                          closeDialog();
+                      }
+                  });
+                  toolbar.addView(close);
+                }
 
                 // WebView
                 inAppWebView = new WebView(cordova.getActivity());
@@ -991,12 +900,11 @@ public class InAppBrowser extends CordovaPlugin {
 
                 // Add the back and forward buttons to our action button container layout
                 actionButtonContainer.addView(back);
-                //actionButtonContainer.addView(forward);
+                actionButtonContainer.addView(forward);
 
-                // Add the views to our toolbar
-                toolbar.addView(actionButtonContainer);
-                //toolbar.addView(edittext);
-                toolbar.addView(close);
+                // Add the views to our toolbar if they haven't been disabled
+                if (!hideNavigationButtons) toolbar.addView(actionButtonContainer);
+                if (!hideUrlBar) toolbar.addView(edittext);
 
                 // Don't add the toolbar if its been disabled
                 if (getShowLocationBar()) {
@@ -1031,7 +939,7 @@ public class InAppBrowser extends CordovaPlugin {
      *
      * @param obj a JSONObject contain event payload information
      */
-    public static void sendUpdate(JSONObject obj, boolean keepCallback) {
+    private void sendUpdate(JSONObject obj, boolean keepCallback) {
         sendUpdate(obj, keepCallback, PluginResult.Status.OK);
     }
 
@@ -1041,7 +949,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @param obj a JSONObject contain event payload information
      * @param status the status code to return to the JavaScript environment
      */
-    public static void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
+    private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
             PluginResult result = new PluginResult(status, obj);
             result.setKeepCallback(keepCallback);
@@ -1094,22 +1002,6 @@ public class InAppBrowser extends CordovaPlugin {
     public class InAppBrowserClient extends WebViewClient {
         EditText edittext;
         CordovaWebView webView;
-        boolean ignoreSSLError = false;
-
-        @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler,
-                                       SslError error) {
-            if(this.ignoreSSLError) {
-                handler.proceed();
-                return;
-            }
-            else{
-                super.onReceivedSslError(view, handler, error);
-            }
-        }
-        public void setSSLErrorFlag(boolean flag) {
-            this.ignoreSSLError = flag;
-        }
 
         /**
          * Constructor.
@@ -1185,98 +1077,6 @@ public class InAppBrowser extends CordovaPlugin {
             return false;
         }
 
-    ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION STARTS HERE /////////////////////////////////////////////
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-
-                LOG.e(LOG_TAG, "inside 1st condition - A " + url);
-
-                String baseURL = url;
-                int index = url.indexOf('?');
-                
-                if (index>0){
-                    baseURL = url.substring(0, index);
-                }
-
-                if (baseURL.contains(compare_url))
-                {
-                  handleinterceptrequest(view, url);
-                  return getUtf8EncodedCssWebResourceResponse(new StringBufferInputStream("<html><head><title>SDK</title></head><body><h1>SDK</h1></body></html>"));
-                }
-
-                return super.shouldInterceptRequest(view, url);
-            }
-
-            @TargetApi(Build.VERSION_CODES.N)
-            @Override
-
-            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-
-                LOG.e(LOG_TAG, "inside 2nd condition - A " + request.getUrl().toString());
-
-                String url = request.getUrl().toString();
-                String baseURL = url;
-                int index = url.indexOf('?');
-                
-                if (index>0){
-                    baseURL = url.substring(0, index);
-                }
-
-                if (baseURL.contains(compare_url))
-                {
-                  handleinterceptrequest(view, url);
-                  return getCssWebResourceResponseFromAsset();
-                }
-
-                return super.shouldInterceptRequest(view, request);
-            }
-
-            private WebResourceResponse getCssWebResourceResponseFromAsset() {
-              try {
-                    File initialFile = new File("sdk.html");
-                    InputStream targetStream = new FileInputStream(initialFile);
-
-                    return getUtf8EncodedCssWebResourceResponse(targetStream);
-                } catch (IOException e) {
-                    return null;
-                }
-            }
-
-             private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-                  return new WebResourceResponse("text/css", "UTF-8", data);
-              }
-            
-             public void handleinterceptrequest(final WebView view, String url)
-             {
-                    if (Looper.myLooper() == Looper.getMainLooper()) {
-                        LOG.e(LOG_TAG, "stopLoading on same thread");
-                        view.stopLoading();
-                    } else {
-                        view.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                 LOG.e(LOG_TAG, "stopLoading in js thread");
-                                view.stopLoading();
-                            }
-                        });
-                    }
-                     
-                     interceptWebView = view;
-                     
-
-                       try {
-                           JSONObject obj = new JSONObject();
-                           obj.put("type", INTERCEPT_EVENT);
-                           obj.put("url", url);
-                           sendUpdate(obj, false);
-                       } catch (JSONException ex) {
-                           LOG.d(LOG_TAG, "Should never happen");
-                       }
-             }      
-              
-    ///////////////////////////////////////////////// SHOULDINTERCEPTREQUEST FUNCTION ENDS HERE //////////////////////////////////////////////
 
         /*
          * onPageStarted fires the LOAD_START_EVENT
@@ -1287,10 +1087,8 @@ public class InAppBrowser extends CordovaPlugin {
          */
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-        	 //Toast.makeText(this.cordova.getActivity(),"on page started",Toast.LENGTH_SHORT).show();
             super.onPageStarted(view, url, favicon);
             String newloc = "";
-
             if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
                 newloc = url;
             }
@@ -1359,11 +1157,6 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.d(LOG_TAG, "Should never happen");
             }
         }
-
-        // public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-        // Log.e(LOG_TAG, "Received SSL error"+ error.toString());
-        // handler.proceed();
-        // }
 
         /**
          * On received http auth request.
