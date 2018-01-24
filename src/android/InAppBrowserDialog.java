@@ -6,7 +6,9 @@
        to you under the Apache License, Version 2.0 (the
        "License"); you may not use this file except in compliance
        with the License.  You may obtain a copy of the License at
+
          http://www.apache.org/licenses/LICENSE-2.0
+
        Unless required by applicable law or agreed to in writing,
        software distributed under the License is distributed on an
        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +21,9 @@ package org.apache.cordova.inappbrowser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+ import android.content.DialogInterface;
+
+ import org.apache.cordova.LOG;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +44,10 @@ public class InAppBrowserDialog extends Dialog {
         this.inAppBrowser = browser;
     }
 
-    public void onBackPressed () {
+    public void onBackPressed() {
+      
+      if(InAppBrowser.shouldClose)
+      {
         if (this.inAppBrowser == null) {
             this.dismiss();
         } else {
@@ -51,5 +59,17 @@ public class InAppBrowserDialog extends Dialog {
                 this.inAppBrowser.closeDialog();
             }
         }
-    }
+      }
+
+      else
+      {
+         try {
+                     JSONObject obj = new JSONObject();
+                     obj.put("type", InAppBrowser.BACKBUTTON_EVENT);
+                     this.inAppBrowser.sendUpdate(obj, true);
+                 } catch (JSONException ex) {
+                     LOG.d(InAppBrowser.LOG_TAG, "Should never happen");
+                 }
+      }
+}
 }
