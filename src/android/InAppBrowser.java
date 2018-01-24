@@ -633,6 +633,9 @@ public class InAppBrowser extends CordovaPlugin {
             @SuppressLint("NewApi")
             public void run() {
 
+                 ((InAppBrowserClient) client).setSSLErrorFlag(ignoreSSLError);
+
+
                 // CB-6702 InAppBrowser hangs when opening more than one instance
                 if (dialog != null) {
                     dialog.dismiss();
@@ -929,16 +932,16 @@ public class InAppBrowser extends CordovaPlugin {
         return "";
     }
 
-    @SuppressLint("NewApi")
-            public void run() {
+    // @SuppressLint("NewApi")
+    //         public void run() {
 
-                ((InAppBrowserClient) client).setSSLErrorFlag(ignoreSSLError);
+    //             ((InAppBrowserClient) client).setSSLErrorFlag(ignoreSSLError);
 
-            }
-        };
-        this.cordova.getActivity().runOnUiThread(runnable);
-        return "";
-    }
+    //         }
+    //     };
+    //     this.cordova.getActivity().runOnUiThread(runnable);
+    //     return "";
+    // }
 
     /**
      * Create a new plugin success result and send it back to JavaScript
