@@ -1315,7 +1315,8 @@ public class InAppBrowser extends CordovaPlugin {
                 LOG.d(LOG_TAG, "Should never happen");
             }
         }
-
+        
+        @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 
              LOG.e(LOG_TAG, "error detected: description is "+description+", failing Url is "+failingUrl);            
