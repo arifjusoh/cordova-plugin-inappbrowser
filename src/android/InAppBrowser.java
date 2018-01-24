@@ -169,6 +169,8 @@ public class InAppBrowser extends CordovaPlugin {
     public WebView interceptWebView;
    ////////////////////  for shouldInterceptRequest //////////////////////
 
+    private boolean ignoreSSLError = false;
+
     /**
      * Executes the request and returns PluginResult.
      *
@@ -486,12 +488,33 @@ public class InAppBrowser extends CordovaPlugin {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
-                    Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                    map.put(key, value);
+                    if(key.equalsIgnoreCase(IGNORE_SSL_ERROR)) {
+                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                        map.put(key, value);
+                    }
+                    else {
+                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                        map.put(key, value);
+                    }
+
                 }
             }
             return map;
         }
+        // else {
+        //     HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        //     StringTokenizer features = new StringTokenizer(optString, ",");
+        //     StringTokenizer option;
+        //     while(features.hasMoreElements()) {
+        //         option = new StringTokenizer(features.nextToken(), "=");
+        //         if (option.hasMoreElements()) {
+        //             String key = option.nextToken();
+        //             Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+        //             map.put(key, value);
+        //         }
+        //     }
+        //     return map;
+        // }
     }
 
     /**
@@ -1316,11 +1339,10 @@ public class InAppBrowser extends CordovaPlugin {
             }
         }
 
-        public void onReceivedSslError(WebView view,
-                SslErrorHandler handler, SslError error) {
-        Log.e(LOG_TAG, "Received SSL error"+ error.toString());
-        handler.proceed();
-        }
+        // public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        // Log.e(LOG_TAG, "Received SSL error"+ error.toString());
+        // handler.proceed();
+        // }
 
         /**
          * On received http auth request.
