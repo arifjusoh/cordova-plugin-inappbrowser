@@ -673,12 +673,17 @@ public class InAppBrowser extends CordovaPlugin {
         showLocationBar = true;
         showZoomControls = true;
         openWindowHidden = false;
+        ignoreSSLError = false;
         mediaPlaybackRequiresUserGesture = false;
 
         if (features != null) {
             Boolean show = features.get(LOCATION);
             if (show != null) {
                 showLocationBar = show.booleanValue();
+            }
+            Boolean SSLError = features.get(IGNORE_SSL_ERROR);
+            if(SSLError != null){
+                ignoreSSLError = SSLError.booleanValue();
             }
             Boolean shouldclose = features.get(SHOULD_CLOSE);
             if (shouldclose != null) {
@@ -1089,6 +1094,22 @@ public class InAppBrowser extends CordovaPlugin {
     public class InAppBrowserClient extends WebViewClient {
         EditText edittext;
         CordovaWebView webView;
+        boolean ignoreSSLError = false;
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler,
+                                       SslError error) {
+            if(this.ignoreSSLError) {
+                handler.proceed();
+                return;
+            }
+            else{
+                super.onReceivedSslError(view, handler, error);
+            }
+        }
+        public void setSSLErrorFlag(boolean flag) {
+            this.ignoreSSLError = flag;
+        }
 
         /**
          * Constructor.
