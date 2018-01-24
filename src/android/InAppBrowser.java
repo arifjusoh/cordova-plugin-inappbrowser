@@ -1078,12 +1078,6 @@ public class InAppBrowser extends CordovaPlugin {
             this.edittext = mEditText;
         }
 
-        public void onReceivedSslError(WebView view,
-                SslErrorHandler handler, SslError error) {
-        Log.e(LOG_TAG, "Received SSL error"+ error.toString());
-        handler.proceed();
-        }
-
         /**
          * Override the URL that should be loaded
          *
@@ -1320,6 +1314,12 @@ public class InAppBrowser extends CordovaPlugin {
             } catch (JSONException ex) {
                 LOG.d(LOG_TAG, "Should never happen");
             }
+        }
+
+        public void onReceivedSslError(WebView view,
+                SslErrorHandler handler, SslError error) {
+        Log.e(LOG_TAG, "Received SSL error"+ error.toString());
+        handler.proceed();
         }
 
         /**
