@@ -46,23 +46,23 @@ public class InAppBrowserDialog extends Dialog {
 
     public void onBackPressed() {
       
-      if(InAppBrowser.shouldClose)
-      {
-        if (this.inAppBrowser == null) {
-            this.dismiss();
-        } else {
-            // better to go through the in inAppBrowser
-            // because it does a clean up
-            if (this.inAppBrowser.hardwareBack() && this.inAppBrowser.canGoBack()) {
-                this.inAppBrowser.goBack();
-            }  else {
-                this.inAppBrowser.closeDialog();
-            }
-        }
-      }
+      // if(InAppBrowser.shouldClose)
+      // {
+      //   if (this.inAppBrowser == null) {
+      //       this.dismiss();
+      //   } else {
+      //       // better to go through the in inAppBrowser
+      //       // because it does a clean up
+      //       if (this.inAppBrowser.hardwareBack() && this.inAppBrowser.canGoBack()) {
+      //           this.inAppBrowser.goBack();
+      //       }  else {
+      //           this.inAppBrowser.closeDialog();
+      //       }
+      //   }
+      // }
 
-      else
-      {
+     // else
+     // {
          try {
                      JSONObject obj = new JSONObject();
                      obj.put("type", InAppBrowser.BACKBUTTON_EVENT);
@@ -70,6 +70,6 @@ public class InAppBrowserDialog extends Dialog {
                  } catch (JSONException ex) {
                      LOG.d(InAppBrowser.LOG_TAG, "Should never happen");
                  }
-      }
+     // }
 }
 }
