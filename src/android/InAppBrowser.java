@@ -46,8 +46,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import android.text.TextUtils;
-import android.webkit.JavascriptInterface;
-import android.webkit.SslErrorHandler;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -85,13 +83,6 @@ import java.io.StringBufferInputStream;
 import java.util.Set;
 ////////////////////  for shouldInterceptRequest //////////////////////
 
-//////////////////// for ssl error /////////////////////////
-
-import android.net.http.SslError;
-import android.webkit.SslErrorHandler;
-
-/////////////////// for ssl error //////////////////////////
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
 import org.apache.cordova.CordovaArgs;
@@ -122,7 +113,6 @@ public class InAppBrowser extends CordovaPlugin {
     public static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
     private static final String SHOULD_CLOSE = "shouldclose";
-    private static final String SSL_ERROR = "ignoresslerror";
     private static final String ZOOM = "zoom";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
@@ -169,8 +159,6 @@ public class InAppBrowser extends CordovaPlugin {
 
     public WebView interceptWebView;
    ////////////////////  for shouldInterceptRequest //////////////////////
-
-    private boolean ignoreSSLError = false;
 
     /**
      * Executes the request and returns PluginResult.
@@ -489,14 +477,9 @@ public class InAppBrowser extends CordovaPlugin {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
-                    if(key.equalsIgnoreCase(IGNORE_SSL_ERROR)) {
+                    
                         Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
                         map.put(key, value);
-                    }
-                    else {
-                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
-                        map.put(key, value);
-                    }
 
                 }
             }
@@ -674,17 +657,12 @@ public class InAppBrowser extends CordovaPlugin {
         showLocationBar = true;
         showZoomControls = true;
         openWindowHidden = false;
-        ignoreSSLError = false;
         mediaPlaybackRequiresUserGesture = false;
 
         if (features != null) {
             Boolean show = features.get(LOCATION);
             if (show != null) {
                 showLocationBar = show.booleanValue();
-            }
-            Boolean SSLError = features.get(IGNORE_SSL_ERROR);
-            if(SSLError != null){
-                ignoreSSLError = SSLError.booleanValue();
             }
             Boolean shouldclose = features.get(SHOULD_CLOSE);
             if (shouldclose != null) {
@@ -1095,22 +1073,6 @@ public class InAppBrowser extends CordovaPlugin {
     public class InAppBrowserClient extends WebViewClient {
         EditText edittext;
         CordovaWebView webView;
-        boolean ignoreSSLError = false;
-
-        @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler,
-                                       SslError error) {
-            if(this.ignoreSSLError) {
-                handler.proceed();
-                return;
-            }
-            else{
-                super.onReceivedSslError(view, handler, error);
-            }
-        }
-        public void setSSLErrorFlag(boolean flag) {
-            this.ignoreSSLError = flag;
-        }
 
         /**
          * Constructor.
