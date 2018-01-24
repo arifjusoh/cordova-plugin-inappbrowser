@@ -880,7 +880,7 @@ public class InAppBrowser extends CordovaPlugin {
                 if (Build.VERSION.SDK_INT >= 21) {
                 LOG.e(LOG_TAG, "sdk version >= 21 detected");
                 //inAppWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-                inAppWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+                inAppWebView.getSettings().setMixedContentMode(MIXED_CONTENT_ALWAYS_ALLOW);
                 
                 }
 
