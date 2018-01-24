@@ -74,6 +74,9 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import android.net.http.SslError;
+import android.webkit.SslErrorHandler;
+
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
 
@@ -127,6 +130,8 @@ public class InAppBrowser extends CordovaPlugin {
     private boolean hideNavigationButtons = false;
     private String navigationButtonColor = "";
     private boolean hideUrlBar = false;
+
+    private boolean ignoreSSLError = false;
 
     /**
      * Executes the request and returns PluginResult.
@@ -387,25 +392,47 @@ public class InAppBrowser extends CordovaPlugin {
     private HashMap<String, String> parseFeature(String optString) {
         if (optString.equals(NULL)) {
             return null;
-        } else {
-            HashMap<String, String> map = new HashMap<String, String>();
+        } 
+        else {
+            HashMap<String, Boolean> map = new HashMap<String, Boolean>();
             StringTokenizer features = new StringTokenizer(optString, ",");
             StringTokenizer option;
             while(features.hasMoreElements()) {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
-                    String value = null;
-                    if (customizableOptions.contains(key)) value = option.nextToken();
-                    else {
-                      String token = option.nextToken();
-                      value = token.equals("yes") || token.equals("no") ? token : "yes";
+                    if(key.equalsIgnoreCase(IGNORE_SSL_ERROR)) {
+                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                        map.put(key, value);
                     }
-                    map.put(key, value);
+                    else {
+                        Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
+                        map.put(key, value);
+                    }
+
                 }
             }
             return map;
         }
+        // else {
+        //     HashMap<String, String> map = new HashMap<String, String>();
+        //     StringTokenizer features = new StringTokenizer(optString, ",");
+        //     StringTokenizer option;
+        //     while(features.hasMoreElements()) {
+        //         option = new StringTokenizer(features.nextToken(), "=");
+        //         if (option.hasMoreElements()) {
+        //             String key = option.nextToken();
+        //             String value = null;
+        //             if (customizableOptions.contains(key)) value = option.nextToken();
+        //             else {
+        //               String token = option.nextToken();
+        //               value = token.equals("yes") || token.equals("no") ? token : "yes";
+        //             }
+        //             map.put(key, value);
+        //         }
+        //     }
+        //     return map;
+        // }
     }
 
     /**
@@ -546,7 +573,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url the url to load.
      * @param features jsonObject
      */
-    public String showWebPage(final String url, HashMap<String, String> features) {
+    public String showWebPage(final String url, HashMap<String, Boolean> features) {
         // Determine if we should hide the location bar.
         showLocationBar = true;
         showZoomControls = true;
@@ -554,66 +581,34 @@ public class InAppBrowser extends CordovaPlugin {
         mediaPlaybackRequiresUserGesture = false;
 
         if (features != null) {
-            String show = features.get(LOCATION);
+            Boolean show = features.get(LOCATION);
             if (show != null) {
-                showLocationBar = show.equals("yes") ? true : false;
+                showLocationBar = show.booleanValue();
             }
-            if(showLocationBar) {
-              String hideNavigation = features.get(HIDE_NAVIGATION);
-              String hideUrl = features.get(HIDE_URL);
-              if(hideNavigation != null) hideNavigationButtons = hideNavigation.equals("yes") ? true : false;
-              if(hideUrl != null) hideUrlBar = hideUrl.equals("yes") ? true : false;
+            Boolean SSLError = features.get(IGNORE_SSL_ERROR);
+            if(SSLError != null){
+                ignoreSSLError = SSLError.booleanValue();
             }
-            String zoom = features.get(ZOOM);
+            Boolean zoom = features.get(ZOOM);
             if (zoom != null) {
-                showZoomControls = zoom.equals("yes") ? true : false;
+                showZoomControls = zoom.booleanValue();
             }
-            String hidden = features.get(HIDDEN);
+            Boolean hidden = features.get(HIDDEN);
             if (hidden != null) {
-                openWindowHidden = hidden.equals("yes") ? true : false;
+                openWindowHidden = hidden.booleanValue();
             }
-            String hardwareBack = features.get(HARDWARE_BACK_BUTTON);
+            Boolean hardwareBack = features.get(HARDWARE_BACK_BUTTON);
             if (hardwareBack != null) {
-                hadwareBackButton = hardwareBack.equals("yes") ? true : false;
-            } else {
-                hadwareBackButton = DEFAULT_HARDWARE_BACK;
+                hadwareBackButton = hardwareBack.booleanValue();
             }
-            String mediaPlayback = features.get(MEDIA_PLAYBACK_REQUIRES_USER_ACTION);
-            if (mediaPlayback != null) {
-                mediaPlaybackRequiresUserGesture = mediaPlayback.equals("yes") ? true : false;
-            }
-            String cache = features.get(CLEAR_ALL_CACHE);
+            Boolean cache = features.get(CLEAR_ALL_CACHE);
             if (cache != null) {
-                clearAllCache = cache.equals("yes") ? true : false;
+                clearAllCache = cache.booleanValue();
             } else {
                 cache = features.get(CLEAR_SESSION_CACHE);
                 if (cache != null) {
-                    clearSessionCache = cache.equals("yes") ? true : false;
+                    clearSessionCache = cache.booleanValue();
                 }
-            }
-            String shouldPause = features.get(SHOULD_PAUSE);
-            if (shouldPause != null) {
-                shouldPauseInAppBrowser = shouldPause.equals("yes") ? true : false;
-            }
-            String wideViewPort = features.get(USER_WIDE_VIEW_PORT);
-            if (wideViewPort != null ) {
-                    useWideViewPort = wideViewPort.equals("yes") ? true : false;
-            }
-            String closeButtonCaptionSet = features.get(CLOSE_BUTTON_CAPTION);
-            if (closeButtonCaptionSet != null) {
-                closeButtonCaption = closeButtonCaptionSet;
-            }
-            String closeButtonColorSet = features.get(CLOSE_BUTTON_COLOR);
-            if (closeButtonColorSet != null) {
-              closeButtonColor = closeButtonColorSet;
-            }
-            String toolbarColorSet = features.get(TOOLBAR_COLOR);
-            if (toolbarColorSet != null) {
-                toolbarColor = android.graphics.Color.parseColor(toolbarColorSet);
-            }
-            String navigationButtonColorSet = features.get(NAVIGATION_COLOR);
-            if (navigationButtonColorSet != null) {
-                navigationButtonColor = navigationButtonColorSet;
             }
         }
 
@@ -934,6 +929,17 @@ public class InAppBrowser extends CordovaPlugin {
         return "";
     }
 
+    @SuppressLint("NewApi")
+            public void run() {
+
+                ((InAppBrowserClient) client).setSSLErrorFlag(ignoreSSLError);
+
+            }
+        };
+        this.cordova.getActivity().runOnUiThread(runnable);
+        return "";
+    }
+
     /**
      * Create a new plugin success result and send it back to JavaScript
      *
@@ -1002,6 +1008,7 @@ public class InAppBrowser extends CordovaPlugin {
     public class InAppBrowserClient extends WebViewClient {
         EditText edittext;
         CordovaWebView webView;
+        boolean ignoreSSLError = false;
 
         /**
          * Constructor.
@@ -1012,6 +1019,22 @@ public class InAppBrowser extends CordovaPlugin {
         public InAppBrowserClient(CordovaWebView webView, EditText mEditText) {
             this.webView = webView;
             this.edittext = mEditText;
+        }
+
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler,
+                                       SslError error) {
+            if(this.ignoreSSLError) {
+                handler.proceed();
+                return;
+            }
+            else{
+                super.onReceivedSslError(view, handler, error);
+            }
+        }
+        public void setSSLErrorFlag(boolean flag) {
+            this.ignoreSSLError = flag;
         }
 
         /**
